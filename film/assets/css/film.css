@@ -1,0 +1,34 @@
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif}
+#viewport{position:fixed;inset:0}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
+  --bg:#0A0B0D;--fg:#F2F1EC;--acc:#C8A26A;--dim:rgba(242,241,236,.42);background:var(--bg);color:var(--fg)}
+#stage[data-scene="4"]{--acc:#5FB8E6}
+#stage[data-scene="5"]{--bg:#16181B}
+#stage[data-scene="6"]{--bg:#202226}
+#stage[data-scene="7"]{--bg:#2A2C30}
+#stage[data-scene="8"]{--bg:#F2F1EC;--fg:#0A0B0D;--dim:rgba(10,11,13,.45);--acc:#8A6A33}
+
+#ph{position:absolute;left:120px;top:150px;right:120px}
+#ph-n{font:700 360px/1 "Helvetica Neue",Arial,sans-serif;color:var(--acc);letter-spacing:-8px}
+#ph-name{font-size:84px;font-weight:600;margin-top:10px}
+#ph-range{font-size:34px;color:var(--dim);margin-top:14px;font-variant-numeric:tabular-nums}
+#ph-time{position:absolute;right:0;top:0;font:700 150px/1 "Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;text-align:right}
+#ph-frame{position:absolute;right:0;top:170px;font-size:44px;color:var(--dim);font-variant-numeric:tabular-nums;text-align:right}
+#ph-local{position:absolute;right:0;top:236px;font-size:34px;color:var(--dim);font-variant-numeric:tabular-nums;text-align:right}
+
+#cue-now{position:absolute;left:120px;right:120px;top:800px;height:70px;font-size:44px;font-weight:600;color:var(--acc);opacity:0;font-variant-numeric:tabular-nums}
+#cue-list{position:absolute;left:120px;right:120px;top:880px;font-size:26px;line-height:1.5;color:var(--dim);display:flex;flex-wrap:wrap;gap:4px 22px;font-variant-numeric:tabular-nums}
+#cue-list b{font-weight:400}
+#cue-list b.passed{color:var(--fg)}
+#cue-list b.key{color:var(--acc);font-weight:700}
+
+#bar{position:absolute;left:0;right:0;bottom:0;height:14px;background:var(--dim);opacity:.6}
+#bar-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--acc)}
+/* Lit for exactly the frame on which a cue lands, so frame accuracy is visible in the exported video. */
+#hit{position:absolute;left:0;top:0;width:60px;height:1080px;background:#fff;opacity:0}
+#stage.on-cue #hit{opacity:1}
+
+#start,#again{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:18px 44px;border:1px solid rgba(255,255,255,.6);
+  background:rgba(10,11,13,.72);color:#F2F1EC;font-size:22px;letter-spacing:.2em;border-radius:40px;cursor:pointer;z-index:5}
+#start[hidden],#again[hidden]{display:none}
