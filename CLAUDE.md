@@ -28,3 +28,7 @@
 4. 资源和导航使用相对 URL，以便 GitHub Pages 在仓库子路径下正常加载。发布时 main 分支根目录即站点目录。
 
 示例任务：“只改 Grok 横版。将科研幕的字幕停留延长一秒，保持下一幕的镜头连续。完成后列出修改文件，并从科研幕前一幕实播验证。”
+
+## 需要模型、文献或制作过程时
+
+从 [制作资料总表](production/README.md) 开始，按任务选择 [两份原始 PDF](production/pdf/)、[网页实际 GLB](production/models/runtime/)、[原始 GLB](production/models/drive/) 或 [Blender 母版](production/blender/)。[逐文件索引](production/drive-inventory.csv) 可按原文件名检索仓库内的位置。改模型、打包离线 HTML、重导聚焦版 MP4 的命令均在资料总表中。
