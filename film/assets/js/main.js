@@ -1,4 +1,4 @@
-/* S0 playback skeleton. The audio element's currentTime is the only clock while playing;
+/* Playback skeleton (S0) + scene renderers registered in window.FILM_SCENES (S1+). The audio element's currentTime is the only clock while playing;
    when paused, seeking, or capturing, the clock is manual. Every render is a pure function of the
    nearest 30 fps frame, so any moment can be reproduced exactly (seek, export, QA). */
 (function () {
@@ -6,9 +6,12 @@
   const FPS = F.fps, LAST = F.totalFrames - 1;
   const Q = new URLSearchParams(location.search);
   const CAPTURE = Q.get('capture') === '1';
+  const IMPL = window.FILM_SCENES || {}; // n → { init(stage, copy), render(t), setActive(bool), probe() }
+  let inited = false;
   const au = document.getElementById('bgm');
   const $ = (id) => document.getElementById(id);
   const stage = $('stage'), startBtn = $('start'), againBtn = $('again');
+  if (Q.get('debug') === '1') stage.classList.add('debug'); // placeholder HUD + cue strip on top of real scenes
   const el = {
     n: $('ph-n'), name: $('ph-name'), range: $('ph-range'), time: $('ph-time'), frame: $('ph-frame'),
     local: $('ph-local'), cueNow: $('cue-now'), cueList: $('cue-list'), fill: $('bar-fill')
@@ -49,6 +52,8 @@
       const own = cueNames.filter((k) => F.cueFrames[k] >= sc.inFrame && F.cueFrames[k] < sc.outFrame);
       el.cueList.innerHTML = own.map((k) =>
         '<b data-f="' + F.cueFrames[k] + '"' + (KEY_CUES.has(k) ? ' class="key"' : '') + '>' + k + ' ' + fmt(F.cues[k]) + '</b>').join('');
+      stage.classList.toggle('real', inited && !!IMPL[sc.n]);
+      if (inited) for (const k in IMPL) IMPL[k].setActive(+k === sc.n);
       if (playing && prevScene !== -1) log.push({ type: 'scene', n: sc.n, frame: f, t, audioT: au.currentTime });
       prevScene = sc.n;
     }
@@ -74,6 +79,7 @@
     el.cueNow.textContent = near ? '◆ ' + near + ' · ' + fmt(F.cues[near]) + ' s · 帧 ' + F.cueFrames[near] : '';
     el.cueNow.style.opacity = near ? String(1 - (f - F.cueFrames[near]) / 15) : '0';
     for (const b of el.cueList.children) b.classList.toggle('passed', f >= +b.dataset.f);
+    if (inited && IMPL[sc.n]) IMPL[sc.n].render(playing ? t : f / FPS);
   }
 
   function volumeAt(t) {
@@ -136,7 +142,8 @@
   window.__pause = () => { if (playing) { manualT = clockNow(); stop(false); render(manualT); } return manualT; };
   window.__scene = () => {
     const t = playing ? clockNow() : manualT, f = frameOf(t), sc = sceneAt(f);
-    return { i: sc.n - 1, n: sc.n, name: sc.name, t, frame: f, local: Math.max(0, f / FPS - sc.inSec), d: sc.outSec - sc.inSec, playing };
+    const probe = inited && IMPL[sc.n] && IMPL[sc.n].probe ? IMPL[sc.n].probe() : null;
+    return { i: sc.n - 1, n: sc.n, name: sc.name, t, frame: f, local: Math.max(0, f / FPS - sc.inSec), d: sc.outSec - sc.inSec, playing, probe };
   };
   window.__cues = () => {
     const f = frameOf(playing ? clockNow() : manualT), out = {};
@@ -148,7 +155,7 @@
   };
   window.__log = log;
   window.__audio = au;
-  window.__ready = true;
+  window.__ready = false; // set once copy.json, textures and fonts are loaded and the first frame is drawn
 
   // ---- input ----
   addEventListener('pointerdown', () => {
@@ -169,9 +176,21 @@
   });
 
   // ---- boot ----
+  async function boot() {
+    const copy = (await (await fetch('copy.json')).json()).entries;
+    F.copy = copy;
+    await Promise.all(Object.values(IMPL).map((s) => s.init(stage, copy)));
+    inited = true;
+    prevScene = -1;
+  }
   const t0 = parseFloat(Q.get('t'));
-  if (CAPTURE) { startBtn.hidden = true; seek(isNaN(t0) ? 0 : t0); }
-  else if (!isNaN(t0)) { startBtn.hidden = true; seek(t0); } // ?t= jumps and stays paused; Space plays
-  else { render(0); play(); } // may be blocked by the autoplay policy; the start button then appears
-  requestAnimationFrame(loop);
+  startBtn.hidden = true;
+  render(isNaN(t0) ? 0 : t0);
+  boot().then(() => {
+    window.__ready = true;
+    if (CAPTURE) seek(isNaN(t0) ? 0 : t0);
+    else if (!isNaN(t0)) seek(t0); // ?t= jumps and stays paused; Space plays
+    else { startBtn.hidden = false; render(0); play(); } // may be blocked by the autoplay policy; the start button then stays
+    requestAnimationFrame(loop);
+  }).catch((e) => { console.error('film boot failed:', e); });
 })();

@@ -28,6 +28,28 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 /* Lit for exactly the frame on which a cue lands, so frame accuracy is visible in the exported video. */
 #hit{position:absolute;left:0;top:0;width:60px;height:1080px;background:#fff;opacity:0}
 #stage.on-cue #hit{opacity:1}
+#hit{z-index:4}
+#stage:not(.debug) #hit{display:none} /* debug only (?debug=1) */
+/* Scenes with a real renderer hide the S0 placeholder HUD unless ?debug=1. */
+#stage.real:not(.debug) #ph,#stage.real:not(.debug) #cue-now,#stage.real:not(.debug) #cue-list,#stage.real:not(.debug) #bar{display:none}
+#stage.real #ph,#stage.real #cue-now,#stage.real #cue-list{z-index:3;text-shadow:0 0 6px #000}
+
+@font-face{font-family:"XL Serif";src:url(../fonts/film-serif.woff2) format("woff2");font-display:block}
+@font-face{font-family:"XL Sans";src:url(../fonts/film-sans.woff2) format("woff2");font-display:block}
+
+/* ---- scene 1 ---- */
+#s1{position:absolute;inset:0;z-index:1;pointer-events:none}
+#s1-gl,#s1-ov{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#s1-ov path{fill:none;stroke:#F2F1EC;vector-effect:non-scaling-stroke}
+#s1-ov .lat{stroke-width:1.4px;opacity:0}
+#s1-ov .border{stroke-width:1.2px;stroke-dasharray:1 1;stroke-dashoffset:1;opacity:0;stroke:rgba(242,241,236,.8)}
+#s1-ov .leader{stroke-width:1.2px;stroke-dasharray:1 1;stroke-dashoffset:1;opacity:0}
+#s1-dot{position:absolute;left:-90px;top:-90px;width:180px;height:180px;border-radius:50%;opacity:0;will-change:transform;
+  background:radial-gradient(circle,#FFF7E6 0,#FFF1D6 4px,rgba(240,200,140,.95) 8px,rgba(200,162,106,.6) 18px,rgba(200,162,106,.2) 42px,rgba(200,162,106,.06) 66px,rgba(200,162,106,0) 90px)}
+#s1 .copy{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;color:#F2F1EC}
+#s1 .s1-lat{font:400 22px/1 "XL Sans",sans-serif;letter-spacing:.14em;margin-top:-22px;color:rgba(242,241,236,.85)}
+#s1 .s1-place{font:400 28px/1 "XL Sans",sans-serif;letter-spacing:.16em;margin-top:-14px}
+#s1 .s1-sub{left:0;right:0;top:auto;bottom:170px;text-align:center;font:400 46px/1.2 "XL Serif",serif;letter-spacing:.22em;text-shadow:0 0 18px rgba(0,0,0,.6)}
 
 #start,#again{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:18px 44px;border:1px solid rgba(255,255,255,.6);
   background:rgba(10,11,13,.72);color:#F2F1EC;font-size:22px;letter-spacing:.2em;border-radius:40px;cursor:pointer;z-index:5}

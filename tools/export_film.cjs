@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 /* Deterministic 30 fps capture of film/ → MP4 (H.264 + AAC, original bgm.mp3 at 1.0× with the plan's fades).
-   Usage:  node tools/export_film.cjs [--out film/qa/film.mp4] [--range 0:3127]
+   Usage:  node tools/export_film.cjs [--out film/qa/film.mp4] [--range 0:3127] [--crf 16] [--maxrate 4M --bufsize 8M]
            node tools/export_film.cjs --smoke        silent VP9 .webm via Playwright's bundled ffmpeg, to prove the frame pipeline
    Needs a full ffmpeg (libx264, aac, mp3 decoder): set FFMPEG=/path/to/ffmpeg or put it on PATH. */
 const fs = require('fs'), path = require('path');
@@ -41,7 +41,8 @@ function findFfmpeg() {
     const t0 = a / FPS, len = (b - a) / FPS;
     ffArgs.push('-ss', String(t0), '-t', String(len), '-i', audio,
       '-af', `volume=0.8,afade=t=in:st=0:d=${FADE_IN},afade=t=out:st=${FADE_OUT_AT}:d=${DURATION - FADE_OUT_AT}`,
-      '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p', '-r', String(FPS),
+      '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', opt('--crf', '16'),
+      ...(opt('--maxrate', '') ? ['-maxrate', opt('--maxrate', ''), '-bufsize', opt('--bufsize', opt('--maxrate', ''))] : []), '-pix_fmt', 'yuv420p', '-r', String(FPS),
       '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', out);
     if (!full) console.log('note: partial range; fades are only correct for the full film');
   }

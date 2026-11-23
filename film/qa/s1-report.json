@@ -1,0 +1,345 @@
+{
+  "when": "2026-11-23T14:22:24.527Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          98,
+          1,
+          98
+        ],
+        [
+          385,
+          1,
+          385
+        ],
+        [
+          511,
+          1,
+          511
+        ],
+        [
+          512,
+          2,
+          512
+        ]
+      ]
+    },
+    "firstLook": {
+      "ok": true,
+      "frame": 17,
+      "dot": {
+        "x": 1042.92,
+        "y": 498.87,
+        "dx": 0.0432,
+        "dy": -0.0381,
+        "visible": true,
+        "opacity": 1
+      },
+      "dotCell": {
+        "cx": 17,
+        "cy": 8
+      },
+      "brightest": {
+        "cx": 17,
+        "cy": 8,
+        "r": 123.88055555555556,
+        "g": 100.05333333333333,
+        "b": 68.25694444444444,
+        "lum": 102.82330150000001,
+        "warm": 55.62361111111111
+      },
+      "warmest": {
+        "cx": 17,
+        "cy": 8,
+        "r": 123.88055555555556,
+        "g": 100.05333333333333,
+        "b": 68.25694444444444,
+        "lum": 102.82330150000001,
+        "warm": 55.62361111111111
+      }
+    },
+    "centre": {
+      "ok": true,
+      "frame": 385,
+      "dot": {
+        "x": 960,
+        "y": 540,
+        "dx": 0,
+        "dy": 0,
+        "visible": true,
+        "opacity": 1
+      },
+      "limit": 0.05
+    },
+    "copy": {
+      "ok": true,
+      "copyEntries": 3,
+      "texts": [
+        {
+          "text": "北纬 43°",
+          "frames": [
+            234,
+            336
+          ],
+          "seconds": [
+            7.8,
+            11.2
+          ],
+          "inCopy": true,
+          "window": [
+            7.5,
+            11.24
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "中国东北 · 吉林长春双阳",
+          "frames": [
+            395,
+            497
+          ],
+          "seconds": [
+            13.17,
+            16.57
+          ],
+          "inCopy": true,
+          "window": [
+            12.84,
+            16.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "一片雪原，一种生长的节律",
+          "frames": [
+            415,
+            494
+          ],
+          "seconds": [
+            13.83,
+            16.47
+          ],
+          "inCopy": true,
+          "window": [
+            13.8,
+            16.5
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "shots": [
+      {
+        "name": "open",
+        "frame": 17,
+        "probe": {
+          "dot": {
+            "x": 1042.92,
+            "y": 498.87,
+            "dx": 0.0432,
+            "dy": -0.0381,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 5.4,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "spin",
+        "frame": 75,
+        "probe": {
+          "dot": {
+            "x": 1042.05,
+            "y": 497.15,
+            "dx": 0.0427,
+            "dy": -0.0397,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 5.4,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "push1",
+        "frame": 126,
+        "probe": {
+          "dot": {
+            "x": 1055.87,
+            "y": 486.29,
+            "dx": 0.0499,
+            "dy": -0.0497,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 1.76671,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "push2",
+        "frame": 258,
+        "probe": {
+          "dot": {
+            "x": 1010.81,
+            "y": 525.27,
+            "dx": 0.0265,
+            "dy": -0.0136,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.5393,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "push3",
+        "frame": 318,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 540,
+            "dx": 0,
+            "dy": 0,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.17272,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "cloud",
+        "frame": 354,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 540,
+            "dx": 0,
+            "dy": 0,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.1021,
+          "tiltDeg": 0,
+          "cloud": 1
+        }
+      },
+      {
+        "name": "shuangyang",
+        "frame": 385,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 540,
+            "dx": 0,
+            "dy": 0,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.03964,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "label",
+        "frame": 402,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 540,
+            "dx": 0,
+            "dy": 0,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.03919,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "subtitle",
+        "frame": 438,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 540,
+            "dx": 0,
+            "dy": 0,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.03826,
+          "tiltDeg": 0,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "dive",
+        "frame": 477,
+        "probe": {
+          "dot": {
+            "x": 960.68,
+            "y": 473.67,
+            "dx": 0.0004,
+            "dy": -0.0614,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.02661,
+          "tiltDeg": 27.89,
+          "cloud": 0
+        }
+      },
+      {
+        "name": "end",
+        "frame": 510,
+        "probe": {
+          "dot": {
+            "x": 960,
+            "y": 381.87,
+            "dx": 0,
+            "dy": -0.1464,
+            "visible": true,
+            "opacity": 1
+          },
+          "altitude": 0.01374,
+          "tiltDeg": 59.87,
+          "cloud": 0.91
+        }
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}

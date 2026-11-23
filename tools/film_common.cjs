@@ -3,7 +3,7 @@
 const fs = require('fs'), path = require('path'), http = require('http');
 
 const FILM_DIR = path.resolve(__dirname, '../film');
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.mp3': 'audio/mpeg', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.glb': 'model/gltf-binary' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.mp3': 'audio/mpeg', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.glb': 'model/gltf-binary', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8' };
 
 function loadPlaywright() {
   const tries = [process.env.PLAYWRIGHT_PATH, 'playwright', 'playwright-core', '/opt/playwright-mcp/node_modules/playwright-core'].filter(Boolean);

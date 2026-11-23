@@ -1,0 +1,8 @@
+{
+  "note": "所有上屏文字的唯一来源（docs/03-production-plan.md §0）。in/out 可写 cue 名或秒；status 为 pending 的条目不渲染。",
+  "entries": [
+    { "id": "s1-lat", "scene": 1, "in": "push2", "out": "cloud", "text": "北纬 43°", "source": "p38", "status": "approved" },
+    { "id": "s1-place", "scene": 1, "in": "shuangyang", "out": 16.6, "text": "中国东北 · 吉林长春双阳", "source": "分镜", "status": "approved" },
+    { "id": "s1-sub", "scene": 1, "in": 13.8, "out": 16.5, "text": "一片雪原，一种生长的节律", "source": "分镜", "status": "approved" }
+  ]
+}
