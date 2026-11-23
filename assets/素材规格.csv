@@ -1,5 +1,5 @@
 ﻿仓库路径,文件名,格式,字节数,画面宽高／媒体规格
-assets/README.md,README.md,MD,5041,
+assets/README.md,README.md,MD,5493,
 assets/audio/bgm.mp3,bgm.mp3,MP3,2687084,134.328 s；48000 Hz
 "assets/audio/艾拉拉,Luv4 - 千年之后配乐.mp3","艾拉拉,Luv4 - 千年之后配乐.mp3",MP3,5374125,134.328 s；48000 Hz
 assets/blender/11_Blender材质与浓稠精华修订说明.md,11_Blender材质与浓稠精华修订说明.md,MD,1902,
@@ -12,7 +12,7 @@ assets/blender/鹿茸精华_材质与浓稠精华工程_v8.blend,鹿茸精华_�
 assets/brand/华大小鹿-LOGO.ai,华大小鹿-LOGO.ai,AI,1308482,
 assets/brand/华大小鹿横版.svg,华大小鹿横版.svg,SVG,8491,viewBox 0 0 144.78 56.86
 assets/brand/华大小鹿竖版.svg,华大小鹿竖版.svg,SVG,8253,viewBox 0 0 106.81 98.97
-assets/drive-inventory.csv,drive-inventory.csv,CSV,59336,
+assets/drive-inventory.csv,drive-inventory.csv,CSV,59089,
 assets/lighting/studio_small_03_1k.hdr,studio_small_03_1k.hdr,HDR,1686299,1024×512 px
 assets/models/drive/小鹿单支精华液.glb,小鹿单支精华液.glb,GLB,1135560,11 个网格，0 个动画
 assets/models/drive/小鹿精华液盒子_合盖.glb,小鹿精华液盒子_合盖.glb,GLB,3422916,25 个网格，0 个动画
