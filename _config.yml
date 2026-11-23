@@ -1,0 +1,5 @@
+exclude:
+  - production
+  - tools
+  - README.md
+  - CLAUDE.md
