@@ -1,0 +1,269 @@
+﻿仓库路径,文件名,格式,字节数,画面宽高／媒体规格
+assets/README.md,README.md,MD,5041,
+assets/audio/bgm.mp3,bgm.mp3,MP3,2687084,134.328 s；48000 Hz
+"assets/audio/艾拉拉,Luv4 - 千年之后配乐.mp3","艾拉拉,Luv4 - 千年之后配乐.mp3",MP3,5374125,134.328 s；48000 Hz
+assets/blender/11_Blender材质与浓稠精华修订说明.md,11_Blender材质与浓稠精华修订说明.md,MD,1902,
+assets/blender/build_v8.py,build_v8.py,PY,11458,
+assets/blender/inputs/build_effects.py,build_effects.py,PY,2061,
+assets/blender/inputs/鹿茸精华_细密粉末工程_v7.blend,鹿茸精华_细密粉末工程_v7.blend,BLEND,57693494,
+assets/blender/小鹿开盒渲染_参考材质光影_透明底.blend,小鹿开盒渲染_参考材质光影_透明底.blend,BLEND,35321349,
+assets/blender/梅花鹿_鹿茸合成.blend.gz,梅花鹿_鹿茸合成.blend.gz,BLEND.GZ,66782491,
+assets/blender/鹿茸精华_材质与浓稠精华工程_v8.blend,鹿茸精华_材质与浓稠精华工程_v8.blend,BLEND,82272031,
+assets/brand/华大小鹿-LOGO.ai,华大小鹿-LOGO.ai,AI,1308482,
+assets/brand/华大小鹿横版.svg,华大小鹿横版.svg,SVG,8491,viewBox 0 0 144.78 56.86
+assets/brand/华大小鹿竖版.svg,华大小鹿竖版.svg,SVG,8253,viewBox 0 0 106.81 98.97
+assets/drive-inventory.csv,drive-inventory.csv,CSV,59336,
+assets/lighting/studio_small_03_1k.hdr,studio_small_03_1k.hdr,HDR,1686299,1024×512 px
+assets/models/drive/小鹿单支精华液.glb,小鹿单支精华液.glb,GLB,1135560,11 个网格，0 个动画
+assets/models/drive/小鹿精华液盒子_合盖.glb,小鹿精华液盒子_合盖.glb,GLB,3422916,25 个网格，0 个动画
+assets/models/drive/梅花鹿_鹿茸合成.glb,梅花鹿_鹿茸合成.glb,GLB,47866076,3 个网格，56 个动画
+assets/models/high-detail/精华液盒子_合盖版_最新版贴图.glb,精华液盒子_合盖版_最新版贴图.glb,GLB,16169092,25 个网格，0 个动画
+assets/models/runtime/ampoule.glb,ampoule.glb,GLB,1135560,11 个网格，0 个动画
+assets/models/runtime/box-closed.glb,box-closed.glb,GLB,600996,3 个网格，0 个动画
+assets/models/runtime/deer.glb,deer.glb,GLB,3859428,2 个网格，7 个动画
+assets/models/runtime/usage.glb,usage.glb,GLB,2146052,23 个网格，1 个动画
+assets/pdf/20260413-小鹿产品PPT.pdf,20260413-小鹿产品PPT.pdf,PDF,69448208,86 页
+assets/pdf/README.md,README.md,MD,1159,
+assets/pdf/pages/mask-01.jpg,mask-01.jpg,JPG,508283,2382×1679 px
+assets/pdf/pages/mask-02.jpg,mask-02.jpg,JPG,444264,2382×1679 px
+assets/pdf/pages/serum-12.jpg,serum-12.jpg,JPG,300332,1920×1080 px
+assets/pdf/pages/serum-38.jpg,serum-38.jpg,JPG,286508,1920×1080 px
+assets/pdf/pages/serum-39.jpg,serum-39.jpg,JPG,267854,1920×1080 px
+assets/pdf/pages/serum-40.jpg,serum-40.jpg,JPG,225559,1920×1080 px
+assets/pdf/小鹿面膜直播kt版功效.pdf,小鹿面膜直播kt版功效.pdf,PDF,38660260,2 页
+assets/previews/focus/小鹿精华_聚焦叙事版_横版.html,小鹿精华_聚焦叙事版_横版.html,HTML,26074185,
+assets/previews/focus/小鹿精华_聚焦叙事版_横版_1080p预览.mp4,小鹿精华_聚焦叙事版_横版_1080p预览.mp4,MP4,39732099,1920×1080 px；98.56699999999999 s
+assets/previews/grok/grok xiaolu heng.mp4,grok xiaolu heng.mp4,MP4,8587163,1280×720 px；106.6 s
+assets/previews/grok/preview-bgm heng.mp4,preview-bgm heng.mp4,MP4,13243917,1280×720 px；106.6 s
+assets/product-images/三件套.png,三件套.png,PNG,14345634,3822×4189 px
+assets/product-images/乳1ml.png,乳1ml.png,PNG,452481,685×961 px
+assets/product-images/全家福1.png,全家福1.png,PNG,21647753,3835×4786 px
+assets/product-images/全家福2.png,全家福2.png,PNG,26119937,4599×4696 px
+assets/product-images/全家福3.png,全家福3.png,PNG,3819950,2180×1096 px
+assets/product-images/全家福4.png,全家福4.png,PNG,25545689,6991×3611 px
+assets/product-images/小鹿IP.png,小鹿IP.png,PNG,1014238,1327×2095 px
+assets/product-images/小鹿化妆包.png,小鹿化妆包.png,PNG,2732633,1536×1024 px
+assets/product-images/小鹿洁面慕斯150ml.png,小鹿洁面慕斯150ml.png,PNG,1467813,836×2046 px
+assets/product-images/小鹿洁面慕斯50ml.png,小鹿洁面慕斯50ml.png,PNG,638554,1073×1466 px
+assets/product-images/小鹿礼盒.png,小鹿礼盒.png,PNG,5216275,4672×7008 px
+assets/product-images/小鹿礼袋.png,小鹿礼袋.png,PNG,1034888,1696×1698 px
+assets/product-images/小鹿精华1支-正反面.png,小鹿精华1支-正反面.png,PNG,875399,1039×1448 px
+assets/product-images/小鹿精华1支.png,小鹿精华1支.png,PNG,939932,948×1910 px
+assets/product-images/小鹿精华20支装.png,小鹿精华20支装.png,PNG,4996785,2212×1592 px
+assets/product-images/小鹿精华45度.png,小鹿精华45度.png,PNG,11767074,4342×2523 px
+assets/product-images/小鹿精华IP.png,小鹿精华IP.png,PNG,410904,1608×931 px
+assets/product-images/小鹿精华液5支.png,小鹿精华液5支.png,PNG,1930585,1913×1449 px
+assets/product-images/小鹿精粹乳1ml.png,小鹿精粹乳1ml.png,PNG,1504777,1187×1326 px
+assets/product-images/小鹿精粹乳30ml.png,小鹿精粹乳30ml.png,PNG,1438011,908×2196 px
+assets/product-images/小鹿精粹乳80ml.png,小鹿精粹乳80ml.png,PNG,1391458,603×2084 px
+assets/product-images/小鹿精粹水120ml.png,小鹿精粹水120ml.png,PNG,1726608,632×2560 px
+assets/product-images/小鹿精粹水30ml.png,小鹿精粹水30ml.png,PNG,1477841,1319×2135 px
+assets/product-images/小鹿精粹霜15g.png,小鹿精粹霜15g.png,PNG,672017,1303×1207 px
+assets/product-images/小鹿精粹霜1ml.png,小鹿精粹霜1ml.png,PNG,1079776,1187×1326 px
+assets/product-images/小鹿精粹霜50g.png,小鹿精粹霜50g.png,PNG,5758618,2608×2146 px
+assets/product-images/小鹿精粹霜5g.png,小鹿精粹霜5g.png,PNG,229836,1933×1280 px
+assets/product-images/小鹿面膜1袋.png,小鹿面膜1袋.png,PNG,861277,978×975 px
+assets/product-images/小鹿面膜5片装.png,小鹿面膜5片装.png,PNG,502796,758×787 px
+assets/product-images/小鹿面膜合成.png,小鹿面膜合成.png,PNG,1419030,1365×722 px
+assets/product-images/小鹿面膜正面渲染.png,小鹿面膜正面渲染.png,PNG,2333628,1254×1254 px
+assets/product-images/洁面慕斯盒子.png,洁面慕斯盒子.png,PNG,11743313,1742×4206 px
+assets/product-images/渲染-精华液-正面图.png,渲染-精华液-正面图.png,PNG,1760213,1627×967 px
+assets/product-images/渲染-精华液-背面图.png,渲染-精华液-背面图.png,PNG,1633048,1620×971 px
+assets/product-images/渲染-精华液20支-侧面图.png,渲染-精华液20支-侧面图.png,PNG,1337436,1254×1254 px
+assets/product-images/渲染-精华液20支-顶部图.png,渲染-精华液20支-顶部图.png,PNG,1815707,1683×935 px
+assets/product-images/精华液-单支试用装.png,精华液-单支试用装.png,PNG,2358624,1648×2812 px
+assets/product-images/精华液20支-下盖.png,精华液20支-下盖.png,PNG,2345988,11860×5836 px
+assets/product-images/精华液20支立体图-开盖.png,精华液20支立体图-开盖.png,PNG,4332312,1749×1936 px
+assets/product-images/精粹乳盒子.png,精粹乳盒子.png,PNG,9274781,1332×4138 px
+assets/product-images/精粹水盒子.png,精粹水盒子.png,PNG,9057534,1264×4614 px
+assets/product-images/精粹霜盒子.png,精粹霜盒子.png,PNG,5929114,1828×1889 px
+assets/product-images/霜1ml - 副本.png,霜1ml - 副本.png,PNG,1954967,2052×1541 px
+assets/product-images/面膜5片-正面.png,面膜5片-正面.png,PNG,123306,1506×1506 px
+assets/product-images/面膜5片-立体.png,面膜5片-立体.png,PNG,5023733,2059×2384 px
+assets/product-images/面膜正反面(文字修改).jpg,面膜正反面(文字修改).jpg,JPG,729947,3225×2148 px
+assets/product-images/面膜正反面.png,面膜正反面.png,PNG,10199423,3225×2148 px
+assets/records/focus/vendor/three-entry.mjs,three-entry.mjs,MJS,1070,
+assets/records/focus/交付说明.md,交付说明.md,MD,1781,
+assets/records/focus/方案/HDR环境素材来源.md,HDR环境素材来源.md,MD,621,
+assets/records/focus/方案/实施计划.md,实施计划.md,MD,3344,
+assets/records/focus/方案/聚焦叙事优化方案_已确认.md,聚焦叙事优化方案_已确认.md,MD,5340,
+assets/records/focus/检查/MP4预览导出/横版/export-report.json,export-report.json,JSON,31320,
+assets/records/focus/检查/MP4预览导出/横版/ffprobe.json,ffprobe.json,JSON,462,
+assets/records/focus/检查/MP4预览导出/横版/progress.json,progress.json,JSON,91,
+assets/records/focus/检查/MP4预览导出/横版/sample-report.json,sample-report.json,JSON,31008,
+assets/records/focus/检查/MP4预览导出/横版/transition-antler-science.jpg,transition-antler-science.jpg,JPG,80887,1920×1080 px
+assets/records/focus/检查/MP4预览导出/横版/transition-press-shake.jpg,transition-press-shake.jpg,JPG,80753,1920×1080 px
+assets/records/focus/检查/MP4预览导出/横版/transition-science-freeze.jpg,transition-science-freeze.jpg,JPG,75090,1920×1080 px
+assets/records/focus/检查/MP4预览导出/横版/transition-vial-photo.jpg,transition-vial-photo.jpg,JPG,60950,1920×1080 px
+assets/records/focus/检查/内容与交付一致性.json,内容与交付一致性.json,JSON,319,
+assets/records/focus/检查/横版/check.json,check.json,JSON,424,
+assets/records/focus/检查/横版/contact-1.jpg,contact-1.jpg,JPG,247675,1280×1560 px
+assets/records/focus/检查/横版/contact-2.jpg,contact-2.jpg,JPG,188900,1280×1560 px
+assets/records/focus/检查/横版/contact-3.jpg,contact-3.jpg,JPG,159649,1280×1560 px
+assets/records/focus/检查/气氛聚焦/check.json,check.json,JSON,663,
+assets/records/focus/检查/离线打包/横版.json,横版.json,JSON,9020,
+assets/records/focus/检查/结构细节/states.json,states.json,JSON,32585,
+assets/records/focus/检查/自动播放与音乐.json,自动播放与音乐.json,JSON,619,
+assets/records/focus/检查/转场复核/check.json,check.json,JSON,425,
+assets/records/focus/检查/转场复核/transitions.jpg,transitions.jpg,JPG,236486,1920×1200 px
+assets/records/成果说明.md,成果说明.md,MD,697,
+assets/reference/鹿茸精华使用动画效果.mp4,鹿茸精华使用动画效果.mp4,MP4,4068796,1080×1920 px；40 s
+assets/reference-cards/小鹿KT（电商）/KT1 正面.jpg,KT1 正面.jpg,JPG,2914331,2108×2984 px
+assets/reference-cards/小鹿KT（电商）/KT1 背面.jpg,KT1 背面.jpg,JPG,2377302,2108×2984 px
+assets/reference-cards/小鹿KT（电商）/KT板1.jpg,KT板1.jpg,JPG,3891810,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板11.jpg,KT板11.jpg,JPG,2361394,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/KT板15.jpg,KT板15.jpg,JPG,1924425,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板17.jpg,KT板17.jpg,JPG,1779425,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/KT板18.jpg,KT板18.jpg,JPG,2467609,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板19.jpg,KT板19.jpg,JPG,2246566,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板2.jpg,KT板2.jpg,JPG,7506713,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板3.jpg,KT板3.jpg,JPG,3866880,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板4.jpg,KT板4.jpg,JPG,3958598,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板42.jpg,KT板42.jpg,JPG,3565184,2135×2718 px
+assets/reference-cards/小鹿KT（电商）/KT板43.jpg,KT板43.jpg,JPG,2501775,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板44.jpg,KT板44.jpg,JPG,2519742,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/KT板45.jpg,KT板45.jpg,JPG,3450994,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/KT板47.jpg,KT板47.jpg,JPG,3325036,2382×1679 px
+assets/reference-cards/小鹿KT（电商）/KT板5.jpg,KT板5.jpg,JPG,8650110,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板6pg.jpg,KT板6pg.jpg,JPG,2434951,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板7.jpg,KT板7.jpg,JPG,4275565,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/KT板8.jpg,KT板8.jpg,JPG,4721861,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/好评卡裁切-正面.png,好评卡裁切-正面.png,PNG,2329015,1356×2834 px
+assets/reference-cards/小鹿KT（电商）/好评卡裁切-背面.png,好评卡裁切-背面.png,PNG,1797298,1356×2834 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT1 正面.jpg,KT1 正面.jpg,JPG,1999602,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT1 背面.jpg,KT1 背面.jpg,JPG,1785334,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT10双面.png,KT10双面.png,PNG,7071730,3497×4961 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT2正面.jpg,KT2正面.jpg,JPG,2359539,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT2背面.jpg,KT2背面.jpg,JPG,2374738,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT3 双面.jpg,KT3 双面.jpg,JPG,2156691,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT4 正面.jpg,KT4 正面.jpg,JPG,2717931,3368×2380 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT5双面.jpg,KT5双面.jpg,JPG,1680580,1922×2718 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT6正面.jpg,KT6正面.jpg,JPG,1461268,2526×1785 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT6背面.jpg,KT6背面.jpg,JPG,1377467,2526×1785 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT7 背面.jpg,KT7 背面.jpg,JPG,1448893,2526×1785 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT7正面.jpg,KT7正面.jpg,JPG,1411660,2526×1785 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT8正面.jpg,KT8正面.jpg,JPG,2231053,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT8背面.jpg,KT8背面.jpg,JPG,2110972,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT9正面.jpg,KT9正面.jpg,JPG,2562862,2718×1922 px
+assets/reference-cards/小鹿KT（电商）/护肤手卡增加10张/KT9背面.jpg,KT9背面.jpg,JPG,2246866,2718×1922 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 10.png,溯源篇直播kt板（长春）_画板 1 副本 10.png,PNG,1305498,3498×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 11.png,溯源篇直播kt板（长春）_画板 1 副本 11.png,PNG,1834444,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 12.png,溯源篇直播kt板（长春）_画板 1 副本 12.png,PNG,2058583,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 13.png,溯源篇直播kt板（长春）_画板 1 副本 13.png,PNG,7071730,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 14.png,溯源篇直播kt板（长春）_画板 1 副本 14.png,PNG,1029672,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 15.png,溯源篇直播kt板（长春）_画板 1 副本 15.png,PNG,2823727,3498×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 16.png,溯源篇直播kt板（长春）_画板 1 副本 16.png,PNG,2581668,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 17.png,溯源篇直播kt板（长春）_画板 1 副本 17.png,PNG,2304797,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 18.png,溯源篇直播kt板（长春）_画板 1 副本 18.png,PNG,942818,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 19.png,溯源篇直播kt板（长春）_画板 1 副本 19.png,PNG,676607,3497×4961 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 2.png,溯源篇直播kt板（长春）_画板 1 副本 2.png,PNG,568010,4961×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 20.png,溯源篇直播kt板（长春）_画板 1 副本 20.png,PNG,2552151,6228×3107 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 21.png,溯源篇直播kt板（长春）_画板 1 副本 21.png,PNG,4849690,4961×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 22.png,溯源篇直播kt板（长春）_画板 1 副本 22.png,PNG,2728045,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 3.png,溯源篇直播kt板（长春）_画板 1 副本 3.png,PNG,1849537,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 4.png,溯源篇直播kt板（长春）_画板 1 副本 4.png,PNG,844179,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 5.png,溯源篇直播kt板（长春）_画板 1 副本 5.png,PNG,4634319,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 6.png,溯源篇直播kt板（长春）_画板 1 副本 6.png,PNG,1240371,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 7.png,溯源篇直播kt板（长春）_画板 1 副本 7.png,PNG,2536401,4961×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 8.png,溯源篇直播kt板（长春）_画板 1 副本 8.png,PNG,2477117,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本 9.png,溯源篇直播kt板（长春）_画板 1 副本 9.png,PNG,1778581,5686×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1 副本.png,溯源篇直播kt板（长春）_画板 1 副本.png,PNG,643545,4962×3497 px
+assets/reference-cards/小鹿KT（细胞）/溯源篇直播kt板（长春）_画板 1.png,溯源篇直播kt板（长春）_画板 1.png,PNG,1347381,4962×3497 px
+assets/skill/xiaolu-science-h5/SKILL.md,SKILL.md,MD,3183,
+assets/storyboard/七幕时间码.csv,七幕时间码.csv,CSV,1026,
+assets/storyboard/小鹿科普H5_剪辑流程图.jpg,小鹿科普H5_剪辑流程图.jpg,JPG,879116,3800×2138 px
+reference/codex/assets/audio/bgm.mp3,bgm.mp3,MP3,2687084,134.328 s；48000 Hz
+reference/codex/assets/css/cinema.css,cinema.css,CSS,11788,
+reference/codex/assets/css/launch.css,launch.css,CSS,13711,
+reference/codex/assets/css/revision.css,revision.css,CSS,2805,
+reference/codex/assets/css/style.css,style.css,CSS,17589,
+reference/codex/assets/fonts/FONT-LICENSE-NOTES.txt,FONT-LICENSE-NOTES.txt,TXT,566,
+reference/codex/assets/fonts/LICENSE-SourceHanSans-APACHE.txt,LICENSE-SourceHanSans-APACHE.txt,TXT,11358,
+reference/codex/assets/fonts/LICENSE-SourceHanSerif-OFL.txt,LICENSE-SourceHanSerif-OFL.txt,TXT,4463,
+reference/codex/assets/fonts/cinema-sans-r.woff2,cinema-sans-r.woff2,WOFF2,80368,
+reference/codex/assets/fonts/cinema-serif-m.woff2,cinema-serif-m.woff2,WOFF2,105716,
+reference/codex/assets/fonts/cinema-serif-r.woff2,cinema-serif-r.woff2,WOFF2,104344,
+reference/codex/assets/fonts/cond-sb.woff2,cond-sb.woff2,WOFF2,16960,
+reference/codex/assets/fonts/cond-xl.woff2,cond-xl.woff2,WOFF2,15600,
+reference/codex/assets/fonts/display.woff2,display.woff2,WOFF2,16732,
+reference/codex/assets/fonts/mono.woff2,mono.woff2,WOFF2,34096,
+reference/codex/assets/fonts/sans-r.woff2,sans-r.woff2,WOFF2,106392,
+reference/codex/assets/fonts/serif-b.woff2,serif-b.woff2,WOFF2,152076,
+reference/codex/assets/fonts/serif-r.woff2,serif-r.woff2,WOFF2,149488,
+reference/codex/assets/img/ampoule.webp,ampoule.webp,WEBP,471710,332×1837 px
+reference/codex/assets/img/deer-blue.webp,deer-blue.webp,WEBP,71284,596×804 px
+reference/codex/assets/img/giftbox.webp,giftbox.webp,WEBP,2993314,2212×1592 px
+reference/codex/assets/img/grain.png,grain.png,PNG,16580,128×128 px
+reference/codex/assets/img/logo-bgi-white.svg,logo-bgi-white.svg,SVG,4284,viewBox 0 0 218.9 52.6
+reference/codex/assets/img/logo-bgi.svg,logo-bgi.svg,SVG,4284,viewBox 0 0 218.9 52.6
+reference/codex/assets/img/logo-ym.svg,logo-ym.svg,SVG,8849,viewBox 0 0 144.78 56.86
+reference/codex/assets/img/phylo-blue.webp,phylo-blue.webp,WEBP,140858,1150×1128 px
+reference/codex/assets/img/science-cover.webp,science-cover.webp,WEBP,1838266,3497×4961 px
+reference/codex/assets/js/bgm.js,bgm.js,JS,2926,
+reference/codex/assets/js/cinema-layout.js,cinema-layout.js,JS,1644,
+reference/codex/assets/js/cinema-panels.js,cinema-panels.js,JS,4295,
+reference/codex/assets/js/deer-points.js,deer-points.js,JS,74214,
+reference/codex/assets/js/frozen-chamber.js,frozen-chamber.js,JS,17670,
+reference/codex/assets/js/gsap.min.js,gsap.min.js,JS,72927,
+reference/codex/assets/js/loader.js,loader.js,JS,950,
+reference/codex/assets/js/main.js,main.js,JS,81564,
+reference/codex/assets/js/particles.js,particles.js,JS,12006,
+reference/codex/assets/js/product-points.js,product-points.js,JS,51031,
+reference/codex/assets/js/s4-points.js,s4-points.js,JS,80083,
+reference/codex/assets/js/scene3d.js,scene3d.js,JS,2299879,
+reference/codex/assets/js/shapes.js,shapes.js,JS,2520,
+reference/codex/assets/js/three.bundle.min.js,three.bundle.min.js,JS,851891,
+reference/codex/assets/js/transition-continuity.js,transition-continuity.js,JS,7528,
+reference/codex/assets/js/usage-curves.js,usage-curves.js,JS,93655,
+reference/codex/assets/models/ampoule.0.js,ampoule.0.js,JS,1500026,
+reference/codex/assets/models/ampoule.1.js,ampoule.1.js,JS,14106,
+reference/codex/assets/models/box-closed.0.js,box-closed.0.js,JS,801357,
+reference/codex/assets/models/deer.0.js,deer.0.js,JS,1500022,
+reference/codex/assets/models/deer.1.js,deer.1.js,JS,1500022,
+reference/codex/assets/models/deer.2.js,deer.2.js,JS,1500022,
+reference/codex/assets/models/deer.3.js,deer.3.js,JS,645926,
+reference/codex/assets/models/manifest.js,manifest.js,JS,376,
+reference/codex/assets/models/usage.0.js,usage.0.js,JS,1500024,
+reference/codex/assets/models/usage.1.js,usage.1.js,JS,1361428,
+reference/codex/index.html,index.html,HTML,10081,
+reference/grok/assets/audio/bgm.mp3,bgm.mp3,MP3,2687084,134.328 s；48000 Hz
+reference/grok/assets/css/style.css,style.css,CSS,17589,
+reference/grok/assets/fonts/cond-sb.woff2,cond-sb.woff2,WOFF2,16960,
+reference/grok/assets/fonts/cond-xl.woff2,cond-xl.woff2,WOFF2,15600,
+reference/grok/assets/fonts/display.woff2,display.woff2,WOFF2,16732,
+reference/grok/assets/fonts/mono.woff2,mono.woff2,WOFF2,34096,
+reference/grok/assets/fonts/sans-r.woff2,sans-r.woff2,WOFF2,106392,
+reference/grok/assets/fonts/serif-b.woff2,serif-b.woff2,WOFF2,152076,
+reference/grok/assets/fonts/serif-r.woff2,serif-r.woff2,WOFF2,149488,
+reference/grok/assets/img/ampoule.webp,ampoule.webp,WEBP,17296,194×1000 px
+reference/grok/assets/img/deer-blue.webp,deer-blue.webp,WEBP,71284,596×804 px
+reference/grok/assets/img/giftbox.webp,giftbox.webp,WEBP,84416,1200×864 px
+reference/grok/assets/img/grain.png,grain.png,PNG,16580,128×128 px
+reference/grok/assets/img/logo-bgi-white.svg,logo-bgi-white.svg,SVG,4284,viewBox 0 0 218.9 52.6
+reference/grok/assets/img/logo-bgi.svg,logo-bgi.svg,SVG,4284,viewBox 0 0 218.9 52.6
+reference/grok/assets/img/logo-ym.svg,logo-ym.svg,SVG,8849,viewBox 0 0 144.78 56.86
+reference/grok/assets/img/phylo-blue.webp,phylo-blue.webp,WEBP,140858,1150×1128 px
+reference/grok/assets/img/science-cover.webp,science-cover.webp,WEBP,155052,987×1400 px
+reference/grok/assets/js/bgm.js,bgm.js,JS,2926,
+reference/grok/assets/js/deer-points.js,deer-points.js,JS,74214,
+reference/grok/assets/js/gsap.min.js,gsap.min.js,JS,72927,
+reference/grok/assets/js/loader.js,loader.js,JS,950,
+reference/grok/assets/js/main.js,main.js,JS,65463,
+reference/grok/assets/js/particles.js,particles.js,JS,12005,
+reference/grok/assets/js/product-points.js,product-points.js,JS,51031,
+reference/grok/assets/js/s4-points.js,s4-points.js,JS,80083,
+reference/grok/assets/js/scene3d.js,scene3d.js,JS,39336,
+reference/grok/assets/js/shapes.js,shapes.js,JS,2520,
+reference/grok/assets/js/three.bundle.min.js,three.bundle.min.js,JS,825407,
+reference/grok/assets/js/usage-curves.js,usage-curves.js,JS,93655,
+reference/grok/assets/models/ampoule.0.js,ampoule.0.js,JS,1500026,
+reference/grok/assets/models/ampoule.1.js,ampoule.1.js,JS,14106,
+reference/grok/assets/models/box-closed.0.js,box-closed.0.js,JS,801357,
+reference/grok/assets/models/deer.0.js,deer.0.js,JS,1500022,
+reference/grok/assets/models/deer.1.js,deer.1.js,JS,1500022,
+reference/grok/assets/models/deer.2.js,deer.2.js,JS,1500022,
+reference/grok/assets/models/deer.3.js,deer.3.js,JS,645926,
+reference/grok/assets/models/manifest.js,manifest.js,JS,376,
+reference/grok/assets/models/usage.0.js,usage.0.js,JS,1500024,
+reference/grok/assets/models/usage.1.js,usage.1.js,JS,1361428,
+reference/grok/index.html,index.html,HTML,9329,

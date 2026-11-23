@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>从一只梅花鹿说起｜聚焦叙事版</title>
+<script>
+/* deterministic clock for offline capture (?capture=1) — inert otherwise */
+(function(){ if(!/[?&]capture=1/.test(location.search)) return;
+  var now=0, q=[]; performance.now=function(){return now;}; Date.now=function(){return 1.7e12+now;};
+  window.requestAnimationFrame=function(cb){q.push(cb);return q.length;}; window.cancelAnimationFrame=function(){};
+  document.documentElement.className+=' capture';
+  window.__advance=function(ms){now+=ms; var l=q.splice(0); for(var i=0;i<l.length;i++) l[i](now);};
+})();
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/revision.css">
+<link rel="stylesheet" href="assets/css/launch.css">
+<link rel="stylesheet" href="assets/css/cinema.css">
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+  <div id="launch-orbit" aria-hidden="true"></div><div id="launch-beam" aria-hidden="true"></div><div id="launch-flash" aria-hidden="true"></div>
+  <canvas id="three" width="1920" height="1080"></canvas>
+  <canvas id="gl" width="1920" height="1080"></canvas>
+  <canvas id="fx" width="1920" height="1080"></canvas>
+
+  <!-- ===== scene layers ===== -->
+  <section class="scene" id="s0">
+    <h1 class="intro-title">从一只<br><em>梅花鹿</em>说起</h1>
+    <div class="intro-sub mono">YOUTH MESSAGER · 韶初泌语</div>
+    <div class="load mono" id="load"><div class="load-bar"><i id="load-i"></i></div><div class="load-t"><span id="load-l">LOADING MODELS</span><span id="load-n">000</span></div></div>
+  </section>
+
+  <section class="scene" id="s1">
+    <img id="deer-photo" src="assets/img/deer-blue.webp" alt="">
+    <div class="hud-bracket" id="s1-br"><i></i><i></i><i></i><i></i></div>
+    <div class="hud-tag mono" id="s1-geo"><b>N 43°</b> · 长春<br><span>CERVUS NIPPON · 梅花鹿</span></div>
+  </section>
+
+  <section class="scene" id="s2">
+    <svg class="ring" viewBox="0 0 1920 1080" width="1920" height="1080">
+      <defs>
+        <radialGradient id="dotg"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#6ecdff"/><stop offset="1" stop-color="#2fa8ff" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="ring-g" transform="translate(960 470)">
+        <circle r="372" class="ring-faint"/>
+        <circle r="340" class="ring-dash" id="ring-dash"/>
+        <circle r="340" class="ring-prog" id="ring-prog" transform="rotate(-90)"/>
+        <g id="ring-ticks"></g>
+        <circle r="26" fill="url(#dotg)" id="ring-dot"/>
+      </g>
+    </svg>
+    <div class="season serif" data-a="0">春</div>
+    <div class="season serif" data-a="90">夏</div>
+    <div class="season serif" data-a="180">秋</div>
+    <div class="season serif" data-a="270">冬</div>
+    <div class="hud-tag mono" id="s2-tag"><b>REGENERATION</b><br><span>365 D · 一年一生</span></div>
+  </section>
+
+  <section class="scene" id="s3">
+    <div class="arrow" id="s3-arrow"><div class="arrow-line"><i></i></div><div class="arrow-head"></div><div class="arrow-txt sans">活<br>性<br>成<br>份</div></div>
+    <div class="grade" data-g="0"><div class="g-name serif">骨片</div><div class="g-cap sans">已钙化，几乎无活性成分</div></div>
+    <div class="grade" data-g="1"><div class="g-name serif">血片</div><div class="g-cap sans">活性物保留较少</div></div>
+    <div class="grade" data-g="2"><div class="g-name serif">粉片</div><div class="g-cap sans">活性物质一般</div></div>
+    <div class="grade top" data-g="3"><div class="g-name serif">蜡片 <em class="mono">TOP 2%</em></div><div class="g-cap sans">顶端 2% 处，聚焦生长活跃部位</div></div>
+    <div class="slice-tag" id="s3-slice"><div class="num"><span class="roll" data-to="2"></span><span class="pct">%</span></div><div class="slice-cap sans">顶端 2% 处 · 蜡片</div></div>
+  </section>
+
+  <section class="scene" id="s4">
+    <div class="s4-3d">
+      <div class="cover" id="cover"><img src="assets/img/science-cover.webp" alt="Science 2019 Ruminant Genomes"><div class="cover-sheen"></div></div>
+      <div class="fig" id="fig"><img src="assets/img/phylo-blue.webp" alt=""></div>
+    </div>
+    <div class="cov-meta mono" id="cov-meta"><div data-t="VOL. 364"></div><div data-t="NO. 6446"></div><div data-t="2019.06.21"></div><div class="hi" data-t="RUMINANT GENOMES"></div></div>
+    <div class="fig-tag mono" id="fig-tag">PHYLOGENY · RUMINANTIA<span>Science, 2019 · Fig. 1（局部）</span></div>
+    <div class="hud-bracket" id="s4-br"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="scene" id="s5u">
+    <div id="dose-spec"><div class="dose-item"><b>5<small> mg</small></b><span class="dose-label">鹿茸冻干粉</span></div><div class="dose-item"><b>1.5<small> mL</small></b><span class="dose-label">溶媒</span></div></div>
+    <div class="u-temp mono" id="u-temp"><b>−40℃</b><span>低温冻结 · 冻干锁鲜</span></div>
+    <div class="u-lab low" id="u-lab-low"><i></i><div class="u-tx"><b class="sans">锁鲜舱</b><span class="sans">鹿茸冻干粉 5mg</span></div></div>
+    <div class="u-lab top" id="u-lab-top"><i></i><div class="u-tx"><b class="sans">溶媒舱</b><span class="sans">1.5mL 溶媒</span></div></div>
+    <div class="u-steps" id="u-steps"><div class="u-step"><em class="cond">01</em><b class="sans">拉环</b></div><div class="u-step"><em class="cond">02</em><b class="sans">按压</b></div><div class="u-step"><em class="cond">03</em><b class="sans">摇匀</b></div></div>
+  </section>
+
+  <section class="scene" id="s5">
+    <div class="amp-wrap" id="amp-wrap"><div class="amp-glow"></div><img src="assets/img/ampoule.webp" class="amp" id="amp" alt=""></div>
+    <div class="box-wrap fb" id="box-wrap"><div class="floor"></div><img src="assets/img/giftbox.webp" class="box" alt=""></div>
+    <div class="eff" id="eff">
+      <div class="eff-title serif"><span class="eff-28"><b class="cond">28</b>天功效测试数据</span></div>
+      <div class="eff-cols">
+      <div class="eff-col"><div class="eff-h"><span class="serif-b">抗皱</span><em class="mono">ANTI-WRINKLE</em></div>
+        <div class="eff-row"><div class="eff-k sans">鱼尾纹皱纹数量</div><div class="eff-v"><svg class="arw dn" viewBox="0 0 28 64"><path d="M14 2V58M4 46L14 60 24 46"/></svg><span class="rnum cond" data-v="30.96"></span><span class="pc cond">%</span></div></div>
+        <div class="eff-row"><div class="eff-k sans">法令纹皱纹深度</div><div class="eff-v"><svg class="arw dn" viewBox="0 0 28 64"><path d="M14 2V58M4 46L14 60 24 46"/></svg><span class="rnum cond" data-v="23.65"></span><span class="pc cond">%</span></div></div>
+      </div>
+      <div class="eff-col"><div class="eff-h"><span class="serif-b">紧致</span><em class="mono">FIRMING</em></div>
+        <div class="eff-row"><div class="eff-k sans">肌肤紧致度</div><div class="eff-v"><svg style="visibility:hidden" class="arw up" viewBox="0 0 28 64"><path d="M14 62V6M4 18L14 4 24 18"/></svg><span class="rnum cond" data-v="34.68"></span><span class="pc cond">%</span></div></div>
+        <div class="eff-row"><div class="eff-k sans">肌肤弹性</div><div class="eff-v"><svg class="arw up" viewBox="0 0 28 64"><path d="M14 62V6M4 18L14 4 24 18"/></svg><span class="rnum cond" data-v="35.18"></span><span class="pc cond">%</span></div></div>
+      </div>
+      </div>
+      <div class="eff-note sans">* 数据来源：产品资料第 40 页，28 天功效测试</div>
+    </div>
+    <div class="end" id="end">
+      <div class="end-lock" id="end-logo"><img src="assets/img/logo-bgi-white.svg" class="lk-bgi" alt="华大BGI"><i class="lk-div"></i><img src="assets/img/logo-ym.svg" class="lk-ym" alt="韶初泌语 YOUTH MESSAGER"></div>
+      <div class="end-name sans">韶初泌语 · 鹿茸凝时抗皱冻干精华液 <b class="serif">小鹿精华</b></div>
+      <div class="end-brands sans">华大BGI　|　华大细胞 BGI·Cell　|　华大赛迪斯</div>
+    </div>
+  </section>
+
+  <!-- ===== persistent chrome ===== -->
+  <div id="statement" class="serif"><div class="st-txt"></div><div class="st-sweep" aria-hidden="true"></div></div>
+  <div id="caption" class="sans"></div>
+  <div id="tag" class="sans"><span class="mono" id="tag-n">01</span><i></i><span id="tag-t"></span></div>
+  <img id="brand" src="assets/img/logo-bgi.svg" alt="华大BGI">
+  <div id="index" class="mono">00 / 05</div>
+  <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <button id="snd" class="snd" type="button" aria-label="背景音乐 开/关 (M)" aria-pressed="true"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="w" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.6a7.6 7.6 0 0 1 0 10.8"/><path class="x" d="M15.5 9.5l5 5M20.5 9.5l-5 5"/></svg></button>
+  <audio id="bgm" src="assets/audio/bgm.mp3" preload="auto" loop></audio>
+  <div id="hint" class="sans">→ / 空格 / 点击 下一幕　　← 上一幕</div>
+</div>
+</div>
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/shapes.js"></script>
+<script src="assets/js/product-points.js"></script>
+<script src="assets/js/deer-points.js"></script>
+<script src="assets/js/s4-points.js"></script>
+<script src="assets/js/three.bundle.min.js"></script>
+<script src="assets/js/particles.js"></script>
+<script src="assets/js/loader.js"></script>
+<script src="assets/models/manifest.js"></script>
+<script src="assets/js/usage-curves.js"></script>
+<script src="assets/js/scene3d.js"></script>
+<script src="assets/js/frozen-chamber.js"></script>
+<script src="assets/js/transition-continuity.js"></script>
+<script src="assets/js/cinema-panels.js"></script>
+<script src="assets/js/cinema-layout.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/bgm.js"></script>
+</body>
+</html>

@@ -22,7 +22,7 @@
 - [Blender 母版](blender/) 包含梅花鹿与鹿茸、盒装材质与单支精华 v8。鹿场景使用无损 gzip 压缩。在仓库根目录执行下方命令即可得到原始 .blend。其余 .blend 可直接打开。
 
 ```sh
-gunzip -c production/blender/梅花鹿_鹿茸合成.blend.gz > build-deer.blend
+gunzip -c assets/blender/梅花鹿_鹿茸合成.blend.gz > build-deer.blend
 ```
 
 要追溯单支材质和粉液效果的做法，可读 [build_v8.py](blender/build_v8.py)。它从 [inputs](blender/inputs/) 内的 v7 场景出发，重新烘焙细粉、液面与滴液。需要重跑时先将 blender 目录复制到工作目录，脚本会在自身目录写入 v8 场景和验证记录。
@@ -58,3 +58,7 @@ gunzip -c production/blender/梅花鹿_鹿茸合成.blend.gz > build-deer.blend
 ## 素材清单
 
 [逐文件索引](drive-inventory.csv) 记录共享资料夹中本次归档的 242 个文件。每行都有原名、仓库内实际位置和 SHA-256。相同文件通过索引指向同一份实体。少数历史文字记录将用户主目录缩写为 ~，Three.js 构建入口中的历史机器路径已替换成包导入路径；两列哈希可用于识别这些调整。系统缓存、Grok 竖版网页及竖版预览已按交接范围排除。
+
+## 功效宣称依据
+
+抗皱、紧致和量化宣称的评价方式见第九条。成品功效依据公开摘要及化妆品广告的边界见《化妆品监督管理条例》第二十二条、第四十三条。[功效宣称评价规范第九条](https://yjj.scjgj.fujian.gov.cn/hzp/flfg/202107/t20210708_5642667.htm) · [化妆品监督管理条例](https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2023/art_9f8b70e79a2242df96c6c290a0ac425b.html)

@@ -1,0 +1,128 @@
+/* Focus narrative edition. Load after launch.css. Typography stays still; the timeline owns every reveal. */
+@font-face{font-family:CinemaSerif;src:url(../fonts/cinema-serif-r.woff2) format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:CinemaSerif;src:url(../fonts/cinema-serif-m.woff2) format('woff2');font-weight:500 700;font-display:block}
+@font-face{font-family:CinemaSans;src:url(../fonts/cinema-sans-r.woff2) format('woff2');font-weight:400;font-display:block}
+:root{--ink:#F3F9FF;--gold:#2fa8ff;--gold2:#81E8FF;--amber:#287bb3;--cy:#55E2FF;--bgi:#2fa8ff;--el:#4e92bd}
+html,body,#viewport,#stage{background:#04070d}
+#stage::before,#stage::after{display:none}
+/* Scene 03 retains its approved scan; other scene effects are controlled in main.js. */
+#vignette{background:radial-gradient(ellipse 84% 88% at 56% 48%,transparent 34%,rgba(0,1,4,.33) 84%,rgba(0,1,4,.57) 100%)}
+#grain{opacity:.016;mix-blend-mode:soft-light}
+.serif,.serif-b,#statement,.intro-title{font-family:CinemaSerif,'Source Han Serif CN','Songti SC',serif;font-synthesis:none}
+.serif-b{font-weight:500}
+.sans,#caption,#tag,.intro-sub{font-family:CinemaSans,'Source Han Sans CN','PingFang SC',sans-serif;font-synthesis:none}
+.mono{font-family:XMono,CinemaSans,monospace}
+.cond,.num,.rnum,.pc{font-family:XCond,CinemaSans,sans-serif;font-weight:200;font-synthesis:none;font-variant-numeric:lining-nums tabular-nums}
+
+/* Clear type remains outside the post-processing render; only its entrance is defocused. */
+#statement,.intro-title{font-weight:400;letter-spacing:.035em!important;color:#F3F9FF}
+#statement{font-size:68px;line-height:1.3}
+#statement .st-txt{max-width:100%;text-shadow:0 2px 18px rgba(0,0,0,.54)}
+#statement em,.intro-title em,.gold{font-style:normal;color:#81E8FF;text-shadow:none;background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor}
+#statement em .type-char,.intro-title em .type-char{color:#81E8FF;background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor}
+#statement .eyebrow{font-family:CinemaSans,sans-serif;font-size:26px;line-height:1.5;font-weight:400;letter-spacing:.11em;color:rgba(204,211,218,.72);margin-bottom:28px}
+#caption{font-size:25px;line-height:1.8;letter-spacing:.05em;color:rgba(201,207,211,.70);text-shadow:0 1px 10px rgba(0,0,0,.8)}
+#caption b{font-weight:400;color:#A4EBFF}
+#tag{top:72px;font-size:20px;letter-spacing:.19em;gap:20px;color:rgba(188,193,198,.57)}
+#tag .mono{font-size:18px;font-weight:400;color:#6FDCFF}
+#tag i{height:1px;width:44px;background:linear-gradient(90deg,#2fa8ff,rgba(47,168,255,.12))}
+#brand{opacity:.62;height:32px;top:69px}
+#index{color:rgba(185,191,198,.26)}
+#hint{font-size:17px;letter-spacing:.1em;color:rgba(188,193,198,.5)}
+#snd{opacity:.43}
+.snd svg{stroke:rgba(220,230,240,.9)}
+.snd svg path:first-child{fill:rgba(220,230,240,.9)}
+
+/* 00 / 01: the serif headline is luminous but has no neon halo. */
+.intro-title{left:120px;top:306px;width:1010px;font-size:112px;line-height:1.26;text-indent:0;text-align:left;text-shadow:0 4px 26px rgba(0,0,0,.5)}
+.intro-title::before{font-family:XMono,monospace;font-weight:400;font-size:17px;line-height:1.6;letter-spacing:.24em;color:#68DCFF;opacity:.7;margin-bottom:40px}
+.intro-sub{left:124px;top:718px;font-size:20px;letter-spacing:.21em;color:rgba(211,218,226,.64)}
+.load{left:124px;top:818px;width:400px;color:rgba(47,168,255,.55)}
+.load-bar{background:rgba(47,168,255,.12)}
+.load-bar i{background:linear-gradient(90deg,rgba(47,168,255,.18),#2fa8ff);box-shadow:0 0 8px rgba(47,168,255,.3)}
+#stage[data-scene="1"] #statement{left:120px;top:298px;width:760px;font-size:86px;line-height:1.36;text-align:left}
+#stage[data-scene="1"] #statement em{font-size:1.04em}
+#stage[data-scene="1"] #caption{left:124px;top:598px;width:650px;font-size:25px;line-height:1.8;text-align:left;color:rgba(215,224,231,.8)}
+
+/* 02: seasonal ring becomes a quiet technology-blue trace around the actual specimen. */
+#stage[data-scene="2"] #statement{top:888px;left:112px;width:1696px;font-size:70px;line-height:1.28}
+#stage[data-scene="2"] #caption{top:992px;left:112px;width:1696px;font-size:23px}
+.season{font-family:CinemaSerif,serif;font-size:33px;font-weight:400;color:rgba(180,190,196,.36)}
+.season.on{color:#9AEFFF;text-shadow:0 0 16px rgba(47,168,255,.28)}
+.ring-prog{stroke:#6ecdff;stroke-width:1.25;filter:drop-shadow(0 0 4px rgba(47,168,255,.32))}
+.ring-dash{stroke:rgba(135,161,174,.18);stroke-width:1}
+#ring-dot{opacity:.52;filter:none}
+
+/* 03: thin numbers retain their position and their specimen-linked movement. */
+#s3-slice .num{font-family:XCond,CinemaSans,sans-serif;font-weight:200;letter-spacing:-.015em;color:#8BEAFF;text-shadow:0 0 28px rgba(47,168,255,.13)}
+#s3-slice .slice-cap{font-family:CinemaSans,sans-serif;font-size:27px;font-weight:400;line-height:1.6;letter-spacing:.1em;color:#d3dbe2;margin-top:22px}
+.grade .g-name{font-family:CinemaSerif,serif;font-size:48px;font-weight:400;letter-spacing:.065em;color:#dfe6ed}
+.grade .g-cap{font-family:CinemaSans,sans-serif;font-size:22px;line-height:1.65;letter-spacing:.035em;color:rgba(193,201,205,.64)}
+.grade .g-name em{font-family:XMono,monospace;font-size:16px;color:#87E6FF;font-weight:400;letter-spacing:.12em}
+.grade.top .g-name{font-size:56px;color:#8BEAFF;text-shadow:0 0 19px rgba(47,168,255,.17)}
+.grade.top .g-cap{color:rgba(189,239,255,.82)}
+#stage[data-scene="3"] #statement{font-size:64px;top:875px;line-height:1.3}
+#stage[data-scene="3"] #caption{top:976px;font-size:24px}
+
+/* 04: journal cover lighting is provided by the 3D scene, not a flat frame glow. */
+#stage[data-scene="4"] #statement{left:120px;top:340px;width:650px;font-size:68px;line-height:1.3}
+#stage[data-scene="4"] #statement .eyebrow{font-size:25px;line-height:1.6;margin-bottom:25px;letter-spacing:.08em;color:rgba(215,224,231,.8)}
+#stage[data-scene="4"] #statement em{font-family:CinemaSerif,serif;font-size:120px;line-height:1.18;font-weight:400;letter-spacing:.015em;margin-top:12px}
+#stage[data-scene="4"] #caption{left:124px;top:748px;width:620px;font-size:24px;line-height:1.85;letter-spacing:.035em;color:rgba(215,224,231,.8)}
+.cover{box-shadow:none;border:0}
+.cover img{filter:brightness(.83) contrast(1.05) saturate(.68)}
+.cover-sheen{opacity:.13;background:linear-gradient(115deg,transparent 36%,rgba(237,247,255,.24) 49%,transparent 60%)}
+.fig img{filter:brightness(.86) saturate(.35);opacity:.8}
+.fig-tag{font-size:16px;letter-spacing:.14em;color:rgba(178,198,211,.7)}
+.fig-tag span{font-size:15px;color:rgba(178,191,201,.64)}
+
+/* 05: one stable reading column; only the current mechanism receives full emphasis. */
+#stage[data-scene="5"] #statement{left:120px;top:146px;width:750px;font-size:68px;line-height:1.29}
+#stage[data-scene="5"] #caption{left:124px;top:362px;width:650px;font-size:25px;line-height:1.8;color:rgba(215,224,231,.8)}
+.u-temp b,#dose-spec .dose-value,#dose-spec b{font-family:XCond,CinemaSans,sans-serif;font-weight:200;letter-spacing:-.015em;color:#8BEAFF;text-shadow:0 0 25px rgba(47,168,255,.12);font-synthesis:none}
+.u-temp span{font-family:CinemaSans,sans-serif;font-size:25px;font-weight:400;letter-spacing:.06em;color:rgba(215,224,231,.8)}
+#dose-spec small,#dose-spec .dose-unit{font-family:CinemaSans,sans-serif;font-size:30px;font-weight:400;color:#DCF5FF;letter-spacing:0}
+#dose-spec .dose-label{font-family:CinemaSans,sans-serif;font-weight:400;letter-spacing:.055em;color:rgba(215,224,231,.84)}
+.u-lab b,.u-lab.top b{font-family:CinemaSerif,serif;font-weight:400;color:#e3eaf1;text-shadow:none}
+.u-lab span{font-family:CinemaSans,sans-serif;color:rgba(196,203,206,.71)}
+.u-lab i{border-color:rgba(47,168,255,.72);box-shadow:0 0 12px rgba(47,168,255,.15)}
+.u-lab::before{background:linear-gradient(90deg,rgba(47,168,255,.7),rgba(110,205,255,.16))}
+#u-steps{left:124px;top:560px;width:630px;gap:33px}
+.u-step{opacity:.2;gap:25px}
+.u-step b{font-family:CinemaSerif,serif;font-weight:400;font-size:58px;line-height:1.25;letter-spacing:.075em;color:#c4cdd5}
+.u-step em{font-family:XCond,sans-serif;font-size:31px;font-weight:200;color:#81E8FF;min-width:34px}
+.u-step.on b{color:#F3F9FF;text-shadow:none}
+.u-step.done{opacity:.27}
+.u-step b::after{height:1px;background:linear-gradient(90deg,#81E8FF,rgba(47,168,255,.2) 80%,transparent)}
+
+/* 06: neutral rim light and subdued box blue integrate the supplied real packshots. */
+#stage[data-scene="6"] #statement{left:112px;top:310px;width:800px;font-size:96px;line-height:1.28}
+#stage[data-scene="6"] #caption{left:117px;top:645px;width:740px;font-size:25px;line-height:1.8}
+.amp,#stage[data-scene="6"] .amp{filter:drop-shadow(0 12px 22px rgba(0,0,0,.5)) drop-shadow(0 0 10px rgba(206,214,214,.09)) brightness(.88) saturate(.52)}
+.box{filter:drop-shadow(0 24px 42px rgba(0,0,0,.66)) brightness(.70) saturate(.50) contrast(1.06)}
+.amp-glow,#stage[data-scene="6"] .amp-glow{opacity:.1;background:radial-gradient(ellipse 43% 50% at 50% 50%,rgba(163,180,187,.18),transparent 72%)}
+.floor,#stage[data-scene="6"] .floor{opacity:.45;background:radial-gradient(ellipse 48% 50% at 50% 50%,rgba(97,125,139,.19),transparent 72%)}
+.eff-title,.eff-title .eff-28{font-family:CinemaSerif,serif;font-weight:400;font-size:39px;line-height:1.45;letter-spacing:.03em;color:#EDF8FF}
+.eff-28 b,#stage[data-scene="6"] .eff-28 b{font-family:XCond,sans-serif;font-weight:200;font-size:82px;color:#B1F1FF;text-shadow:none}
+.eff-h{border-bottom:1px solid rgba(47,168,255,.22)}
+.eff-h span{font-family:CinemaSerif,serif;font-weight:400;font-size:38px;color:#8BEAFF;letter-spacing:.12em}
+.eff-k{font-family:CinemaSans,sans-serif;font-size:25px;letter-spacing:.06em;color:rgba(215,224,231,.86)}
+.rnum{font-family:XCond,sans-serif;font-weight:200;font-size:130px;letter-spacing:0;color:#F6FCFF;text-shadow:0 0 20px rgba(47,168,255,.08)}
+.pc{font-family:XCond,sans-serif;font-weight:200;font-size:56px;color:#8BEAFF}
+.arw{stroke:#8BEAFF;stroke-width:1.6;filter:none}
+.eff-note{font-family:CinemaSans,sans-serif;font-size:18px;line-height:1.7;letter-spacing:.035em;color:rgba(182,195,205,.65)}
+.end-name{font-family:CinemaSans,sans-serif;font-size:32px;font-weight:400;letter-spacing:.11em;color:#c6cdd4}
+.end-name b{font-family:CinemaSerif,serif;font-size:36px;font-weight:400;color:#8BEAFF}
+.end-brands{font-family:CinemaSans,sans-serif;font-size:17px;letter-spacing:.17em;color:rgba(176,186,193,.5)}
+.lk-div{background:linear-gradient(180deg,transparent,rgba(47,168,255,.52) 20%,rgba(47,168,255,.52) 80%,transparent)}
+/* The pack never moves for the closing lockup. Its companion text settles in the right column. */
+#stage[data-scene="6"][data-closing="1"] #end-logo{left:1000px;top:318px;width:780px;height:140px}
+#stage[data-scene="6"][data-closing="1"] #end-logo .lk-bgi{left:0;top:47px;width:174.8px;height:42px}
+#stage[data-scene="6"][data-closing="1"] #end-logo .lk-div{left:213px;top:37px;width:1px;height:62px}
+#stage[data-scene="6"][data-closing="1"] #end-logo .lk-ym{left:246px;top:29px;width:198.6px;height:78px}
+#stage[data-scene="6"][data-closing="1"] .end-name{left:1000px;right:auto;top:528px;width:780px;font-size:26px;line-height:1.8;letter-spacing:.035em;text-align:left;color:rgba(220,231,239,.87)}
+#stage[data-scene="6"][data-closing="1"] .end-name b{display:block;margin:31px 0 0;font-size:72px;line-height:1.3;letter-spacing:.075em;color:#81E8FF}
+#stage[data-scene="6"][data-closing="1"] .end-brands{left:1000px;right:auto;top:775px;width:780px;font-size:18px;line-height:1.7;letter-spacing:.09em;text-align:left;color:rgba(185,202,215,.68)}
+/* Each run's timeline controls opacity; CSS never schedules an independent animation. */
+.type-char{will-change:transform,opacity,filter}
+.capture #snd,.capture #hint{display:none!important}

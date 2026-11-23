@@ -1,0 +1,38 @@
+/* 2026-10-22: precise technical typography and separate text safe areas. */
+.serif,.serif-b{font-family:XSans,"PingFang SC","Noto Sans CJK SC",sans-serif}
+.intro-title{font-family:XSans,"PingFang SC",sans-serif;font-size:82px;letter-spacing:.14em;text-indent:.14em;font-weight:500;line-height:1.25;color:#8EE4FF;text-shadow:0 0 28px rgba(95,198,255,.18)}
+.intro-title::before{content:"CERVUS NIPPON / RESEARCH 01";display:block;font-family:XMono,monospace;font-size:16px;letter-spacing:.28em;line-height:1;margin-bottom:36px;color:#6FDCFF;opacity:.65}
+.intro-title::after{content:none;display:none}
+.intro-sub{font-size:17px;letter-spacing:.3em;color:rgba(218,234,255,.56)}
+#statement{font-family:XSans,"PingFang SC",sans-serif;font-size:52px;line-height:1.35;letter-spacing:.045em!important;left:100px;right:100px;top:886px;white-space:normal}
+#statement .st-txt{max-width:100%;text-shadow:0 0 16px rgba(47,168,255,.12)}
+#statement .st-sweep{display:none}
+.type-char{display:inline-block;white-space:pre;text-indent:0}
+.u-temp b .type-char{display:inline-block!important}
+.rnum{font-variant-numeric:tabular-nums;min-width:2.2em}
+#caption{top:980px;left:110px;right:110px;font-size:23px;line-height:1.6;letter-spacing:.08em;color:rgba(218,234,255,.64)}
+#stage[data-scene="2"] #statement{top:902px;font-size:47px}
+#stage[data-scene="2"] #caption{top:982px;font-size:22px}
+.season{font-family:XSans,"PingFang SC",sans-serif;font-size:26px;letter-spacing:.1em}
+.grade .g-name{font-family:XSans,"PingFang SC",sans-serif;font-size:40px;letter-spacing:.08em}
+.grade .g-cap{line-height:1.5;letter-spacing:.04em}
+#stage[data-scene="5"] #statement{top:136px;font-size:60px}
+#stage[data-scene="5"] #caption{top:222px;font-size:25px}
+#s5u{--ut-l:150px;--ut-t:340px;--ut-fs:172px;--ul-w:170px;--ul-fs:34px;--ul-fs2:21px;--us-gap:28px;--us-fs:30px;--us-fs2:24px}
+#u-temp{left:150px;right:auto;top:340px;text-align:left}
+.u-temp b{font-variant-numeric:tabular-nums;font-weight:200;letter-spacing:-.025em}
+#u-steps{left:150px;top:610px;flex-direction:column}
+.u-step{transition:none}
+.u-step b::after{transition:none}
+.eff-title{font-family:XSans,"PingFang SC",sans-serif;font-size:29px;letter-spacing:.06em;flex-wrap:wrap;row-gap:16px}
+.eff-28{font-family:XSans,"PingFang SC",sans-serif;font-size:27px}
+.eff-h span{font-family:XSans,"PingFang SC",sans-serif}
+.amp{filter:drop-shadow(0 0 18px rgba(110,205,255,.16))}
+.box{filter:drop-shadow(0 20px 32px rgba(0,0,0,.25))}
+.amp-glow{opacity:.45}
+#hint{font-size:16px;letter-spacing:.1em}
+.capture #hint,.capture #snd{display:none!important}
+
+#stage[data-scene="5"] #statement{left:150px;right:auto;width:900px;text-align:left}
+#stage[data-scene="5"] #statement .st-sweep{text-align:left}
+#stage[data-scene="5"] #caption{left:150px;right:auto;width:900px;text-align:left}

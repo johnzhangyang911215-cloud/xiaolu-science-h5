@@ -1,5 +1,6 @@
 exclude:
-  - production
+  - assets
+  - reference
   - tools
   - README.md
   - CLAUDE.md

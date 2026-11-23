@@ -1,5 +1,7 @@
 # 小鹿 H5 续改指南
 
+导演阶段先读 [任务 1 简报](docs/01-brief.md)。原片对照目录为 [Codex](reference/codex/) 与 [Grok](reference/grok/)，均为可独立运行的完整横版工程。下表是线上播放目录。
+
 ## 先确定修改哪一版
 
 | 仓库目录 | 导入时的原文件夹 | 默认播放方式 |
@@ -31,4 +33,4 @@
 
 ## 需要模型、文献或制作过程时
 
-从 [制作资料总表](production/README.md) 开始，按任务选择 [两份原始 PDF](production/pdf/)、[网页实际 GLB](production/models/runtime/)、[原始 GLB](production/models/drive/) 或 [Blender 母版](production/blender/)。[逐文件索引](production/drive-inventory.csv) 可按原文件名检索仓库内的位置。改模型、打包离线 HTML、重导聚焦版 MP4 的命令均在资料总表中。
+从 [制作资料总表](assets/README.md) 开始，按任务选择 [两份原始 PDF](assets/pdf/)、[网页实际 GLB](assets/models/runtime/)、[原始 GLB](assets/models/drive/) 或 [Blender 母版](assets/blender/)。[逐文件索引](assets/drive-inventory.csv) 可按原文件名检索仓库内的位置。改模型、打包离线 HTML、重导聚焦版 MP4 的命令均在资料总表中。
