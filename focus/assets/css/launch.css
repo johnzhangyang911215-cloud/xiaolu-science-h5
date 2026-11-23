@@ -1,0 +1,157 @@
+/* 科技发布会版 · 1920×1080 composition. Coordinates shared with main.js. */
+:root{--ink:#F3F9FF;--gold2:#81E8FF;--cy:#55E2FF}
+#stage{background:radial-gradient(ellipse 57% 86% at 75% 48%,#123C78 0%,#082653 32%,#03152F 66%,#010713 100%)}
+#stage::before{opacity:.45;background-size:100px 100px}
+#stage::after{opacity:.6}
+#vignette{background:radial-gradient(ellipse 88% 83% at 57% 49%,transparent 49%,rgba(0,3,12,.52) 100%),linear-gradient(180deg,transparent 85%,rgba(0,3,12,.28) 100%)}
+#grain{opacity:.009}
+.serif,.serif-b,.sans{font-family:XSans,"PingFang SC","Noto Sans CJK SC",sans-serif}
+#statement,.intro-title{font-weight:600;letter-spacing:.015em!important;color:#F3F9FF}
+#statement{left:100px;right:auto;width:1720px;top:870px;font-size:76px;line-height:1.18;text-align:center}
+#statement .st-txt{display:inline-block;max-width:100%;text-shadow:0 2px 16px rgba(0,7,24,.5)}
+#statement em,.intro-title em,.gold{font-style:normal;color:#81E8FF;text-shadow:0 0 42px rgba(27,175,255,.32),0 0 2px rgba(167,243,255,.35)}
+#statement .eyebrow{display:block;margin-bottom:30px;font-size:31px;line-height:1.4;font-weight:500;letter-spacing:.16em;color:rgba(207,235,255,.72)}
+#caption{left:100px;right:auto;width:1720px;top:977px;font-size:26px;line-height:1.65;letter-spacing:.055em;color:rgba(208,233,255,.7)}
+#caption b{font-weight:600;color:#A4EBFF}
+#tag{left:100px;top:70px;font-size:23px;letter-spacing:.14em;gap:22px;color:rgba(211,234,255,.66)}
+#tag .mono{font-size:23px;font-weight:500;color:#6FDCFF}
+#tag i{width:50px;height:2px;background:linear-gradient(90deg,#55DFFF,rgba(47,168,255,.2))}
+#brand{height:36px;top:64px;right:100px;opacity:.78}
+
+/* 00: Strong editorial opening, deer occupies the right half. */
+.intro-title{left:100px;right:auto;top:284px;width:1040px;font-family:XSans,"PingFang SC",sans-serif;text-align:left;text-indent:0;font-size:136px;line-height:1.16;letter-spacing:.015em;text-shadow:0 3px 25px rgba(0,4,18,.4)}
+.intro-title::before{content:"CERVUS NIPPON / RESEARCH 01";font-size:20px;line-height:1.5;letter-spacing:.2em;color:#68DCFF;opacity:.82;margin-bottom:40px;font-weight:500}
+.intro-title::after{display:none;content:none}
+.intro-sub{left:104px;right:auto;top:725px;width:900px;text-align:left;text-indent:0;font-size:23px;letter-spacing:.28em;color:rgba(217,235,255,.68)}
+.load{left:100px;top:840px;width:580px}
+
+/* 01: Deliberate text/image separation and a large two-line question. */
+#stage[data-scene="1"] #statement{left:100px;top:254px;width:780px;text-align:left;font-size:98px;line-height:1.38}
+#stage[data-scene="1"] #caption{left:104px;top:580px;width:680px;text-align:left;font-size:29px;line-height:1.7}
+#stage[data-scene="1"] #statement em{font-size:1.08em}
+
+/* 02: Antler and orbital seasons dominate; headline remains below the ring. */
+#stage[data-scene="2"] #statement{left:100px;top:882px;width:1720px;font-size:84px;text-align:center;line-height:1.2}
+#stage[data-scene="2"] #caption{left:100px;top:996px;width:1720px;font-size:23px;text-align:center}
+.season{font-family:XSans,"PingFang SC",sans-serif;font-size:37px;font-weight:600;color:rgba(197,224,255,.4)}
+.season.on{color:#9AEFFF;text-shadow:0 0 30px rgba(47,191,255,.9)}
+.ring-prog{stroke:#7CE9FF;stroke-width:2.5;filter:drop-shadow(0 0 9px rgba(47,188,255,.95))}
+.ring-dash{stroke:rgba(84,193,255,.3);stroke-width:1.5}
+
+/* 03: A cinematic 2% and clean reading order for the four grades. */
+#s3-slice{left:0;top:0;width:390px}
+#s3-slice .num{font-weight:600;font-size:280px;line-height:1;letter-spacing:-.015em;color:#8BEAFF;text-shadow:0 0 65px rgba(31,177,255,.35)}
+#s3-slice .pct{font-size:.48em;margin-top:.13em;margin-left:.035em}
+#s3-slice .slice-cap{font-size:31px;line-height:1.6;font-weight:500;letter-spacing:.08em;margin-top:24px;color:#E7F5FF}
+.grade{left:0;top:0;width:470px}
+.grade .g-name{font-size:51px;font-weight:600;letter-spacing:.055em;line-height:1.2}
+.grade .g-cap{font-size:23px;letter-spacing:.025em;line-height:1.5;margin-top:8px;color:rgba(204,229,255,.66)}
+.grade .g-name em{font-size:17px;letter-spacing:.15em;margin-left:12px;color:#87E6FF}
+.grade.top .g-name{font-size:59px;color:#8BEAFF;text-shadow:0 0 25px rgba(47,186,255,.4)}
+.grade.top .g-cap{color:rgba(181,236,255,.9)}
+#stage[data-scene="3"] #statement{left:100px;top:870px;width:1720px;font-size:70px}
+#stage[data-scene="3"] #caption{left:100px;top:974px;width:1720px;font-size:25px}
+
+/* 04: Left text / central journal / right phylogeny. No overlapping layers. */
+#stage[data-scene="4"] #statement{left:100px;top:280px;width:740px;text-align:left;font-size:88px;line-height:1.24}
+#stage[data-scene="4"] #statement .eyebrow{font-size:35px;margin-bottom:24px}
+#stage[data-scene="4"] #statement em{display:inline-block;font-family:XSans,"PingFang SC",sans-serif;font-size:150px;line-height:1.2;letter-spacing:-.015em;margin-top:10px}
+#stage[data-scene="4"] #caption{left:100px;top:690px;width:700px;text-align:left;font-size:28px;line-height:1.65;letter-spacing:.04em}
+.cover{box-shadow:0 0 0 1px rgba(148,236,255,.84),0 0 45px rgba(47,168,255,.25),0 38px 90px rgba(0,0,0,.7)}
+.cover img{filter:brightness(1.04) contrast(1.04) saturate(1)}
+.cover-sheen{background:linear-gradient(115deg,transparent 36%,rgba(237,252,255,.33) 49%,transparent 60%);background-size:260% 100%;background-position:130% 0}
+.fig img{filter:brightness(1.1) drop-shadow(0 0 5px rgba(62,174,255,.18))}
+.fig-tag{left:1450px;top:296px;width:370px;font-size:16px;line-height:1.5;letter-spacing:.14em;color:rgba(166,218,255,.75)}
+.fig-tag span{font-size:15px;color:rgba(208,232,255,.54)}
+
+/* 05: The left column alternates temperature, formula and activation steps. */
+#stage[data-scene="5"] #statement{left:100px;top:132px;width:900px;font-size:88px;line-height:1.2;text-align:left}
+#stage[data-scene="5"] #caption{left:103px;top:355px;width:780px;text-align:left;font-size:28px;line-height:1.6}
+#s5u{--ut-l:100px;--ut-t:450px;--ut-fs:250px;--ul-w:125px;--ul-fs:37px;--ul-fs2:24px;--us-gap:25px;--us-fs:56px;--us-fs2:30px}
+#u-temp{left:100px;right:auto;top:450px;text-align:left;width:720px}
+.u-temp b{font-family:XCond,XSans,sans-serif;font-weight:600;font-size:250px;line-height:1;letter-spacing:-.03em;color:#8BEAFF;text-shadow:0 0 55px rgba(47,168,255,.32)}
+.u-temp b .type-char{display:inline-block!important}
+.u-temp span{display:block!important;font-family:XSans,"PingFang SC",sans-serif;font-size:27px;letter-spacing:.07em;line-height:1.5;margin-top:22px;color:rgba(220,238,255,.72)}
+#u-steps{left:103px;top:590px;width:680px;flex-direction:column;gap:25px}
+.u-step{opacity:.28;gap:23px;transition:none}
+.u-step b{font-size:56px;font-weight:600;letter-spacing:.08em;line-height:1.25;padding-bottom:11px;color:#B9D1EA}
+.u-step em{font-size:30px;font-weight:600;color:#6ADFFF}
+.u-step.on{opacity:1}
+.u-step.on b{color:#F0FAFF;text-shadow:0 0 22px rgba(47,187,255,.38)}
+.u-step.done{opacity:.47}
+.u-step b::after{height:3px;background:linear-gradient(90deg,#9FF1FF,#36B9FF 70%,transparent);transition:none}
+.u-lab .u-tx{top:-38px}
+.u-lab b{font-size:37px;font-weight:600;color:#EAF8FF}
+.u-lab span{font-size:24px;letter-spacing:.055em;color:rgba(205,233,255,.83)}
+.u-lab.top b{font-size:31px;font-weight:600}
+.u-lab i{box-shadow:0 0 15px rgba(88,219,255,.68)}
+#dose-spec{position:absolute;left:100px;top:455px;width:650px;display:flex;gap:56px;align-items:flex-start;opacity:0;color:#F2FAFF}
+#dose-spec .dose-item{position:relative;flex:0 0 auto;min-width:220px;padding-top:22px;border-top:1px solid rgba(106,224,255,.5)}
+#dose-spec .dose-value,#dose-spec b{display:inline-block;font-family:XCond,XSans,sans-serif;font-size:180px;font-weight:600;letter-spacing:-.02em;line-height:1;color:#8BEAFF;text-shadow:0 0 40px rgba(47,168,255,.25)}
+#dose-spec .dose-unit,#dose-spec small{font-family:XSans,"PingFang SC",sans-serif;font-size:35px;font-weight:500;line-height:1;margin-left:7px;letter-spacing:0;color:#DCF5FF}
+#dose-spec .dose-label{display:block;font-family:XSans,"PingFang SC",sans-serif;font-size:26px;letter-spacing:.1em;line-height:1.5;margin-top:15px;color:rgba(226,242,255,.78)}
+
+/* 06: The product stays left; the efficacy readout is a strong two-column grid. */
+.eff{left:980px;top:185px;width:840px}
+.eff-title{font-family:XSans,"PingFang SC",sans-serif;display:flex;flex-wrap:wrap;align-items:baseline;gap:0;font-size:42px;line-height:1.3;font-weight:600;letter-spacing:.035em;color:#EEF8FF;text-shadow:none}
+.eff-title>i{display:none}
+.eff-title .eff-28{display:block;font-family:XSans,"PingFang SC",sans-serif;font-size:42px;line-height:1.3;font-weight:500;letter-spacing:.025em;white-space:nowrap;color:#EDF8FF}
+.eff-28 b{font-family:XCond,XSans,sans-serif;font-size:88px;font-weight:600;line-height:1;margin-right:13px;letter-spacing:0;top:3px;color:#8BEAFF}
+.eff-cols{gap:52px;margin-top:42px}
+.eff-col{width:394px;flex:0 0 394px}
+.eff-h{gap:18px;padding-bottom:15px;margin-bottom:27px;border-bottom:1px solid rgba(117,220,255,.38)}
+.eff-h span{font-size:42px;font-weight:600;letter-spacing:.1em;color:#8BEAFF}
+.eff-row{margin-bottom:30px}
+.eff-k{font-size:27px;line-height:1.4;letter-spacing:.075em;color:rgba(226,242,255,.84)}
+.eff-v{height:139px;margin-top:2px}
+.rnum{font-family:XCond,XSans,sans-serif;font-size:132px;font-weight:600;letter-spacing:0;color:#F6FCFF;min-width:2.2em;text-shadow:0 0 32px rgba(69,179,255,.28)}
+.pc{font-family:XCond,XSans,sans-serif;font-size:59px;font-weight:600;color:#8BEAFF;margin-top:17px;margin-left:4px}
+.arw{width:23px;height:58px;margin-right:13px;stroke-width:3;stroke:#8BEAFF;filter:drop-shadow(0 0 6px rgba(47,168,255,.5))}
+.eff-note{font-size:18px;line-height:1.6;letter-spacing:.04em;margin-top:5px;color:rgba(198,223,250,.6)}
+.amp{filter:drop-shadow(0 12px 20px rgba(0,0,0,.2)) drop-shadow(0 0 28px rgba(115,209,255,.23)) brightness(1.04)}
+.box{filter:drop-shadow(0 26px 37px rgba(0,3,18,.42)) brightness(1.05) saturate(1.12)}
+.amp-glow{opacity:.62;background:radial-gradient(ellipse 43% 50% at 50% 50%,rgba(86,196,255,.27),rgba(47,168,255,.06) 48%,transparent 73%)}
+.floor{left:-20%;right:-20%;top:88%;height:170px;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(89,203,255,.27),rgba(47,168,255,.08) 35%,transparent 70%)}
+.end-name{top:950px;font-size:36px;font-weight:500;letter-spacing:.1em;color:#D8EEFF}
+.end-name b{font-family:XSans,"PingFang SC",sans-serif;font-size:38px;font-weight:600;color:#8BEAFF;margin-left:.6em}
+.end-brands{top:1012px;font-size:18px;letter-spacing:.16em;color:rgba(203,229,255,.58)}
+
+/* Shared cinematic accents: all progression is driven by the JS timeline. */
+#launch-beam,#launch-orbit,#launch-flash{position:absolute;pointer-events:none;opacity:0;will-change:transform,opacity}
+#launch-beam{left:0;top:537px;width:1920px;height:3px;z-index:5;transform-origin:50% 50%;background:linear-gradient(90deg,transparent 3%,rgba(65,193,255,.15) 20%,#7AE5FF 43%,#F6FFFF 50%,#7AE5FF 57%,rgba(65,193,255,.15) 80%,transparent 97%);box-shadow:0 0 18px 2px rgba(57,174,255,.6),0 0 60px 8px rgba(31,157,255,.28);mix-blend-mode:screen}
+#launch-orbit{left:810px;top:86px;width:1020px;height:880px;border:1px solid rgba(104,220,255,.23);border-radius:50%;box-shadow:inset 0 0 55px rgba(47,168,255,.035),0 0 35px rgba(47,168,255,.08);transform:rotate(-18deg);mix-blend-mode:screen}
+#launch-orbit::before{content:"";position:absolute;inset:24px;border:1px solid rgba(58,164,255,.12);border-radius:50%}
+#launch-orbit::after{content:"";position:absolute;left:140px;right:140px;bottom:-30px;height:95px;background:radial-gradient(ellipse,rgba(95,211,255,.17),transparent 70%);filter:blur(12px)}
+#launch-flash{inset:0;z-index:12;background:radial-gradient(ellipse 62% 55% at 68% 49%,rgba(181,243,255,.75),rgba(59,166,255,.25) 36%,transparent 75%);mix-blend-mode:screen}
+#hint{font-size:20px;letter-spacing:.12em}
+#snd{opacity:.6}
+.capture #snd,.capture #hint{display:none!important}
+
+/* Final reading-safe refinements. */
+.u-temp b .type-char{font:inherit!important;line-height:inherit!important;letter-spacing:inherit!important;margin:0!important;color:inherit!important}
+#stage[data-scene="4"] #caption{top:790px}
+#stage[data-scene="6"] #statement{left:100px;top:300px;width:800px;text-align:left;font-size:112px;line-height:1.2}
+#stage[data-scene="6"] #caption{left:100px;top:640px;width:780px;text-align:left;font-size:26px}
+#dose-spec .dose-item{min-width:230px}
+
+/* Spatial quantities: the JS positions each label from projected specimen geometry. */
+#u-temp{width:720px;transform-origin:0 0}
+#dose-spec{left:0;top:0;width:1920px;height:1080px;display:block;pointer-events:none}
+#dose-spec .dose-item{position:absolute;width:250px;min-width:0;padding-top:0;border-top:0}
+#dose-spec .dose-label{white-space:nowrap}
+
+/* BEGIN ending-continuity 2026-10-24 */
+/* Keep the aligned handoff and its surface cues unobscured by full-screen launch accents. */
+#stage[data-scene="6"] #launch-flash,#stage[data-scene="6"] #launch-beam{display:none!important}
+#stage[data-scene="6"] #fx{z-index:3;pointer-events:none}
+#stage[data-scene="6"] #s5{z-index:2}
+#stage[data-scene="6"] #amp-wrap{z-index:2}
+#stage[data-scene="6"] #box-wrap{z-index:1;transform-origin:50% 100%}
+#stage[data-scene="6"] .eff,#stage[data-scene="6"] .end{z-index:4}
+#stage[data-scene="6"] .amp{filter:drop-shadow(0 12px 20px rgba(0,0,0,.2)) brightness(1.04)}
+#stage[data-scene="6"] .amp-glow{opacity:.18;left:-90px;right:-90px;top:-35px;bottom:-35px}
+#stage[data-scene="6"] .floor{opacity:.68}
+#stage[data-scene="6"] .eff-28 b,#stage[data-scene="6"] .eff-copy{display:inline-block}
+#stage[data-scene="6"] .eff-28 b{color:#B1F1FF;text-shadow:0 0 12px rgba(89,208,255,.12)}
+#stage[data-scene="6"] .eff-copy{vertical-align:baseline}
+/* END ending-continuity 2026-10-24 */

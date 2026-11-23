@@ -1,0 +1,9 @@
+Cinematic typography
+
+Source Han Serif CN Regular / Medium: Adobe and Google, SIL Open Font License 1.1.
+Source Han Sans CN Regular (2014 installed version): Adobe, Apache License 2.0.
+Locally installed originals were subset to the exact HTML/JavaScript glyph repertoire without altering glyphs. Embedded name tables preserve original copyright and licensing notices.
+The original Barlow Condensed ExtraLight numeral font is retained.
+
+Source Han Serif: https://github.com/adobe-fonts/source-han-serif
+Source Han Sans: https://github.com/adobe-fonts/source-han-sans

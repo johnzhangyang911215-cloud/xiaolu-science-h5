@@ -1,0 +1,1 @@
+window.__GLB_MANIFEST=[{"name": "deer", "files": [["deer.0.js", 1500000], ["deer.1.js", 1500000], ["deer.2.js", 1500000], ["deer.3.js", 645904]]}, {"name": "box-closed", "files": [["box-closed.0.js", 801328]]}, {"name": "ampoule", "files": [["ampoule.0.js", 1500000], ["ampoule.1.js", 14080]]}, {"name": "usage", "files": [["usage.0.js", 1500000], ["usage.1.js", 1361404]]}];
