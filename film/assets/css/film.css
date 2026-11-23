@@ -54,3 +54,16 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #start,#again{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:18px 44px;border:1px solid rgba(255,255,255,.6);
   background:rgba(10,11,13,.72);color:#F2F1EC;font-size:22px;letter-spacing:.2em;border-radius:40px;cursor:pointer;z-index:5}
 #start[hidden],#again[hidden]{display:none}
+
+/* scenes 2–3 (scene23.js) */
+#s23{position:absolute;inset:0;z-index:1;pointer-events:none}
+#s23-gl,#s23-ov{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#s23-ov .lead{fill:none;stroke:rgba(242,241,236,.85);stroke-width:2px;opacity:0}
+#s23-ov .lead.wax{stroke:#E2C48E}
+#s23-ov .adot{fill:#F2F1EC;opacity:0}
+#s23-ov .adot.wax{fill:#F3DDB0}
+#s23 .copy{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;color:#F2F1EC}
+#s23 .s2-name{left:150px;top:800px;font:400 64px/1 "XL Serif",serif;letter-spacing:.42em;text-shadow:0 0 24px rgba(0,0,0,.7)}
+#s23 .s2-sub,#s23 .s3-sub{left:0;right:0;top:auto;bottom:150px;text-align:center;font:400 46px/1.2 "XL Serif",serif;letter-spacing:.22em;text-shadow:0 0 18px rgba(0,0,0,.6)}
+#s23 .s3-lab{font:400 40px/1 "XL Sans",sans-serif;letter-spacing:.16em;margin-top:-20px;text-shadow:0 0 12px rgba(0,0,0,.8)}
+#s23 .s3-wax{color:#F3DDB0;font-size:44px;margin-top:-22px}

@@ -499,4 +499,5 @@
 
   window.FILM_SCENES = window.FILM_SCENES || {};
   window.FILM_SCENES[1] = { init, render, setActive, probe: () => lastProbe };
+  window.FILM_LIB = Object.assign(window.FILM_LIB || {}, { NOISE_GLSL }); // shared with scene23.js (cloud break at s2)
 })();

@@ -1,0 +1,626 @@
+{
+  "when": "2026-11-23T22:10:12.686Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          512,
+          2,
+          512
+        ],
+        [
+          513,
+          2,
+          513
+        ],
+        [
+          1022,
+          2,
+          1022
+        ],
+        [
+          1023,
+          3,
+          1023
+        ],
+        [
+          1341,
+          3,
+          1341
+        ],
+        [
+          1342,
+          4,
+          1342
+        ]
+      ]
+    },
+    "freeze": {
+      "ok": true,
+      "before": {
+        "frame": 1022,
+        "camSpeed": 1.3993
+      },
+      "freeze": {
+        "frame": 1023,
+        "camSpeed": 0,
+        "antlerFrac": 0.6
+      },
+      "after": {
+        "frame": 1024,
+        "camSpeed": 0,
+        "snowFall": 0.3
+      }
+    },
+    "firstLook": [
+      {
+        "ok": true,
+        "frame": 527,
+        "tip": {
+          "x": 958.4,
+          "y": 380.1
+        },
+        "tipCell": {
+          "cx": 15,
+          "cy": 6
+        },
+        "brightest": {
+          "cx": 28,
+          "cy": 15,
+          "lum": 123.55882883333332,
+          "warm": -18.3175
+        },
+        "warmest": {
+          "cx": 15,
+          "cy": 6,
+          "lum": 115.46111733333332,
+          "warm": 30.022222222222222
+        }
+      },
+      {
+        "ok": true,
+        "frame": 1038,
+        "tip": {
+          "x": 778.6,
+          "y": 260.3
+        },
+        "tipCell": {
+          "cx": 12,
+          "cy": 4
+        },
+        "brightest": {
+          "cx": 13,
+          "cy": 3,
+          "lum": 141.69772427777778,
+          "warm": 30.95638888888889
+        },
+        "warmest": {
+          "cx": 12,
+          "cy": 3,
+          "lum": 137.12712794444442,
+          "warm": 38.360277777777775
+        }
+      }
+    ],
+    "copy": {
+      "ok": true,
+      "copyEntries": 7,
+      "texts": [
+        {
+          "text": "梅花鹿",
+          "seconds": [
+            19.23,
+            22.97
+          ],
+          "inCopy": true,
+          "window": [
+            19.2,
+            23
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "每年春天，鹿茸重新生长",
+          "seconds": [
+            25.63,
+            30.47
+          ],
+          "inCopy": true,
+          "window": [
+            25.6,
+            30.5
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "骨片",
+          "seconds": [
+            36.23,
+            43.63
+          ],
+          "inCopy": true,
+          "window": [
+            36.2,
+            43.7
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "血片",
+          "seconds": [
+            38.37,
+            43.63
+          ],
+          "inCopy": true,
+          "window": [
+            38.34,
+            43.7
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "粉片",
+          "seconds": [
+            40.5,
+            43.67
+          ],
+          "inCopy": true,
+          "window": [
+            40.47,
+            43.7
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "蜡片 · 二杠茸顶端 2% 处",
+          "seconds": [
+            42.63,
+            44.57
+          ],
+          "inCopy": true,
+          "window": [
+            42.59,
+            44.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "鹿茸生长最活跃的部位",
+          "seconds": [
+            43.03,
+            44.57
+          ],
+          "inCopy": true,
+          "window": [
+            43,
+            44.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "shots": [
+      {
+        "name": "enter",
+        "frame": 527,
+        "n": 2,
+        "probe": {
+          "camSpeed": 0.62136,
+          "push": 0,
+          "antlerFrac": 0.0975,
+          "antlerTop": 379.9,
+          "antlerBottom": 485.2,
+          "tip": {
+            "x": 958.4,
+            "y": 380.1
+          },
+          "snowFall": 1,
+          "snowK": 1,
+          "deerX": -2.94,
+          "headRaise": 0,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0.732,
+          "focus": 6.367
+        }
+      },
+      {
+        "name": "name",
+        "frame": 630,
+        "n": 2,
+        "probe": {
+          "camSpeed": 1.36381,
+          "push": 0,
+          "antlerFrac": 0.1113,
+          "antlerTop": 314,
+          "antlerBottom": 434.2,
+          "tip": {
+            "x": 1109.5,
+            "y": 314.4
+          },
+          "snowFall": 1,
+          "snowK": 1,
+          "deerX": -0.093,
+          "headRaise": 0,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 5.678
+        }
+      },
+      {
+        "name": "look",
+        "frame": 705,
+        "n": 2,
+        "probe": {
+          "camSpeed": 0.00786,
+          "push": 0,
+          "antlerFrac": 0.2454,
+          "antlerTop": 295,
+          "antlerBottom": 560,
+          "tip": {
+            "x": 756.4,
+            "y": 295
+          },
+          "snowFall": 1,
+          "snowK": 1,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 2.265
+        }
+      },
+      {
+        "name": "sub",
+        "frame": 840,
+        "n": 2,
+        "probe": {
+          "camSpeed": 0.09999,
+          "push": 0.1657,
+          "antlerFrac": 0.2828,
+          "antlerTop": 231.8,
+          "antlerBottom": 537.2,
+          "tip": {
+            "x": 730.8,
+            "y": 231.8
+          },
+          "snowFall": 1,
+          "snowK": 1,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.978
+        }
+      },
+      {
+        "name": "push",
+        "frame": 1005,
+        "n": 2,
+        "probe": {
+          "camSpeed": 0.08193,
+          "push": 0.7469,
+          "antlerFrac": 0.4796,
+          "antlerTop": 136.8,
+          "antlerBottom": 654.8,
+          "tip": {
+            "x": 734.3,
+            "y": 140.2
+          },
+          "snowFall": 1,
+          "snowK": 1,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.217
+        }
+      },
+      {
+        "name": "freeze",
+        "frame": 1023,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0,
+          "push": 1,
+          "antlerFrac": 0.6,
+          "antlerTop": 252.8,
+          "antlerBottom": 900.8,
+          "tip": {
+            "x": 794.9,
+            "y": 257.2
+          },
+          "snowFall": 0.3,
+          "snowK": 1,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 0,
+          "dim": 1,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 0.971
+        }
+      },
+      {
+        "name": "dark",
+        "frame": 1074,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0.1508,
+          "push": 1,
+          "antlerFrac": 0.4714,
+          "antlerTop": 289,
+          "antlerBottom": 798,
+          "tip": {
+            "x": 639.9,
+            "y": 289.6
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 0.966,
+          "dim": 0.011,
+          "layers": [
+            0.15,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.234
+        }
+      },
+      {
+        "name": "bone",
+        "frame": 1110,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0,
+          "push": 1,
+          "antlerFrac": 0.46,
+          "antlerTop": 292.3,
+          "antlerBottom": 789.1,
+          "tip": {
+            "x": 626.4,
+            "y": 292.8
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 1,
+          "dim": 0,
+          "layers": [
+            1,
+            0.15,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.262
+        }
+      },
+      {
+        "name": "blood",
+        "frame": 1170,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0,
+          "push": 1,
+          "antlerFrac": 0.46,
+          "antlerTop": 292.3,
+          "antlerBottom": 789.1,
+          "tip": {
+            "x": 626.4,
+            "y": 292.8
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 1,
+          "dim": 0,
+          "layers": [
+            0.35,
+            1,
+            0.15,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.262
+        }
+      },
+      {
+        "name": "powder",
+        "frame": 1230,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0,
+          "push": 1,
+          "antlerFrac": 0.46,
+          "antlerTop": 292.3,
+          "antlerBottom": 789.1,
+          "tip": {
+            "x": 626.4,
+            "y": 292.8
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 1,
+          "dim": 0,
+          "layers": [
+            0.35,
+            0.35,
+            1,
+            0.15
+          ],
+          "waxLift": 0,
+          "cloud": 0,
+          "focus": 1.262
+        }
+      },
+      {
+        "name": "wax",
+        "frame": 1296,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0.32943,
+          "push": 1,
+          "antlerFrac": 0.4705,
+          "antlerTop": 295.7,
+          "antlerBottom": 803.9,
+          "tip": {
+            "x": 631.5,
+            "y": 296.1
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 1,
+          "dim": 0,
+          "layers": [
+            0.2,
+            0.2,
+            0.2,
+            1.6
+          ],
+          "waxLift": 0.168,
+          "cloud": 0,
+          "focus": 1.233
+        }
+      },
+      {
+        "name": "end",
+        "frame": 1341,
+        "n": 3,
+        "probe": {
+          "camSpeed": 0,
+          "push": 1,
+          "antlerFrac": 1.1172,
+          "antlerTop": 713.4,
+          "antlerBottom": 1920.1,
+          "tip": {
+            "x": 1089.3,
+            "y": 713.4
+          },
+          "snowFall": 0.3,
+          "snowK": 0,
+          "deerX": 0,
+          "headRaise": 1,
+          "reveal": 1,
+          "dim": 0,
+          "layers": [
+            0.2,
+            0.2,
+            0.2,
+            1.6
+          ],
+          "waxLift": 1,
+          "cloud": 0,
+          "focus": 0.487
+        }
+      }
+    ],
+    "mobile": {
+      "ok": true,
+      "labels": [
+        {
+          "text": "骨片",
+          "x0": 515.888916015625,
+          "x1": 549.404541015625,
+          "y0": 296.03887939453125,
+          "y1": 310.48333740234375,
+          "h": 14.4444580078125
+        },
+        {
+          "text": "血片",
+          "x0": 515.888916015625,
+          "x1": 549.404541015625,
+          "y0": 232.59165954589844,
+          "y1": 247.03610229492188,
+          "h": 14.444442749023438
+        },
+        {
+          "text": "粉片",
+          "x0": 515.888916015625,
+          "x1": 549.404541015625,
+          "y0": 173.3333282470703,
+          "y1": 187.77777099609375,
+          "h": 14.444442749023438
+        },
+        {
+          "text": "蜡片 · 二杠茸顶端 2% 处",
+          "x0": 515.888916015625,
+          "x1": 734.7109375,
+          "y0": 98.18610382080078,
+          "y1": 114.07499694824219,
+          "h": 15.888893127441406
+        }
+      ]
+    }
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}

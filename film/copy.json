@@ -3,6 +3,13 @@
   "entries": [
     { "id": "s1-lat", "scene": 1, "in": "push2", "out": "cloud", "text": "北纬 43°", "source": "p38", "status": "approved" },
     { "id": "s1-place", "scene": 1, "in": "shuangyang", "out": 16.6, "text": "中国东北 · 吉林长春双阳", "source": "分镜", "status": "approved" },
-    { "id": "s1-sub", "scene": 1, "in": 13.8, "out": 16.5, "text": "一片雪原，一种生长的节律", "source": "分镜", "status": "approved" }
+    { "id": "s1-sub", "scene": 1, "in": 13.8, "out": 16.5, "text": "一片雪原，一种生长的节律", "source": "分镜", "status": "approved" },
+    { "id": "s2-name", "scene": 2, "in": 19.2, "out": 23.0, "text": "梅花鹿", "source": "分镜", "status": "approved" },
+    { "id": "s2-sub", "scene": 2, "in": 25.6, "out": 30.5, "text": "每年春天，鹿茸重新生长", "source": "分镜", "status": "approved" },
+    { "id": "s3-bone", "scene": 3, "in": "layerBone", "out": 43.7, "text": "骨片", "source": "KT板44", "status": "approved" },
+    { "id": "s3-blood", "scene": 3, "in": "layerBlood", "out": 43.7, "text": "血片", "source": "KT板44", "status": "approved" },
+    { "id": "s3-powder", "scene": 3, "in": "layerPowder", "out": 43.7, "text": "粉片", "source": "KT板44", "status": "approved" },
+    { "id": "s3-wax", "scene": 3, "in": "wax", "out": 44.6, "text": "蜡片 · 二杠茸顶端 2% 处", "source": "p38", "status": "approved" },
+    { "id": "s3-sub", "scene": 3, "in": 43.0, "out": 44.6, "text": "鹿茸生长最活跃的部位", "source": "p38", "status": "approved" }
   ]
 }
