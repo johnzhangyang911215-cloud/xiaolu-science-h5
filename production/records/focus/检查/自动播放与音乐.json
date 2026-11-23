@@ -1,0 +1,39 @@
+[
+  {
+    "layout": "横版",
+    "first": {
+      "i": 0,
+      "rate": 1,
+      "t": 0.154,
+      "d": 3.66,
+      "key": 3.2
+    },
+    "second": {
+      "i": 0,
+      "rate": 1,
+      "t": 1.408,
+      "d": 3.66,
+      "key": 3.2
+    },
+    "sound": {
+      "scene": {
+        "i": 0,
+        "rate": 1,
+        "t": 1.758,
+        "d": 3.66,
+        "key": 3.2
+      },
+      "music": {
+        "started": true,
+        "muted": false,
+        "ended": false,
+        "vol": 0.0941222234555395,
+        "t": 0.261715,
+        "paused": false
+      }
+    },
+    "errors": [],
+    "network": [],
+    "ok": true
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "name": "xiaolu-focus-export",
+  "private": true,
+  "dependencies": {
+    "playwright": "^1.50.0"
+  }
+}

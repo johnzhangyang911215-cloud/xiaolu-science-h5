@@ -1,0 +1,28 @@
+{
+  "env": {
+    "ready": true,
+    "post": true,
+    "bloom": true,
+    "bokeh": true,
+    "canvas": [
+      1920,
+      1080
+    ],
+    "camera": {
+      "x": 7800.451234185495,
+      "y": 300.4329386789227,
+      "z": -1000.1225755217847,
+      "scene": 5
+    },
+    "frame": {
+      "cx": 960,
+      "cy": 540,
+      "s": 1,
+      "py": 540
+    },
+    "fonts": true,
+    "body": false
+  },
+  "errors": [],
+  "saved": 16
+}

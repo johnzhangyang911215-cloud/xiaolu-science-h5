@@ -1,0 +1,238 @@
+{
+  "layout": "横版",
+  "source": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/横版/index.html",
+  "output": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/小鹿精华_聚焦叙事版_横版.html",
+  "sha256": "28194a96ce88fd79664b51cb51844732036944ab2bc6a98c016a4388f38e9e2f",
+  "bytes": 26074185,
+  "offlineStaticAudit": true,
+  "brand": "韶初泌语",
+  "assetCount": 53,
+  "assets": {
+    "assets/css/style.css": {
+      "bytes": 17589,
+      "sha256": "08dc6f2b79327c02f9d836fdb96ea976ff454330656998ed1b276374d07938a6"
+    },
+    "assets/fonts/serif-r.woff2": {
+      "bytes": 149488,
+      "sha256": "2361c88c9d99758fbf94db14a412797d7516d89ba2b4000da38e75d493dde929"
+    },
+    "assets/fonts/serif-b.woff2": {
+      "bytes": 152076,
+      "sha256": "318d75d5c531950dd0253603c89d80b187ea1f8a8219035a6e116fef55159cb8"
+    },
+    "assets/fonts/sans-r.woff2": {
+      "bytes": 106392,
+      "sha256": "fc48672e308930b7863f32de3da5351297525ffe6686e98527ea6c805b72a307"
+    },
+    "assets/fonts/mono.woff2": {
+      "bytes": 34096,
+      "sha256": "8d3a06f8313ecc13ce7b3688c734f4d2e7b2e62eaadb220a8366ea0123463d06"
+    },
+    "assets/fonts/cond-xl.woff2": {
+      "bytes": 15600,
+      "sha256": "a201870a636c1c95985083ac2317fbbfb5357512aa9c609bbd411f88693c5c4b"
+    },
+    "assets/fonts/cond-sb.woff2": {
+      "bytes": 16960,
+      "sha256": "9e2804c87ea81535237db8035f682735b6350eb702cae1e5482926b442129dbe"
+    },
+    "assets/fonts/display.woff2": {
+      "bytes": 16732,
+      "sha256": "4fc0ce308b4621883f8d81277fc7d805cc668fb33339b3d68fc1e80844fc5805"
+    },
+    "assets/img/grain.png": {
+      "bytes": 16580,
+      "sha256": "47f8ea74399bce9a1b785292cde26e8b58e4d662e810a1883d036c3834f63936"
+    },
+    "assets/css/revision.css": {
+      "bytes": 2805,
+      "sha256": "9c0e9386e0119dc88633c97849898a62ad73fdea02b5042bc967eee569268d3c"
+    },
+    "assets/css/launch.css": {
+      "bytes": 13711,
+      "sha256": "118f6fb24b341917685de5916185021d67ae73798c5ce11d6fadf9e5f0113f5e"
+    },
+    "assets/css/cinema.css": {
+      "bytes": 11788,
+      "sha256": "4f8c60dc9e430c3f2bd5b7ae2fb57ce20f67030ca3d9e095bec6f0e15310cacf"
+    },
+    "assets/fonts/cinema-serif-r.woff2": {
+      "bytes": 104344,
+      "sha256": "ad804f7e33abda176c2e197066e2db912671bf5f9d623ae3df2c4df2b9f0eb9e"
+    },
+    "assets/fonts/cinema-serif-m.woff2": {
+      "bytes": 105716,
+      "sha256": "5a77b68727649edf821671fe9b7e9773ff5e02d989ccd3c6081799fd9c1a72c9"
+    },
+    "assets/fonts/cinema-sans-r.woff2": {
+      "bytes": 80368,
+      "sha256": "83743be5af248bc6e4f380faff3565327f6810dd27702ebd55d5c369128321a9"
+    },
+    "assets/img/deer-blue.webp": {
+      "bytes": 71284,
+      "sha256": "f22d2a361934307b141b1c65ad3ae8f50d9cd15020f03dd7c366c9235836f036"
+    },
+    "assets/img/science-cover.webp": {
+      "bytes": 1838266,
+      "sha256": "e646a4b52e6aded42963833dac2d9e1c7a2500cf3c7d02e29e64d818970f323b"
+    },
+    "assets/img/phylo-blue.webp": {
+      "bytes": 140858,
+      "sha256": "7c9412b9099242f625afedb009a842c527d874034e2453cd9db7cd5a0f1342e0"
+    },
+    "assets/img/ampoule.webp": {
+      "bytes": 471710,
+      "sha256": "f0f7eec8ebf92a86105da2a55fa8ca226d2827dc7a6758f7f1e4bdf9e4008f37"
+    },
+    "assets/img/giftbox.webp": {
+      "bytes": 2993314,
+      "sha256": "976c743cb23fc40f13c2b7e237e7f9a441a8d608ad8c803abd20fedb8e628d9a"
+    },
+    "assets/img/logo-bgi-white.svg": {
+      "bytes": 4284,
+      "sha256": "2c001140322b5bf54c395ef73542a54e52556cf23a55c08bc3ec225d83f5e171"
+    },
+    "assets/img/logo-ym.svg": {
+      "bytes": 8849,
+      "sha256": "5351912a9d0904cc36a5e654e04ea50dbff03eed8c28dbcb0124c2efbb22aa29"
+    },
+    "assets/img/logo-bgi.svg": {
+      "bytes": 4284,
+      "sha256": "2c001140322b5bf54c395ef73542a54e52556cf23a55c08bc3ec225d83f5e171"
+    },
+    "assets/audio/bgm.mp3": {
+      "bytes": 2687084,
+      "sha256": "1cef4f1d06f0ea5c9b596deb9c382afa46a43ebe359e9c7a2b068a158a484718"
+    },
+    "assets/js/gsap.min.js": {
+      "bytes": 72927,
+      "sha256": "92bb9a96476f983d212a2bc4f54c889039c1696dd4461d40a736860938570fbb"
+    },
+    "assets/js/shapes.js": {
+      "bytes": 2520,
+      "sha256": "7af8dfc2358e2d9dfca1f9908f8ca126485800b48f561599223f238e64103eec"
+    },
+    "assets/js/product-points.js": {
+      "bytes": 51031,
+      "sha256": "bd43bc0ae44e4387220b40917b8a57f8be0d6814484bdf7bbd37030e3ade2f1d"
+    },
+    "assets/js/deer-points.js": {
+      "bytes": 74214,
+      "sha256": "3f927d1a42956b5aac40f4803e8ff6117cdf5722f2d6c98a66926ea7e6854ac1"
+    },
+    "assets/js/s4-points.js": {
+      "bytes": 80083,
+      "sha256": "60521cbc097bedc01fb6a846e8992cba1ba0f02a95a3911227656e27867bd36f"
+    },
+    "assets/js/three.bundle.min.js": {
+      "bytes": 851891,
+      "sha256": "e44fbc1e991a7903f50914e9c7d0e731cfb5b5f4ef27237a0c0a46a56955566d"
+    },
+    "assets/js/particles.js": {
+      "bytes": 12006,
+      "sha256": "cca800c882d969b0034dc00734563630a40cd3e7994db98f1cb68251fab3d3ce"
+    },
+    "assets/js/loader.js": {
+      "bytes": 950,
+      "sha256": "a5542dd289e0c93670b637c643dd68cfff816dc0ec4919335e727feea016872f"
+    },
+    "assets/models/manifest.js": {
+      "bytes": 376,
+      "sha256": "6898ae158c22d1348a360e3dece8d6c9f7a0788e30884cb49419ce7191741f61"
+    },
+    "assets/models/deer.0.js": {
+      "bytes": 1500022,
+      "sha256": "c0b83f6f372cd0e9c8008967d66898fde13175ded02a24f992c75a4e069711c4"
+    },
+    "assets/models/deer.1.js": {
+      "bytes": 1500022,
+      "sha256": "a1f1aed43b816981aacb24160a353e77a8b26d637321e6c629654eaafad5ce7e"
+    },
+    "assets/models/deer.2.js": {
+      "bytes": 1500022,
+      "sha256": "2e0c7b90468f41447eb3b7c653fe4ddc849f2c1038a40d29c2028b6bd730e1f8"
+    },
+    "assets/models/deer.3.js": {
+      "bytes": 645926,
+      "sha256": "022c2f2108aa1e3fc379665681debacc05c451abcaa8b740e767825708816d28"
+    },
+    "assets/models/box-closed.0.js": {
+      "bytes": 801357,
+      "sha256": "4204f587cc7e7b477e7bf0edcb8e33860deee3cac6825a425bcb467b4e6ce538"
+    },
+    "assets/models/ampoule.0.js": {
+      "bytes": 1500026,
+      "sha256": "179e5d1e1d3b033f63aabb1580ed7de3b9645a9bf6e1301dbcd0494f61d63128"
+    },
+    "assets/models/ampoule.1.js": {
+      "bytes": 14106,
+      "sha256": "352a793c22632eca76abbd8aab179577313231c24025cb6d239416b8877cfd0e"
+    },
+    "assets/models/usage.0.js": {
+      "bytes": 1500024,
+      "sha256": "bd56b2b41cdd67ee90d38add064ec7b99599728fc48a1a68ac1bf0bb4f8c5d4c"
+    },
+    "assets/models/usage.1.js": {
+      "bytes": 1361428,
+      "sha256": "afe78557681598c8aee46750d74ccaac7f9035a9b9ff292aeee9604918863209"
+    },
+    "assets/js/usage-curves.js": {
+      "bytes": 93655,
+      "sha256": "6fadface0766b7d17d1692bd903c343c4ad1c9d4a88e2e73ad1727673dc2a80c"
+    },
+    "assets/js/scene3d.js": {
+      "bytes": 2299879,
+      "sha256": "2bfa4a8e57c21b4c82e28eca81ab53d71b32aa9e76a0c38681e41394c86d378d"
+    },
+    "assets/js/frozen-chamber.js": {
+      "bytes": 17670,
+      "sha256": "a892ac9bebe6316489794fc8f6811871d4bdea886fa969e5f97e54b6e7857384"
+    },
+    "assets/js/transition-continuity.js": {
+      "bytes": 7528,
+      "sha256": "704a7667f9538f640ef14d56bd97007643bd522836eb0a4e46e8bb7838591bd1"
+    },
+    "assets/js/cinema-panels.js": {
+      "bytes": 4295,
+      "sha256": "dfc4e664aa459fe7da9c6c47abf095ea6770f906b3a09abcbe115424b5752e55"
+    },
+    "assets/js/cinema-layout.js": {
+      "bytes": 1644,
+      "sha256": "6ebd7ba1d3e15a0a8078ac51ed9aeb1d1c35a3a967ea7087436ba1b50523de18"
+    },
+    "assets/js/main.js": {
+      "bytes": 81564,
+      "sha256": "89305a28c13105641842bab770e066e74ad92befcdc2a78a061b045f851bdf51"
+    },
+    "assets/js/bgm.js": {
+      "bytes": 2926,
+      "sha256": "a15d4fcb002e7c614fb227d35e8073b3be1b4d5988340ff6a14132c20f132cbd"
+    },
+    "assets/fonts/FONT-LICENSE-NOTES.txt": {
+      "bytes": 566,
+      "sha256": "091ac044353fb3eb473b47572bb96e44c61e8a975cf3f2500d22f10c48d6d1e4"
+    },
+    "assets/fonts/LICENSE-SourceHanSans-APACHE.txt": {
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "assets/fonts/LICENSE-SourceHanSerif-OFL.txt": {
+      "bytes": 4463,
+      "sha256": "9ff5bb567e1b92c801fc1069e5fbf992ff8efccacb9db94e5959a5b3ba9bb903"
+    }
+  },
+  "embeddedFontLicenses": [
+    "FONT-LICENSE-NOTES.txt",
+    "LICENSE-SourceHanSans-APACHE.txt",
+    "LICENSE-SourceHanSerif-OFL.txt"
+  ],
+  "packageCreated": true,
+  "zip": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/小鹿精华_聚焦叙事版_横版_H5上线包.zip",
+  "zipBytes": 16363052,
+  "zipSha256": "583b4590e06b895c22af90c0dabdb3bfb53b5b25ff28717e30c9d290414ac111",
+  "entries": [
+    "index.html",
+    "上线说明.txt",
+    "素材来源与许可.txt"
+  ]
+}

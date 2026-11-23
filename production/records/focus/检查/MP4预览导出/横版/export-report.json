@@ -1,0 +1,1036 @@
+{
+  "source": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/小鹿精华_聚焦叙事版_横版.html",
+  "sourceSha256": "28194a96ce88fd79664b51cb51844732036944ab2bc6a98c016a4388f38e9e2f",
+  "layout": "横版",
+  "output": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/小鹿精华_聚焦叙事版_横版_1080p预览.mp4",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "errors": [],
+  "shaderErrors": [],
+  "externalRequests": [],
+  "failedRequests": [],
+  "scenes": [
+    {
+      "scene": 0,
+      "startFrame": 0,
+      "startSeconds": 0,
+      "duration": 3.66,
+      "key": 3.2
+    },
+    {
+      "scene": 1,
+      "startFrame": 114,
+      "startSeconds": 3.8,
+      "duration": 6.26,
+      "key": 3.8
+    },
+    {
+      "scene": 2,
+      "startFrame": 306,
+      "startSeconds": 10.2,
+      "duration": 9.41,
+      "key": 6.4,
+      "key2": 9.3
+    },
+    {
+      "scene": 3,
+      "startFrame": 593,
+      "startSeconds": 19.766666666666666,
+      "duration": 16.218,
+      "key": 15.57
+    },
+    {
+      "scene": 4,
+      "startFrame": 1088,
+      "startSeconds": 36.266666666666666,
+      "duration": 8.31,
+      "key": 6.2
+    },
+    {
+      "scene": 5,
+      "startFrame": 1342,
+      "startSeconds": 44.733333333333334,
+      "duration": 37.21,
+      "key": 24.2,
+      "key2": 12.9
+    },
+    {
+      "scene": 6,
+      "startFrame": 2460,
+      "startSeconds": 82,
+      "duration": 14.51,
+      "key": 13.5,
+      "key2": 8.8
+    }
+  ],
+  "frames": 2957,
+  "subtitleMode": "burned-in",
+  "musicSource": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/横版/assets/audio/bgm.mp3",
+  "musicPlaybackRate": 1,
+  "uiRemoved": [
+    "#snd",
+    "#hint",
+    "#index",
+    "#load"
+  ],
+  "startedAt": "2026-10-24T15:16:12.804Z",
+  "mode": "mp4",
+  "environment": {
+    "threeD": true,
+    "canvas": [
+      1920,
+      1080
+    ],
+    "stage": [
+      1920,
+      1080
+    ],
+    "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Pro, Unspecified Version)",
+    "uiHidden": true,
+    "allImagesDecoded": true,
+    "brandText": true,
+    "threeRevision": "186",
+    "postProcessing": true
+  },
+  "timing": {
+    "playbackRate": 1,
+    "variablePacing": true,
+    "pacing": [
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1.05
+        ],
+        [
+          9.6,
+          0.95
+        ],
+        [
+          12.6,
+          0.9
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ]
+      ]
+    ],
+    "pauseScale": 0.8,
+    "pauses": [
+      [],
+      [],
+      [],
+      [
+        [
+          11.45,
+          12.6
+        ],
+        [
+          15.8,
+          16.61
+        ]
+      ],
+      [],
+      [],
+      []
+    ],
+    "usageShift": 0,
+    "doseDockSeconds": 1.8,
+    "doseSettledSeconds": 0.9,
+    "frozenChamber": true,
+    "continuousEvidenceTransitions": true,
+    "readableUsage": true,
+    "efficacyCountSeconds": 1.8,
+    "efficacyStaggerSeconds": 0.2,
+    "usageSteps": [
+      [
+        15,
+        17.8
+      ],
+      [
+        17.8,
+        22.6
+      ],
+      [
+        22.6,
+        26.1
+      ]
+    ],
+    "usageActions": [
+      [
+        15.1,
+        17.5
+      ],
+      [
+        17.8,
+        20.1
+      ],
+      [
+        22.6,
+        26.1
+      ]
+    ],
+    "transitionHoldScale": 0.16,
+    "endHold": 2,
+    "edition": "focus"
+  },
+  "endHoldSeconds": 2,
+  "sampleTimes": [
+    {
+      "id": "scene-0-8",
+      "scene": 0,
+      "targetStoryTime": 0.2928,
+      "storyTime": 0.3,
+      "videoTime": 0.3,
+      "frame": 9,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-0-8.png"
+    },
+    {
+      "id": "scene-0-30",
+      "scene": 0,
+      "targetStoryTime": 1.098,
+      "storyTime": 1.1,
+      "videoTime": 1.1,
+      "frame": 33,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-0-30.png"
+    },
+    {
+      "id": "scene-0-62",
+      "scene": 0,
+      "targetStoryTime": 2.2692,
+      "storyTime": 2.3,
+      "videoTime": 2.3,
+      "frame": 69,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-0-62.png"
+    },
+    {
+      "id": "scene-0-86",
+      "scene": 0,
+      "targetStoryTime": 3.1476,
+      "storyTime": 3.1666667,
+      "videoTime": 3.1666666666666665,
+      "frame": 95,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-0-86.png"
+    },
+    {
+      "id": "scene-0-key",
+      "scene": 0,
+      "targetStoryTime": 3.2,
+      "storyTime": 3.2,
+      "videoTime": 3.2,
+      "frame": 96,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-0-key.png"
+    },
+    {
+      "id": "scene-1-8",
+      "scene": 1,
+      "targetStoryTime": 0.5008,
+      "storyTime": 0.5333333,
+      "videoTime": 4.333333333333333,
+      "frame": 130,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-1-8.png"
+    },
+    {
+      "id": "scene-1-30",
+      "scene": 1,
+      "targetStoryTime": 1.878,
+      "storyTime": 1.9,
+      "videoTime": 5.7,
+      "frame": 171,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-1-30.png"
+    },
+    {
+      "id": "scene-1-key",
+      "scene": 1,
+      "targetStoryTime": 3.8,
+      "storyTime": 3.8,
+      "videoTime": 7.6,
+      "frame": 228,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-1-key.png"
+    },
+    {
+      "id": "scene-1-62",
+      "scene": 1,
+      "targetStoryTime": 3.8811999999999998,
+      "storyTime": 3.9,
+      "videoTime": 7.7,
+      "frame": 231,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-1-62.png"
+    },
+    {
+      "id": "scene-1-86",
+      "scene": 1,
+      "targetStoryTime": 5.3835999999999995,
+      "storyTime": 5.4,
+      "videoTime": 9.2,
+      "frame": 276,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-1-86.png"
+    },
+    {
+      "id": "scene-2-8",
+      "scene": 2,
+      "targetStoryTime": 0.7528,
+      "storyTime": 0.7666667,
+      "videoTime": 10.966666666666667,
+      "frame": 329,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-8.png"
+    },
+    {
+      "id": "scene-2-30",
+      "scene": 2,
+      "targetStoryTime": 2.823,
+      "storyTime": 2.8333333,
+      "videoTime": 13.033333333333333,
+      "frame": 391,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-30.png"
+    },
+    {
+      "id": "scene-2-62",
+      "scene": 2,
+      "targetStoryTime": 5.8342,
+      "storyTime": 5.8666667,
+      "videoTime": 16.066666666666666,
+      "frame": 482,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-62.png"
+    },
+    {
+      "id": "scene-2-key",
+      "scene": 2,
+      "targetStoryTime": 6.4,
+      "storyTime": 6.4,
+      "videoTime": 16.6,
+      "frame": 498,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-key.png"
+    },
+    {
+      "id": "scene-2-86",
+      "scene": 2,
+      "targetStoryTime": 8.0926,
+      "storyTime": 8.1,
+      "videoTime": 18.3,
+      "frame": 549,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-86.png"
+    },
+    {
+      "id": "scene-2-key2",
+      "scene": 2,
+      "targetStoryTime": 9.3,
+      "storyTime": 9.3,
+      "videoTime": 19.5,
+      "frame": 585,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-2-key2.png"
+    },
+    {
+      "id": "scene-3-8",
+      "scene": 3,
+      "targetStoryTime": 1.29744,
+      "storyTime": 1.3299998,
+      "videoTime": 21.033333333333335,
+      "frame": 631,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-3-8.png"
+    },
+    {
+      "id": "scene-3-30",
+      "scene": 3,
+      "targetStoryTime": 4.8654,
+      "storyTime": 4.8999998,
+      "videoTime": 24.433333333333334,
+      "frame": 733,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-3-30.png"
+    },
+    {
+      "id": "scene-3-62",
+      "scene": 3,
+      "targetStoryTime": 10.05516,
+      "storyTime": 10.0683332,
+      "videoTime": 29.4,
+      "frame": 882,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-3-62.png"
+    },
+    {
+      "id": "scene-3-86",
+      "scene": 3,
+      "targetStoryTime": 13.94748,
+      "storyTime": 13.9699999,
+      "videoTime": 33.6,
+      "frame": 1008,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-3-86.png"
+    },
+    {
+      "id": "scene-3-key",
+      "scene": 3,
+      "targetStoryTime": 15.57,
+      "storyTime": 15.5899999,
+      "videoTime": 35.4,
+      "frame": 1062,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-3-key.png"
+    },
+    {
+      "id": "scene-4-8",
+      "scene": 4,
+      "targetStoryTime": 0.6648000000000001,
+      "storyTime": 0.6666666,
+      "videoTime": 36.93333333333333,
+      "frame": 1108,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-4-8.png"
+    },
+    {
+      "id": "scene-4-30",
+      "scene": 4,
+      "targetStoryTime": 2.493,
+      "storyTime": 2.5,
+      "videoTime": 38.766666666666666,
+      "frame": 1163,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-4-30.png"
+    },
+    {
+      "id": "scene-4-62",
+      "scene": 4,
+      "targetStoryTime": 5.152200000000001,
+      "storyTime": 5.1666666,
+      "videoTime": 41.43333333333333,
+      "frame": 1243,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-4-62.png"
+    },
+    {
+      "id": "scene-4-key",
+      "scene": 4,
+      "targetStoryTime": 6.2,
+      "storyTime": 6.2,
+      "videoTime": 42.46666666666667,
+      "frame": 1274,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-4-key.png"
+    },
+    {
+      "id": "scene-4-86",
+      "scene": 4,
+      "targetStoryTime": 7.1466,
+      "storyTime": 7.1666666,
+      "videoTime": 43.43333333333333,
+      "frame": 1303,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-4-86.png"
+    },
+    {
+      "id": "scene-5-8",
+      "scene": 5,
+      "targetStoryTime": 2.9768000000000003,
+      "storyTime": 3,
+      "videoTime": 47.733333333333334,
+      "frame": 1432,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-8.png"
+    },
+    {
+      "id": "use-3p3",
+      "scene": 5,
+      "targetStoryTime": 3.3,
+      "storyTime": 3.3,
+      "videoTime": 48.03333333333333,
+      "frame": 1441,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-3p3.png"
+    },
+    {
+      "id": "use-5p6",
+      "scene": 5,
+      "targetStoryTime": 5.6,
+      "storyTime": 5.6,
+      "videoTime": 50.333333333333336,
+      "frame": 1510,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-5p6.png"
+    },
+    {
+      "id": "use-6p7",
+      "scene": 5,
+      "targetStoryTime": 6.7,
+      "storyTime": 6.7,
+      "videoTime": 51.43333333333333,
+      "frame": 1543,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-6p7.png"
+    },
+    {
+      "id": "use-8p9",
+      "scene": 5,
+      "targetStoryTime": 8.9,
+      "storyTime": 8.9,
+      "videoTime": 53.63333333333333,
+      "frame": 1609,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-8p9.png"
+    },
+    {
+      "id": "use-10p5",
+      "scene": 5,
+      "targetStoryTime": 10.5,
+      "storyTime": 10.5,
+      "videoTime": 55.233333333333334,
+      "frame": 1657,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-10p5.png"
+    },
+    {
+      "id": "scene-5-30",
+      "scene": 5,
+      "targetStoryTime": 11.163,
+      "storyTime": 11.1666667,
+      "videoTime": 55.9,
+      "frame": 1677,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-30.png"
+    },
+    {
+      "id": "scene-5-key2",
+      "scene": 5,
+      "targetStoryTime": 12.9,
+      "storyTime": 12.9,
+      "videoTime": 57.63333333333333,
+      "frame": 1729,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-key2.png"
+    },
+    {
+      "id": "use-13p7",
+      "scene": 5,
+      "targetStoryTime": 13.7,
+      "storyTime": 13.7,
+      "videoTime": 58.43333333333333,
+      "frame": 1753,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-13p7.png"
+    },
+    {
+      "id": "use-18",
+      "scene": 5,
+      "targetStoryTime": 18,
+      "storyTime": 18,
+      "videoTime": 62.733333333333334,
+      "frame": 1882,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-18.png"
+    },
+    {
+      "id": "use-20",
+      "scene": 5,
+      "targetStoryTime": 20,
+      "storyTime": 20,
+      "videoTime": 64.73333333333333,
+      "frame": 1942,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-20.png"
+    },
+    {
+      "id": "scene-5-62",
+      "scene": 5,
+      "targetStoryTime": 23.0702,
+      "storyTime": 23.1,
+      "videoTime": 67.83333333333333,
+      "frame": 2035,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-62.png"
+    },
+    {
+      "id": "scene-5-key",
+      "scene": 5,
+      "targetStoryTime": 24.2,
+      "storyTime": 24.2,
+      "videoTime": 68.93333333333334,
+      "frame": 2068,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-key.png"
+    },
+    {
+      "id": "use-24p5",
+      "scene": 5,
+      "targetStoryTime": 24.5,
+      "storyTime": 24.5,
+      "videoTime": 69.23333333333333,
+      "frame": 2077,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-24p5.png"
+    },
+    {
+      "id": "use-32",
+      "scene": 5,
+      "targetStoryTime": 32,
+      "storyTime": 32,
+      "videoTime": 76.73333333333333,
+      "frame": 2302,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-32.png"
+    },
+    {
+      "id": "scene-5-86",
+      "scene": 5,
+      "targetStoryTime": 32.0006,
+      "storyTime": 32.0333334,
+      "videoTime": 76.76666666666667,
+      "frame": 2303,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-5-86.png"
+    },
+    {
+      "id": "use-35",
+      "scene": 5,
+      "targetStoryTime": 35,
+      "storyTime": 35,
+      "videoTime": 79.73333333333333,
+      "frame": 2392,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-use-35.png"
+    },
+    {
+      "id": "scene-6-8",
+      "scene": 6,
+      "targetStoryTime": 1.1608,
+      "storyTime": 1.1666667,
+      "videoTime": 83.16666666666667,
+      "frame": 2495,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-8.png"
+    },
+    {
+      "id": "scene-6-30",
+      "scene": 6,
+      "targetStoryTime": 4.353,
+      "storyTime": 4.3666667,
+      "videoTime": 86.36666666666666,
+      "frame": 2591,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-30.png"
+    },
+    {
+      "id": "eff-7p7",
+      "scene": 6,
+      "targetStoryTime": 7.7,
+      "storyTime": 7.7,
+      "videoTime": 89.7,
+      "frame": 2691,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-7p7.png"
+    },
+    {
+      "id": "eff-8p1",
+      "scene": 6,
+      "targetStoryTime": 8.1,
+      "storyTime": 8.1,
+      "videoTime": 90.1,
+      "frame": 2703,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-8p1.png"
+    },
+    {
+      "id": "eff-8p5",
+      "scene": 6,
+      "targetStoryTime": 8.5,
+      "storyTime": 8.5,
+      "videoTime": 90.5,
+      "frame": 2715,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-8p5.png"
+    },
+    {
+      "id": "scene-6-key2",
+      "scene": 6,
+      "targetStoryTime": 8.8,
+      "storyTime": 8.8,
+      "videoTime": 90.8,
+      "frame": 2724,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-key2.png"
+    },
+    {
+      "id": "scene-6-62",
+      "scene": 6,
+      "targetStoryTime": 8.9962,
+      "storyTime": 9,
+      "videoTime": 91,
+      "frame": 2730,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-62.png"
+    },
+    {
+      "id": "eff-9",
+      "scene": 6,
+      "targetStoryTime": 9,
+      "storyTime": 9,
+      "videoTime": 91,
+      "frame": 2730,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-9.png"
+    },
+    {
+      "id": "eff-9p7",
+      "scene": 6,
+      "targetStoryTime": 9.7,
+      "storyTime": 9.7,
+      "videoTime": 91.7,
+      "frame": 2751,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-9p7.png"
+    },
+    {
+      "id": "eff-10p2",
+      "scene": 6,
+      "targetStoryTime": 10.2,
+      "storyTime": 10.2,
+      "videoTime": 92.2,
+      "frame": 2766,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-eff-10p2.png"
+    },
+    {
+      "id": "scene-6-86",
+      "scene": 6,
+      "targetStoryTime": 12.4786,
+      "storyTime": 12.5,
+      "videoTime": 94.5,
+      "frame": 2835,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-86.png"
+    },
+    {
+      "id": "scene-6-key",
+      "scene": 6,
+      "targetStoryTime": 13.5,
+      "storyTime": 13.5,
+      "videoTime": 95.5,
+      "frame": 2865,
+      "file": "~/Library/Mobile Documents/com~apple~CloudDocs/1.当前使用的文件/227.2026年终汇报/2.实训成果/Codex/2026-10-24_小鹿精华聚焦叙事版/检查/MP4预览导出/横版/sample-scene-6-key.png"
+    }
+  ],
+  "rateChanges": [
+    {
+      "scene": 0,
+      "rate": 1,
+      "storyTime": 0,
+      "videoTime": 0,
+      "frame": 0
+    },
+    {
+      "scene": 3,
+      "rate": 1.05,
+      "storyTime": 0,
+      "videoTime": 19.766666666666666,
+      "frame": 593
+    },
+    {
+      "scene": 3,
+      "rate": 0.95,
+      "storyTime": 9.6249998,
+      "videoTime": 28.933333333333334,
+      "frame": 868
+    },
+    {
+      "scene": 3,
+      "rate": 0.9,
+      "storyTime": 12.3799998,
+      "videoTime": 31.833333333333332,
+      "frame": 955
+    },
+    {
+      "scene": 4,
+      "rate": 1,
+      "storyTime": 0,
+      "videoTime": 36.266666666666666,
+      "frame": 1088
+    }
+  ],
+  "sampleDefinitions": [
+    {
+      "id": "scene-0-8",
+      "scene": 0,
+      "targetStoryTime": 0.2928
+    },
+    {
+      "id": "scene-0-30",
+      "scene": 0,
+      "targetStoryTime": 1.098
+    },
+    {
+      "id": "scene-0-62",
+      "scene": 0,
+      "targetStoryTime": 2.2692
+    },
+    {
+      "id": "scene-0-86",
+      "scene": 0,
+      "targetStoryTime": 3.1476
+    },
+    {
+      "id": "scene-0-key",
+      "scene": 0,
+      "targetStoryTime": 3.2
+    },
+    {
+      "id": "scene-1-8",
+      "scene": 1,
+      "targetStoryTime": 0.5008
+    },
+    {
+      "id": "scene-1-30",
+      "scene": 1,
+      "targetStoryTime": 1.878
+    },
+    {
+      "id": "scene-1-62",
+      "scene": 1,
+      "targetStoryTime": 3.8811999999999998
+    },
+    {
+      "id": "scene-1-86",
+      "scene": 1,
+      "targetStoryTime": 5.3835999999999995
+    },
+    {
+      "id": "scene-1-key",
+      "scene": 1,
+      "targetStoryTime": 3.8
+    },
+    {
+      "id": "scene-2-8",
+      "scene": 2,
+      "targetStoryTime": 0.7528
+    },
+    {
+      "id": "scene-2-30",
+      "scene": 2,
+      "targetStoryTime": 2.823
+    },
+    {
+      "id": "scene-2-62",
+      "scene": 2,
+      "targetStoryTime": 5.8342
+    },
+    {
+      "id": "scene-2-86",
+      "scene": 2,
+      "targetStoryTime": 8.0926
+    },
+    {
+      "id": "scene-2-key",
+      "scene": 2,
+      "targetStoryTime": 6.4
+    },
+    {
+      "id": "scene-2-key2",
+      "scene": 2,
+      "targetStoryTime": 9.3
+    },
+    {
+      "id": "scene-3-8",
+      "scene": 3,
+      "targetStoryTime": 1.29744
+    },
+    {
+      "id": "scene-3-30",
+      "scene": 3,
+      "targetStoryTime": 4.8654
+    },
+    {
+      "id": "scene-3-62",
+      "scene": 3,
+      "targetStoryTime": 10.05516
+    },
+    {
+      "id": "scene-3-86",
+      "scene": 3,
+      "targetStoryTime": 13.94748
+    },
+    {
+      "id": "scene-3-key",
+      "scene": 3,
+      "targetStoryTime": 15.57
+    },
+    {
+      "id": "scene-4-8",
+      "scene": 4,
+      "targetStoryTime": 0.6648000000000001
+    },
+    {
+      "id": "scene-4-30",
+      "scene": 4,
+      "targetStoryTime": 2.493
+    },
+    {
+      "id": "scene-4-62",
+      "scene": 4,
+      "targetStoryTime": 5.152200000000001
+    },
+    {
+      "id": "scene-4-86",
+      "scene": 4,
+      "targetStoryTime": 7.1466
+    },
+    {
+      "id": "scene-4-key",
+      "scene": 4,
+      "targetStoryTime": 6.2
+    },
+    {
+      "id": "scene-5-8",
+      "scene": 5,
+      "targetStoryTime": 2.9768000000000003
+    },
+    {
+      "id": "scene-5-30",
+      "scene": 5,
+      "targetStoryTime": 11.163
+    },
+    {
+      "id": "scene-5-62",
+      "scene": 5,
+      "targetStoryTime": 23.0702
+    },
+    {
+      "id": "scene-5-86",
+      "scene": 5,
+      "targetStoryTime": 32.0006
+    },
+    {
+      "id": "scene-5-key",
+      "scene": 5,
+      "targetStoryTime": 24.2
+    },
+    {
+      "id": "scene-5-key2",
+      "scene": 5,
+      "targetStoryTime": 12.9
+    },
+    {
+      "id": "use-3p3",
+      "scene": 5,
+      "targetStoryTime": 3.3
+    },
+    {
+      "id": "use-5p6",
+      "scene": 5,
+      "targetStoryTime": 5.6
+    },
+    {
+      "id": "use-6p7",
+      "scene": 5,
+      "targetStoryTime": 6.7
+    },
+    {
+      "id": "use-8p9",
+      "scene": 5,
+      "targetStoryTime": 8.9
+    },
+    {
+      "id": "use-10p5",
+      "scene": 5,
+      "targetStoryTime": 10.5
+    },
+    {
+      "id": "use-13p7",
+      "scene": 5,
+      "targetStoryTime": 13.7
+    },
+    {
+      "id": "use-18",
+      "scene": 5,
+      "targetStoryTime": 18
+    },
+    {
+      "id": "use-20",
+      "scene": 5,
+      "targetStoryTime": 20
+    },
+    {
+      "id": "use-24p5",
+      "scene": 5,
+      "targetStoryTime": 24.5
+    },
+    {
+      "id": "use-32",
+      "scene": 5,
+      "targetStoryTime": 32
+    },
+    {
+      "id": "use-35",
+      "scene": 5,
+      "targetStoryTime": 35
+    },
+    {
+      "id": "scene-6-8",
+      "scene": 6,
+      "targetStoryTime": 1.1608
+    },
+    {
+      "id": "scene-6-30",
+      "scene": 6,
+      "targetStoryTime": 4.353
+    },
+    {
+      "id": "scene-6-62",
+      "scene": 6,
+      "targetStoryTime": 8.9962
+    },
+    {
+      "id": "scene-6-86",
+      "scene": 6,
+      "targetStoryTime": 12.4786
+    },
+    {
+      "id": "scene-6-key",
+      "scene": 6,
+      "targetStoryTime": 13.5
+    },
+    {
+      "id": "scene-6-key2",
+      "scene": 6,
+      "targetStoryTime": 8.8
+    },
+    {
+      "id": "eff-7p7",
+      "scene": 6,
+      "targetStoryTime": 7.7
+    },
+    {
+      "id": "eff-8p1",
+      "scene": 6,
+      "targetStoryTime": 8.1
+    },
+    {
+      "id": "eff-8p5",
+      "scene": 6,
+      "targetStoryTime": 8.5
+    },
+    {
+      "id": "eff-9",
+      "scene": 6,
+      "targetStoryTime": 9
+    },
+    {
+      "id": "eff-9p7",
+      "scene": 6,
+      "targetStoryTime": 9.7
+    },
+    {
+      "id": "eff-10p2",
+      "scene": 6,
+      "targetStoryTime": 10.2
+    }
+  ],
+  "storyEndFrame": 2896,
+  "storyEndTime": 96.53333333333333,
+  "missingSamples": [],
+  "duration": 98.56666666666666,
+  "renderSeconds": 140.984,
+  "audioCloseAt": 93.63333333333334,
+  "encoderWarnings": "[swscaler @ 0x128418000] deprecated pixel format used, make sure you did set range correctly\n",
+  "audioFadeInSeconds": 1.2,
+  "audioFadeOutSeconds": 3.2,
+  "decodeWarnings": "",
+  "outputBytes": 39732099,
+  "outputSha256": "ff7f69d3c4481f34f19d54d65d111e35ce0a5dd2b97581908dfcd499b8a811af",
+  "success": true,
+  "completedAt": "2026-10-24T15:18:37.547Z"
+}
