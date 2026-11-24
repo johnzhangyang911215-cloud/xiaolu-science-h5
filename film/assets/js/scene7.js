@@ -49,7 +49,7 @@
 
   const DBG = {};
   let arrowSvg, arrowG, root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG, ringHalves, ringSlit,
-    body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, film, filmMat, copy = [], lastProbe = null;
+    body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, sDrop, satMat, bead, beadMat, film, filmMat, copy = [], lastProbe = null;
   const txt = {}, shellMats = [], arms = {};
   const P1 = new THREE.Plane(), P2 = new THREE.Plane(), P3 = new THREE.Plane();
   const cutU = { on: 0 };
@@ -367,8 +367,29 @@
           dx: (rand() - 0.5) * 7, dz: (rand() - 0.5) * 1.5, sink: 1.5 + rand() * 3.5, rx: rand() * 6, ry: rand() * 6 });
       }
       // the drop and the spread film on the palm
-      dropMat = new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.02, transmission: 0.85, thickness: 2, ior: 1.36, transparent: true, clearcoat: 1 });
-      drop = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 24), dropMat); drop.frustumCulled = false; scene.add(drop);
+      // liquid: clear essence, fresnel edge, studio highlights, light focused through the bottom; teardrop neck in the vertex shader
+      dropMat = new THREE.ShaderMaterial({
+        uniforms: { uNeck: { value: 0 }, uL: { value: 1.6 }, uA: { value: 1 } }, transparent: true, depthWrite: false,
+        vertexShader: `uniform float uNeck, uL; varying vec3 vW, vN;
+          vec3 df(vec3 p) { float h = smoothstep(-0.25, 1.0, p.y); h *= h; float k = mix(1.0, 0.2, uNeck * h);
+            return vec3(p.x * k, p.y + uNeck * uL * h * h, p.z * k); }
+          void main() { vec3 n = normalize(position), t1 = normalize(abs(n.y) > 0.99 ? cross(n, vec3(1., 0., 0.)) : cross(n, vec3(0., 1., 0.))), t2 = cross(n, t1);
+            vec4 q = modelMatrix * vec4(df(n), 1.), a = modelMatrix * vec4(df(normalize(n + 0.02 * t1)), 1.), b = modelMatrix * vec4(df(normalize(n + 0.02 * t2)), 1.);
+            vN = normalize(cross(a.xyz - q.xyz, b.xyz - q.xyz)); vW = q.xyz; gl_Position = projectionMatrix * viewMatrix * q; }`,
+        fragmentShader: `uniform float uA; varying vec3 vW, vN;
+          void main() { vec3 V = normalize(cameraPosition - vW), N = normalize(vN); if (dot(N, V) < 0.) N = -N;
+            float c = clamp(dot(N, V), 0., 1.), F = 0.04 + 0.96 * pow(1. - c, 2.6);
+            vec3 R = reflect(-V, N);
+            float spec = pow(max(dot(R, normalize(vec3(-0.45, 0.8, 0.55))), 0.), 70.) * 1.5 + pow(max(dot(R, normalize(vec3(-0.45, 0.8, 0.55))), 0.), 8.) * 0.18 + pow(max(dot(R, normalize(vec3(0.7, 0.35, 0.6))), 0.), 24.) * 0.3;
+            float env = smoothstep(0.1, 0.9, R.y) * 0.55 + smoothstep(0.75, 0.98, abs(R.x)) * 0.25;
+            float caust = smoothstep(0.2, -0.95, N.y) * c * 0.7;   // the lit room above, seen upside down through the drop
+            vec3 body = mix(vec3(0.30, 0.30, 0.31), vec3(0.17, 0.175, 0.19), c);   // milky, softly translucent
+            vec3 col = body * (1. - F) + vec3(0.88, 0.89, 0.91) * (F * 0.8 + env * F) + vec3(1., 0.97, 0.9) * caust + vec3(spec);
+            gl_FragColor = vec4(col, clamp(0.62 + 0.38 * F + caust + spec, 0., 1.) * uA); }`
+      });
+      drop = new THREE.Mesh(new THREE.SphereGeometry(1, 72, 54), dropMat); drop.frustumCulled = false; drop.renderOrder = 5; scene.add(drop);
+      satMat = dropMat.clone(); sDrop = new THREE.Mesh(drop.geometry, satMat); sDrop.frustumCulled = false; sDrop.renderOrder = 5; scene.add(sDrop);
+      beadMat = dropMat.clone(); bead = new THREE.Mesh(drop.geometry, beadMat); bead.frustumCulled = false; bead.renderOrder = 5; scene.add(bead);
       filmMat = new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.05, transmission: 0.6, transparent: true, opacity: 0.0, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false });
       film = new THREE.Mesh(new THREE.CircleGeometry(1, 48), filmMat); film.frustumCulled = false; scene.add(film);
 
@@ -441,9 +462,10 @@
     }
     if (t < SPREAD_SHOT) {   // follow the drop from the mouth to the palm
       const k = 0;
-      const tgt = ampW(0, 40.6, 0).add(V(0, 0.012, 0));
+      const kd = inOut((t - DROP_SHOT) / (K.dropLand - DROP_SHOT));
+      const tgt = ampW(0, 40.6, 0).add(V(0, lerp(0.012, -0.006, kd), 0));
       const kb = inOut((t - K.dropLand - 0.2) / (END - K.dropLand));
-      return { pos: tgt.clone().add(V(0.02, 0.03, 0.38).multiplyScalar(lerp(1, 1.12, kb))), tgt };
+      return { pos: tgt.clone().add(V(0.02, 0.03, 0.38).multiplyScalar(lerp(1, 0.36, kd) * lerp(1, 1.15, kb))), tgt };
     }
     // ⑤ macro over the palm, pulling back from pullBack into the white
     const kb = inOut((t - K.pullBack) / (END - K.pullBack));
@@ -561,28 +583,38 @@
     for (const m of [sealL, sealR]) m.visible = true;
 
 
-    // drop (world): forms at the opening, stretches, falls, lands at dropLand
-    drop.visible = false; film.visible = false;
-    const DR = 0.0034;   // drop radius (m)
+    // drop (world): swells at the mouth into a hanging teardrop, pinches off on dropLand, falls with a small satellite; a new bead gathers
+    drop.visible = false; sDrop.visible = false; bead.visible = false; film.visible = false;
+    const DR = 0.003;   // drop radius (m)
     if (tc >= DROP_SHOT) {
-      const mouth = ampW(0, 40.6, 0), surf = mouth.clone().add(V(0.004, -0.11, 0));
-      const g = 0.55, fallT = Math.sqrt(2 * Math.max(0.001, mouth.y - DR - surf.y) / g), tDet = K.dropLand - fallT, tGrow = DROP_SHOT + 0.45;
-      drop.visible = tc > tGrow;
-      if (tc < tDet) {          // swells at the mouth, hanging and stretching
-        const k = smooth(tGrow, tDet, tc);
-        drop.scale.set(DR * (0.3 + 0.7 * k), DR * (0.3 + 0.7 * k) * (1 + 0.35 * k * k), DR * (0.3 + 0.7 * k));
-        drop.position.copy(mouth).add(V(0, -drop.scale.y * 0.9, 0));
-      } else if (tc < K.dropLand) {   // free fall, slightly elongated
-        const d = tc - tDet, y = mouth.y - DR - 0.5 * g * d * d;
-        drop.position.set(lerp(mouth.x, surf.x, d / fallT), y, lerp(mouth.z, surf.z, d / fallT));
-        drop.scale.set(DR * 0.92, DR * 1.18, DR * 0.92);
-      } else {                         // lands: squash, wobble, settle as a bead on the palm
-        const d = tc - K.dropLand, w = Math.exp(-d * 7) * Math.cos(d * 38);
-        drop.position.copy(surf); drop.scale.set(DR * (1.35 + 0.2 * w), DR * (0.55 - 0.12 * w), DR * (1.35 + 0.2 * w));
-      }
-      if (tc >= SPREAD_SHOT) {        // the fingertip takes it: bead thins into the film
-        const k = smooth(SPREAD_SHOT, SPREAD_SHOT + 0.6, tc);
-        drop.scale.multiplyScalar(1 - k); drop.visible = k < 0.99;
+      const mouth = ampW(0, 40.6, 0), tGrow = DROP_SHOT + 0.3, tDet = K.dropLand, g = 1.4;
+      if (tc < tDet) {
+        const k = smooth(tGrow, tDet - 0.35, tc), nk = smooth(tDet - 0.9, tDet, tc), s0 = DR * (0.35 + 0.65 * k);
+        const wob = 1 + 0.03 * Math.sin(tc * 9) * (1 - nk);
+        drop.visible = tc > tGrow; drop.scale.set(s0 / wob, s0 * wob, s0 / wob);
+        dropMat.uniforms.uNeck.value = 0.25 + 0.75 * nk; dropMat.uniforms.uL.value = 0.6 + 1.6 * nk;
+        // the top of the neck stays in the opening
+        drop.position.copy(mouth).add(V(0, -drop.scale.y * (1 + dropMat.uniforms.uNeck.value * dropMat.uniforms.uL.value) * 0.92, 0));
+      } else {
+        const d = tc - tDet, top = (1 + 2.2) * DR * 0.92;
+        // released: the neck snaps back into the body, which rings for a moment as it falls
+        const w = Math.exp(-d * 9) * Math.cos(d * 46);
+        dropMat.uniforms.uNeck.value = 1 - smooth(0, 0.07, d); dropMat.uniforms.uL.value = 2.2;
+        drop.visible = true; drop.scale.set(DR * (1 - 0.1 * w), DR * (1 + 0.16 * w), DR * (1 - 0.1 * w));
+        drop.position.copy(mouth).add(V(0, -top - DR * 0.4 * smooth(0, 0.07, d) - 0.5 * g * d * d, 0));
+        // the thread breaks into a satellite droplet that trails behind
+        if (d < 1.2) {
+          const ds = Math.max(0, d - 0.05); sDrop.visible = d > 0.04;
+          satMat.uniforms.uNeck.value = 0; const sr = DR * 0.3 * smooth(0.04, 0.1, d);
+          sDrop.scale.set(sr, sr * (1 + 0.2 * Math.exp(-ds * 12) * Math.cos(ds * 60)), sr);
+          sDrop.position.copy(mouth).add(V(0, -DR * 1.6 - 0.5 * g * 0.9 * ds * ds, 0));
+        }
+        // what stays behind on the lip gathers into the next drop
+        const rk = smooth(0.02, 0.25, d), gk = smooth(0.4, END - tDet, d);
+        bead.visible = true; beadMat.uniforms.uNeck.value = 0.3 * gk; beadMat.uniforms.uL.value = 0.6;
+        const br = DR * (0.38 * rk + 0.42 * gk);
+        bead.scale.set(br, br * (1 + 0.15 * gk), br);
+        bead.position.copy(mouth).add(V(0, -br * 0.75, 0));
       }
     }
     if (false) {

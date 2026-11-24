@@ -43,12 +43,12 @@
     amp = el('img', 's8-amp', prod); amp.alt = ''; amp.src = 'assets/products/ampoule-up.webp'; place(amp, AMP, AMP_AR);
     cv = el('canvas', 's8-fx', root); cv.width = W; cv.height = H; ctx = cv.getContext('2d');
     logos = el('div', 's8-logos', root);
-    bgi = el('span', 's8-bgi', logos, txt('s8-bgi'));
+    bgi = el('img', 's8-bgi', logos); bgi.alt = txt('s8-bgi'); bgi.src = 'assets/brand/bgi-blue.svg';   // 品牌方提供的官方标
     el('i', 's8-bar', logos);
     lg = el('img', 's8-logo', logos); lg.alt = '华大小鹿 YOUTH MESSAGER'; lg.src = 'assets/brand/logo-h.svg';
     line = el('div', 's8-line', root, txt('s8-line'));
     name = el('div', 's8-name', root, txt('s8-name'));
-    return Promise.all([decode(amp), decode(box), decode(lg)]);
+    return Promise.all([decode(amp), decode(box), decode(lg), decode(bgi)]);
   }
 
   // particles: sources are opaque pixels of the two product images, targets are points inside the antler dots

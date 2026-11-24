@@ -90,7 +90,7 @@
     ampL[1] += 40 * (1 - kA);
     place(amp, ampL, AMP_AR);
     amp.style.opacity = kA.toFixed(3);
-    amp.style.filter = 'blur(' + (6 * (1 - kA)).toFixed(2) + 'px) drop-shadow(0 28px 32px rgba(90,70,40,' + (0.55 - 0.33 * kL).toFixed(3) + '))';
+    amp.style.filter = 'blur(' + (6 * (1 - kA)).toFixed(2) + 'px)';
 
     const kBox = out3((t - IN + 0.15) / 1.1);
     const boxL = kC > 0 ? lerpL(L.boxB, L.boxC, kC) : L.boxB.slice();

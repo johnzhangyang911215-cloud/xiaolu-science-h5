@@ -1,5 +1,5 @@
 {
-  "when": "2026-11-24T07:30:31.949Z",
+  "when": "2026-11-24T08:01:29.217Z",
   "checks": {
     "cueTable": {
       "total": 36,
@@ -173,11 +173,11 @@
           "type": "scene",
           "n": 2,
           "frame": 225,
-          "t": 7.495891,
-          "audioT": 7.495891
+          "t": 7.490853,
+          "audioT": 7.490853
         },
-        "audioMsFromCue": -4,
-        "clockMsFromIdeal": 13,
+        "audioMsFromCue": -9,
+        "clockMsFromIdeal": 8,
         "ok": true
       },
       {
@@ -192,11 +192,11 @@
           "name": "antlerFreeze",
           "frame": 1023,
           "cueFrame": 1023,
-          "t": 34.087175,
-          "audioT": 34.087175
+          "t": 34.093262,
+          "audioT": 34.093262
         },
-        "audioMsFromCue": -3,
-        "clockMsFromIdeal": 4,
+        "audioMsFromCue": 3,
+        "clockMsFromIdeal": 10,
         "ok": true
       },
       {
@@ -211,11 +211,11 @@
           "name": "pressBottom",
           "frame": 1852,
           "cueFrame": 1852,
-          "t": 61.731347,
-          "audioT": 61.731347
+          "t": 61.719443,
+          "audioT": 61.719443
         },
-        "audioMsFromCue": 11,
-        "clockMsFromIdeal": 15,
+        "audioMsFromCue": -1,
+        "clockMsFromIdeal": 3,
         "ok": true
       },
       {
@@ -229,11 +229,11 @@
           "type": "scene",
           "n": 8,
           "frame": 2457,
-          "t": 81.896486,
-          "audioT": 81.896486
+          "t": 81.895338,
+          "audioT": 81.895338
         },
-        "audioMsFromCue": -4,
-        "clockMsFromIdeal": 13,
+        "audioMsFromCue": -5,
+        "clockMsFromIdeal": 12,
         "ok": true
       }
     ]
