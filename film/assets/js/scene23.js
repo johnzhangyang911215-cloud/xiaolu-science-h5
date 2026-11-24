@@ -8,6 +8,7 @@
   const FPS = F.fps, W = 1920, H = 1080, D2R = Math.PI / 180;
   const K = {};
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
+  const SOCIAL = F.cut === 'social';   // 社媒版: the herd prologue plays in this world from t = 0 instead of scene 1
   // V2 timeline: one continuous dolly from `dolly` onto the antler (ends at antlerGlow), hologram switch at `holo`,
   // ring target at `ring`, layers from `s3`, collagen data counts up from `collagen` and locks on `antlerFreeze`.
   K.deerStop = K.dolly; K.deerLook = K.dolly + 1.4;
@@ -214,6 +215,7 @@
     }
   }
   const STEP_T = () => K.deerStop - 0.5;
+  const T0 = SOCIAL ? 0 : K.s2;          // first time this world is shown
   function deerX(t) {
     const st = STEP_T();
     if (t < st) return -(V * (st - t) + 0.25 * V);
@@ -224,7 +226,7 @@
   const RAISE = [['neck_01_019', 0.4], ['neck_02_020', 0.35], ['head_021', 0.25]], rawQ = {};
   const qa = new THREE.Quaternion(), qp = new THREE.Quaternion(), axisW = new THREE.Vector3();
   function poseDeer(t) {
-    const tf = clamp(t, K.s2, FREEZE); // the deer stops with the camera at the freeze
+    const tf = clamp(t, T0, FREEZE); // the deer stops with the camera at the freeze
     const st = STEP_T();
     const x = deerX(tf);
     const wWalk = 1 - sat((tf - st) / 0.5);
@@ -250,6 +252,32 @@
       b.updateMatrixWorld(true);
     }
   }
+  // ---------- 社媒版 herd: clones of the deer rig walking the same forest, each at its own lane, pace and stride ----------
+  // [lead (m) ahead of the hero at t = 4 s, lane z, pace, scale, antlers, gait phase]
+  const HERD = [[2.3, 1.7, 1.0, 0.96, false, 0.1], [3.7, -1.3, 0.97, 1.06, true, 0.55], [5.0, 0.7, 1.03, 0.9, false, 0.8],
+    [6.3, -2.7, 1.0, 1.02, true, 0.3], [7.6, 1.1, 0.98, 0.84, false, 0.65], [5.8, -4.6, 1.01, 1.0, true, 0.2], [9.0, -0.8, 1.0, 0.95, false, 0.45]];
+  for (let i = 0; i < 14; i++)   // the rest of the herd, deeper in the stand; these stay until the forest dissolves into the hologram
+    HERD.push([-1 + 14 * hash(i + 40), -3.5 - 9 * hash(i + 60), 0.95 + 0.1 * hash(i + 80), 0.86 + 0.2 * hash(i + 90), hash(i + 99) > 0.55, hash(i + 120)]);
+  const herd = [];
+  const HERD_OUT = () => K.holo + 1.45;
+  const herdMats = new Map();
+  const herdX = (h, t) => h.lead + deerX(4) + h.pace * V * (t - 4);
+  function poseHerd(t) {
+    const on = herd.length && t < HERD_OUT();
+    for (const h of herd) {
+      h.g.visible = on;
+      if (!on) continue;
+      const x = herdX(h, t);
+      h.walk.time = ((h.phase + x / (CYCLE * h.scale)) % 1 + 1) % 1 * h.walk.getClip().duration;
+      h.mixer.update(0);
+      h.g.position.set(x, 0, h.z);
+    }
+  }
+  function herdFocus(t) {
+    const h = herd[1];
+    return V3(herdX(h, t), 0.9, h.z);
+  }
+
   function anchors() {
     const m = antN.matrixWorld;
     return {
@@ -266,20 +294,25 @@
     return a.clone().multiplyScalar((1 - u) * (1 - u)).add(k.multiplyScalar(2 * u * (1 - u))).add(c.clone().multiplyScalar(u * u));
   }
   function camAt(t, A) {
-    const x = deerX(clamp(t, K.s2, FREEZE));
+    const x = deerX(clamp(t, T0, FREEZE));
     // wide lateral track: camera lags the deer, starts on the antler tip (where scene 1's dive ended)
-    const kW = sat((t - K.s2) / (K.deerStop - K.s2));
+    const uW = sat((t - K.s2) / (K.deerStop - K.s2)), kW = SOCIAL ? uW * uW * (2 - uW) : uW;  // social: no kink at s2
     const tgtW = V3(0.8 * x + 0.35, 1.05, 0);
     const startTgt = A.T.clone().add(V3(0, -0.5, 0));
-    const tW = startTgt.lerp(tgtW, inOut((t - K.s2 - 0.2) / 1.8));
+    const tW = SOCIAL ? tgtW : startTgt.lerp(tgtW, inOut((t - K.s2 - 0.2) / 1.8));
     const pW = V3(0.8 * x + 0.75 - 0.25 * kW, 1.25, 6.6 - 0.5 * kW);
+    if (SOCIAL && t < K.s2) {
+      // herd prologue: start low beside the passing herd, then crane up and back into the wide track on the hero deer
+      const w = 1 - smooth(0, K.s2, t);
+      pW.add(V3(-0.3 * w, -0.85 * w, -2.6 * w)); tW.add(V3(0.6 * w, -0.2 * w, 0));
+    }
     // medium on the raised head, then the push onto the antler, both driven by one eased parameter
     const tM = A.Hd.clone().add(V3(0, 0.12, 0));
     const pM = tM.clone().addScaledVector(dirM, 2.4);
     const kM = medAt(t);
     let pos = pW.lerp(pM, kM), tgt = tW.lerp(tM, kM);
     // carry scene 1's dive through the clouds: start further back and glide forward, bleeding off speed
-    const arr = 1 - sat((t - K.s2) / 1.8);
+    const arr = SOCIAL ? 0 : 1 - sat((t - K.s2) / 1.8);
     if (arr > 0) pos.addScaledVector(tgt.clone().sub(pos).normalize(), -2.2 * arr * arr * arr);
     const p = pushAt(t);
     const tgtF = A.B.clone().lerp(A.T, 0.55);
@@ -480,7 +513,7 @@
   async function init(stage, copyEntries) {
     if (init.p) return init.p;
     init.p = (async () => {
-      copy = copyEntries.filter((e) => (e.scene === 2 || e.scene === 3) && e.status !== 'pending');
+      copy = copyEntries.filter((e) => (e.scene === 2 || e.scene === 3) && e.status !== 'pending' && (!e.cut || e.cut === F.cut));
       root = el('div', { id: 's23' }, null);
       stage.insertBefore(root, stage.firstChild);
       const canvas = el('canvas', { id: 's23-gl', width: W, height: H }, root);
@@ -614,6 +647,31 @@
       waxGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: gt, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true }));
       glow.renderOrder = 3; waxGlow.renderOrder = 4;
       scene.add(glow, waxGlow);
+      if (SOCIAL) {
+        const clip = gltf.animations.find((a) => a.name.startsWith('Walk_forward'));
+        for (const [lead, z, pace, scale, stag, phase] of HERD) {
+          const r = T3X.SkeletonUtils.clone(deerRoot);
+          r.traverse((o) => {
+            if (o.isMesh) o.frustumCulled = false;
+            // own materials: they fade with the forest (scene dim) and never take the hero's gold antler light
+            if (o.isMesh && o.visible && herdMats.has(o.material)) o.material = herdMats.get(o.material);
+            else if (o.isMesh && o.material && o.material.userData && o.material.userData.rim && !o.material.wireframe) {
+              const m = o.material.clone(); m.userData = {}; rimify(m, /^Velvet_Antler/.test(o.name));
+              m.opacity = 1; m.transparent = false; m.userData.rim.value = 1.2;
+              herdMats.set(o.material, m); o.material = m;
+            }
+            if (/^Velvet_Antler/.test(o.name)) o.visible = stag;
+            if (o.isMesh && !o.isSkinnedMesh && o.parent && /^Velvet_Antler/.test(o.parent.name)) o.visible = false; // wires, inner layers, cut faces
+            if (o.isSkinnedMesh && o.material && o.material.wireframe) o.visible = false;
+          });
+          const orient = new THREE.Group(); orient.rotation.set(-Math.PI / 2, 0, 0); orient.add(r);
+          const yaw = new THREE.Group(); yaw.rotation.y = Math.PI / 2; yaw.add(orient);
+          yaw.scale.setScalar(S * scale); yaw.position.y = (-6 * S + 0.02) * scale;
+          const g = new THREE.Group(); g.add(yaw); g.visible = false; scene.add(g);
+          const mixer = new THREE.AnimationMixer(r), walk = mixer.clipAction(clip); walk.play();
+          herd.push({ g, mixer, walk, lead, z, pace, scale, phase });
+        }
+      }
       buildSnow();
 
       // calibrate the freeze framing (antler ≈ 60 % of frame height) and the scene 3 pull-back
@@ -653,11 +711,12 @@
 
   function render(t) {
     if (!renderer || !(active2 || active3)) return;
-    const tc = Math.max(t, K.s2);
+    const tc = Math.max(t, T0);
     // forward-difference speed probe (same pure functions, one frame ahead)
     poseDeer(tc + 1 / FPS);
     const camNext = camAt(tc + 1 / FPS, anchors()).pos;
     poseDeer(tc);
+    poseHerd(tc);
     const A = anchors();
     const c = camAt(tc, A);
     placeCamera(c);
@@ -705,7 +764,7 @@
     const dist = glow.position.distanceTo(camera.position), pxW = 2 * dist * Math.tan(15 * D2R) / H;
     const gPx = lerp(200, 300, c.p) * (1 + 0.35 * rimFreeze);
     glow.scale.setScalar(gPx * pxW);
-    glow.material.opacity = Math.max(rimFreeze, 1 - smooth(K.s2, K.s2 + 0.5, tc)) * (1 - smooth(REV0, K.s3, tc));   // scene 1 hand-off only; no highlight on the deer until the antler lights up
+    glow.material.opacity = Math.max(rimFreeze, SOCIAL ? 0 : 1 - smooth(K.s2, K.s2 + 0.5, tc)) * (1 - smooth(REV0, K.s3, tc));   // scene 1 hand-off only; no highlight on the deer until the antler lights up
     const wc = waxCentre(tc), wd = wc.distanceTo(camera.position);
     waxGlow.position.copy(wc);
     waxGlow.scale.setScalar(lerp(120, 220, lift) * 2 * wd * Math.tan(15 * D2R) / H);
@@ -713,8 +772,15 @@
 
     // DOF: focus on the antler tip; aperture opens as the push closes in (snow turns to bokeh)
     tmp.copy(c.focus).applyMatrix4(camera.matrixWorldInverse);
-    const focus = Math.max(0.1, -tmp.z);
-    const ap = lerp(6, 22, smooth(K.deerStop, PE, tc)) * (1 - s3);
+    let focus = Math.max(0.1, -tmp.z);
+    let ap = lerp(6, 22, smooth(K.deerStop, PE, tc)) * (1 - s3);
+    if (herd.length) {
+      // prologue focus sits on the mid-ground herd (the near doe passes soft), then racks onto the hero deer as the music opens
+      tmp.copy(herdFocus(tc)).applyMatrix4(camera.matrixWorldInverse);
+      const rk = smooth(K.s2 - 0.9, K.s2 + 0.3, tc);
+      focus = lerp(Math.max(0.1, -tmp.z), focus, rk);
+      ap = lerp(11, ap, rk);
+    }
     dofMat.uniforms.uFocus.value = focus;
     dofMat.uniforms.uCoc.value = ap * focus;
     dofMat.uniforms.uMaxR.value = ap > 0.3 ? 22 : 0;
@@ -734,7 +800,7 @@
     if (snowK > 0.001) renderer.render(snowScene, camera);
     // scene 1's cloud deck breaks open around the tip
     let cloud = 0;
-    if (cloudMat) {
+    if (cloudMat && !SOCIAL) {
       cloud = 1 - smooth(K.s2 + 0.05, K.s2 + 1.6, tc);
       if (cloud > 0.001) {
         const tp = project(A.T);
@@ -748,7 +814,7 @@
     }
 
     // ---- copy & labels ----
-    for (const id of ['s2-name', 's2-sub', 's3-sub', 's3-two']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
+    for (const id of ['s2-ask', 's2-name', 's2-sub', 's3-sub', 's3-two']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
     // ring target
     {
       const af0 = antlerFrac(), cx = project(A.B.clone().lerp(A.T, 0.45)), R = 0.62 * (af0.bottom - af0.top);

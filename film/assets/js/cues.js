@@ -31,6 +31,11 @@
     { n: 8, name: '尾 · 双 Logo', cue: 's8' }
   ];
 
+  // 社媒版 (?cut=social): the globe prologue is replaced by a herd crossing the snow forest (scene 2's world) with the
+  // opening question; from `s2` on, both cuts share every cue, so only the first 7.5 s differ.
+  const CUT = new URLSearchParams(location.search).get('cut') === 'social' ? 'social' : 'main';
+  if (CUT === 'social') SCENES[0] = { n: 2, name: '鹿群 · 提问', cue: 'open' };
+
   const frames = {};
   for (const k in CUES) frames[k] = frame(CUES[k]);
   SCENES.forEach((s, i) => {
@@ -42,6 +47,7 @@
 
   window.FILM = {
     fps: FPS,
+    cut: CUT,
     duration: CUES.end,
     totalFrames: frames.end, // frames 0 … totalFrames-1 are exported
     cues: CUES,

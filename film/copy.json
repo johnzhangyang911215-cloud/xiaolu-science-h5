@@ -5,6 +5,7 @@
     {"id": "s1-lat", "scene": 1, "in": "locate", "out": "s2", "text": "N 43°31′", "source": "双阳区坐标", "status": "approved"},
     {"id": "s1-lon", "scene": 1, "in": "locate", "out": "s2", "text": "E 125°40′", "source": "双阳区坐标", "status": "approved"},
     {"id": "s1-place", "scene": 1, "in": "lock", "out": 7.3, "text": "吉林长春双阳\n北纬 43°", "source": "分镜", "status": "approved"},
+    {"id": "s2-ask", "scene": 2, "cut": "social", "in": 3.9, "out": 7.2, "text": "什么，能让肌肤再获新生？", "source": "社媒版开头提问（用户）", "status": "approved"},
     {"id": "s2-name", "scene": 2, "in": 7.9, "out": 11.6, "text": "梅花鹿", "source": "分镜", "status": "approved"},
     {"id": "s2-sub", "scene": 2, "in": "ring", "out": 21.1, "text": "每年春天，从零长出一副新茸", "source": "参考视频", "status": "approved"},
     {"id": "s3-sub", "scene": 3, "in": 21.5, "out": 27.5, "text": "越靠近茸尖，活性越高", "source": "KT板44", "status": "approved"},

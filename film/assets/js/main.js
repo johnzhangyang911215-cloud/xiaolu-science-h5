@@ -9,6 +9,7 @@
   const IMPL = window.FILM_SCENES || {}; // n → { init(stage, copy), render(t), setActive(bool), probe() }
   let inited = false;
   const au = document.getElementById('bgm');
+  if (F.cut === 'social') au.src = 'assets/audio/bgm-social.mp3';
   const $ = (id) => document.getElementById(id);
   const stage = $('stage'), startBtn = $('start'), againBtn = $('again');
   if (Q.get('debug') === '1') stage.classList.add('debug'); // placeholder HUD + cue strip on top of real scenes

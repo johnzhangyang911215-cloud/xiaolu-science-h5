@@ -56,7 +56,7 @@ function findFfmpeg() {
   const report = { out, frames: 0, range: [a, b], scenes: {}, cueHitFrames: [], mismatches: [] };
   try {
     const page = await (await browser.newContext({ viewport: { width: 1920, height: 1080 } })).newPage();
-    await page.goto(base + 'index.html?capture=1');
+    await page.goto(base + 'index.html?capture=1' + (opt('--cut') ? '&cut=' + encodeURIComponent(opt('--cut')) : ''));
     await page.waitForFunction(() => window.__ready === true);
     const t0 = Date.now();
     for (let f = a; f < b; f++) {
