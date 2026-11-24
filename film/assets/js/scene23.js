@@ -127,11 +127,16 @@
     varying vec2 vUv;
     void main() {
       vec2 p = (vUv - 0.5) * vec2(1.7778, 1.0);
-      float z = exp(uT * 0.9);
-      vec3 q = vec3(p * 2.4 / fract(z * 0.25 + 0.5), uT * 0.35);
-      float c = n3(q) * 0.5 + n3(q * 2.1 + 4.0) * 0.3 + n3(q * 4.3 + 9.0) * 0.2;
+      // endless push into the deck: two layers one octave apart, each fading out before it wraps (no pops)
+      float c = 0.0, ws = 0.0;
+      for (int k = 0; k < 2; k++) {
+        float u = uT * 0.7 + float(k) * 0.5, s = fract(u), w = sin(3.14159 * s);
+        vec3 q = vec3(p * 2.4 * exp2(1.0 - s) + floor(u) * 7.31, uT * 0.35 + floor(u) * 3.7);
+        c += (n3(q) * 0.5 + n3(q * 2.1 + 4.0) * 0.3 + n3(q * 4.3 + 9.0) * 0.2) * w; ws += w;
+      }
+      c /= ws;
       float grain = h3(vec3(gl_FragCoord.xy, uSeed));
-      float a = uK * clamp(0.55 + (c - 0.5) * 1.4 + (grain - 0.5) * 0.35, 0.0, 1.0);
+      float a = uK * mix(clamp(0.55 + (c - 0.5) * 1.4 + (grain - 0.5) * 0.35, 0.0, 1.0), 1.0, smoothstep(0.75, 1.0, uK));   // solid at its thickest
       float R = uHole * 2.4; float r = length((vUv - uC) * vec2(1.7778, 1.0)) + (c - 0.5) * 0.35 * uHole;
       a *= smoothstep(R * 0.45, R, r);
       vec3 col = vec3(0.46, 0.48, 0.52) * (0.75 + 0.5 * c) + (grain - 0.5) * 0.18;
@@ -268,6 +273,9 @@
     const pM = tM.clone().addScaledVector(dirM, 2.4);
     const kM = medAt(t);
     let pos = pW.lerp(pM, kM), tgt = tW.lerp(tM, kM);
+    // carry scene 1's dive through the clouds: start further back and glide forward, bleeding off speed
+    const arr = 1 - sat((t - K.s2) / 2.2);
+    if (arr > 0) pos.addScaledVector(tgt.clone().sub(pos).normalize(), -2.2 * arr * arr * arr);
     const p = pushAt(t);
     const tgtF = A.B.clone().lerp(A.T, 0.55);
     if (p > 0) {
@@ -685,7 +693,7 @@
     // scene 1's cloud deck breaks open around the tip
     let cloud = 0;
     if (cloudMat) {
-      cloud = 0.92 * (1 - smooth(K.s2 + 0.05, K.s2 + 1.6, tc));
+      cloud = 1 - smooth(K.s2 + 0.05, K.s2 + 1.6, tc);
       if (cloud > 0.001) {
         const tp = project(A.T);
         cloudMat.uniforms.uK.value = cloud;

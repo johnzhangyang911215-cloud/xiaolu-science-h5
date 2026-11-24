@@ -170,11 +170,16 @@
     varying vec2 vUv;
     void main() {
       vec2 p = (vUv - 0.5) * vec2(1.7778, 1.0);
-      float z = exp(uT * 0.9);
-      vec3 q = vec3(p * 2.4 / fract(z * 0.25 + 0.5), uT * 0.35);
-      float c = n3(q) * 0.5 + n3(q * 2.1 + 4.0) * 0.3 + n3(q * 4.3 + 9.0) * 0.2;
+      // endless push into the deck: two layers one octave apart, each fading out before it wraps (no pops)
+      float c = 0.0, ws = 0.0;
+      for (int k = 0; k < 2; k++) {
+        float u = uT * 0.7 + float(k) * 0.5, s = fract(u), w = sin(3.14159 * s);
+        vec3 q = vec3(p * 2.4 * exp2(1.0 - s) + floor(u) * 7.31, uT * 0.35 + floor(u) * 3.7);
+        c += (n3(q) * 0.5 + n3(q * 2.1 + 4.0) * 0.3 + n3(q * 4.3 + 9.0) * 0.2) * w; ws += w;
+      }
+      c /= ws;
       float grain = h3(vec3(gl_FragCoord.xy, uSeed));
-      float a = uK * clamp(0.55 + (c - 0.5) * 1.4 + (grain - 0.5) * 0.35, 0.0, 1.0);
+      float a = uK * mix(clamp(0.55 + (c - 0.5) * 1.4 + (grain - 0.5) * 0.35, 0.0, 1.0), 1.0, smoothstep(0.75, 1.0, uK));   // solid at its thickest
       vec3 col = vec3(0.46, 0.48, 0.52) * (0.75 + 0.5 * c) + (grain - 0.5) * 0.18;
       float gr = (grain - 0.5) * uGrain;
       gl_FragColor = vec4(col * a + max(gr, 0.0), a);
@@ -337,16 +342,20 @@
   }
 
   // ---------- timeline (all times from cue names) ----------
+  // One continuous push from orbit to the dive (no stops): log-altitude moves at a speed that eases in at P1,
+  // is fastest over East Asia, and still carries momentum through the clouds into scene 2.
+  const Z0 = P1 - 0.3, Z1 = K.s2, RATIO = 0.0029, ZN = 200, ZT = (() => {
+    const v = (x) => smooth(0, 0.14, x) * (0.4 + 1.25 * (1 - x)), a = [0];
+    for (let i = 1; i <= ZN; i++) a.push(a[i - 1] + v((i - 0.5) / ZN));
+    return a.map((q) => q / a[ZN]);
+  })();
+  const zoomU = (t) => { const x = sat((t - Z0) / (Z1 - Z0)) * ZN, i = Math.min(ZN - 1, Math.floor(x)); return lerp(ZT[i], ZT[i + 1], x - i); };
   function cameraAt(t) {
-    const e1 = expoOut(sat((t - P1) / 0.8)), e2 = expoOut(sat((t - P2) / 0.8)), e3 = expoOut(sat((t - P3) / 0.8));
-    // Each push divides the altitude by ~3 within 0.8 s (expo.out), then a slow drift.
-    let h = 5.4 * Math.pow(1 / 3, e1 + e2 + e3) * Math.exp(-0.02 * Math.max(0, t - P1));
-    h *= Math.pow(0.24, e3); // the third push goes all the way down to the regional view
-    // Anchor (look-at point) walks from East Asia to 双阳 across the three pushes.
-    const lon = 108 + (119 - 108) * e1 + (124.6 - 119) * e2 + (POINT.lon - 124.6) * e3;
-    const lat = 38 + (41 - 38) * e1 + (43.3 - 41) * e2 + (POINT.lat - 43.3) * e3;
+    const dist = 5.4 * Math.pow(RATIO, zoomU(t)), h = dist;
+    // anchor glides from East Asia onto 双阳 and settles as the crosshair locks
+    const ka = inOut((t - Z0) / (P3 + 0.4 - Z0));
+    const lon = lerp(108, POINT.lon, ka), lat = lerp(38, POINT.lat, ka), e3 = smooth(P2, P3 + 0.4, t);
     const dv = inOut((t - DIVE) / (K.s2 - DIVE));
-    const dist = h * Math.pow(0.36, Math.pow(sat((t - DIVE) / (K.s2 - DIVE)), 1.5));
     return { h, lon, lat, dist, e3, theta: 60 * D2R * dv, pitch: 3.4 * D2R * dv, dv };
   }
 
@@ -425,7 +434,7 @@
     tu.goldPos.value.copy(gold);
 
     const cloudK = 0;
-    const endK = 0.92 * smooth(K.s2 - 1.1, K.s2, t);
+    const endK = smooth(K.s2 - 1.1, K.s2 - 0.05, t);   // fully closed on the cut
     cloudMat.uniforms.uK.value = Math.max(cloudK, endK);
     cloudMat.uniforms.uT.value = t;
     cloudMat.uniforms.uGrain.value = 0.06 + 0.1 * cloudK;
