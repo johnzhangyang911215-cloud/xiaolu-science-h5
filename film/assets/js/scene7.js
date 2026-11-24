@@ -371,7 +371,7 @@
       dropMat = new THREE.ShaderMaterial({
         uniforms: { uNeck: { value: 0 }, uL: { value: 1.6 }, uA: { value: 1 } }, transparent: true, depthWrite: false,
         vertexShader: `uniform float uNeck, uL; varying vec3 vW, vN;
-          vec3 df(vec3 p) { float h = smoothstep(-0.25, 1.0, p.y); h *= h; float k = mix(1.0, 0.2, uNeck * h);
+          vec3 df(vec3 p) { float h = smoothstep(-0.25, 1.0, p.y); h *= h; float k = mix(1.0, 0.34, uNeck * h);
             return vec3(p.x * k, p.y + uNeck * uL * h * h, p.z * k); }
           void main() { vec3 n = normalize(position), t1 = normalize(abs(n.y) > 0.99 ? cross(n, vec3(1., 0., 0.)) : cross(n, vec3(0., 1., 0.))), t2 = cross(n, t1);
             vec4 q = modelMatrix * vec4(df(n), 1.), a = modelMatrix * vec4(df(normalize(n + 0.02 * t1)), 1.), b = modelMatrix * vec4(df(normalize(n + 0.02 * t2)), 1.);
@@ -382,10 +382,11 @@
             vec3 R = reflect(-V, N);
             float spec = pow(max(dot(R, normalize(vec3(-0.45, 0.8, 0.55))), 0.), 70.) * 1.5 + pow(max(dot(R, normalize(vec3(-0.45, 0.8, 0.55))), 0.), 8.) * 0.18 + pow(max(dot(R, normalize(vec3(0.7, 0.35, 0.6))), 0.), 24.) * 0.3;
             float env = smoothstep(0.1, 0.9, R.y) * 0.55 + smoothstep(0.75, 0.98, abs(R.x)) * 0.25;
-            float caust = smoothstep(0.2, -0.95, N.y) * c * 0.7;   // the lit room above, seen upside down through the drop
-            vec3 body = mix(vec3(0.30, 0.30, 0.31), vec3(0.17, 0.175, 0.19), c);   // milky, softly translucent
-            vec3 col = body * (1. - F) + vec3(0.88, 0.89, 0.91) * (F * 0.8 + env * F) + vec3(1., 0.97, 0.9) * caust + vec3(spec);
-            gl_FragColor = vec4(col, clamp(0.62 + 0.38 * F + caust + spec, 0., 1.) * uA); }`
+            float caust = smoothstep(0.1, -0.9, N.y) * smoothstep(0.15, 0.7, c) * 0.42;   // the lit room above, seen upside down through the drop
+            float rim = smoothstep(0.08, 0.35, c) * (1. - smoothstep(0.35, 0.7, c));   // thin refracted ring just inside the edge
+            vec3 body = vec3(0.78, 0.79, 0.8);   // a faint milky veil, thin as water
+            vec3 col = body * (0.42 + 0.12 * c) + vec3(0.9, 0.91, 0.93) * (F * 0.7 + env * F) + vec3(0.95, 0.97, 1.) * rim * 0.35 + vec3(1., 0.98, 0.93) * caust + vec3(spec);
+            gl_FragColor = vec4(col, clamp(0.2 + 0.5 * F + rim * 0.15 + caust + spec, 0., 1.) * uA); }`
       });
       drop = new THREE.Mesh(new THREE.SphereGeometry(1, 72, 54), dropMat); drop.frustumCulled = false; drop.renderOrder = 5; scene.add(drop);
       satMat = dropMat.clone(); sDrop = new THREE.Mesh(drop.geometry, satMat); sDrop.frustumCulled = false; sDrop.renderOrder = 5; scene.add(sDrop);
@@ -590,17 +591,17 @@
       const mouth = ampW(0, 40.6, 0), tGrow = DROP_SHOT + 0.3, tDet = K.dropLand, g = 1.4;
       if (tc < tDet) {
         const k = smooth(tGrow, tDet - 0.35, tc), nk = smooth(tDet - 0.9, tDet, tc), s0 = DR * (0.35 + 0.65 * k);
-        const wob = 1 + 0.03 * Math.sin(tc * 9) * (1 - nk);
+        const wob = (1 + 0.03 * Math.sin(tc * 9) * (1 - nk)) * (1 + 0.12 * k);   // the growing drop sags under its own weight
         drop.visible = tc > tGrow; drop.scale.set(s0 / wob, s0 * wob, s0 / wob);
-        dropMat.uniforms.uNeck.value = 0.25 + 0.75 * nk; dropMat.uniforms.uL.value = 0.6 + 1.6 * nk;
+        dropMat.uniforms.uNeck.value = 0.2 + 0.8 * nk; dropMat.uniforms.uL.value = 0.5 + 0.9 * nk;
         // the top of the neck stays in the opening
         drop.position.copy(mouth).add(V(0, -drop.scale.y * (1 + dropMat.uniforms.uNeck.value * dropMat.uniforms.uL.value) * 0.92, 0));
       } else {
-        const d = tc - tDet, top = (1 + 2.2) * DR * 0.92;
+        const d = tc - tDet, top = (1 + 1.4) * DR * 0.92;
         // released: the neck snaps back into the body, which rings for a moment as it falls
-        const w = Math.exp(-d * 9) * Math.cos(d * 46);
-        dropMat.uniforms.uNeck.value = 1 - smooth(0, 0.07, d); dropMat.uniforms.uL.value = 2.2;
-        drop.visible = true; drop.scale.set(DR * (1 - 0.1 * w), DR * (1 + 0.16 * w), DR * (1 - 0.1 * w));
+        const w = Math.exp(-d * 13) * Math.cos(d * 40);
+        dropMat.uniforms.uNeck.value = 1 - smooth(0, 0.06, d); dropMat.uniforms.uL.value = 1.4;
+        drop.visible = true; drop.scale.set(DR * (1 - 0.08 * w), DR * (1 + 0.12 * w), DR * (1 - 0.08 * w));
         drop.position.copy(mouth).add(V(0, -top - DR * 0.4 * smooth(0, 0.07, d) - 0.5 * g * d * d, 0));
         // the thread breaks into a satellite droplet that trails behind
         if (d < 1.2) {
