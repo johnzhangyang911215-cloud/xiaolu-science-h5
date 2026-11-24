@@ -40,7 +40,11 @@
   const NOISE = (window.FILM_LIB && window.FILM_LIB.NOISE_GLSL) || '';
 
   // ---------- camera push: one eased master parameter, no stepped beats ----------
-  const pushU = (t) => inOut((t - PUSH0) / (PE - PUSH0));
+  // V3.6 rhythm after the reference edit: hold on the deer, a quick push onto the head on the 9.33 s hit, a slow drift
+  // while the hologram switches on, then a second quick push onto the antler that lands just before antlerGlow
+  const snap3 = (x) => { x = sat(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const P1A = 9.33, P1B = 11.25, P2A = 12.8, P2B = PE - 0.15;
+  const pushU = (t) => 0.4 * snap3((t - P1A) / (P1B - P1A)) + 0.08 * sat((t - P1A) / (P2B - P1A)) + 0.52 * snap3((t - P2A) / (P2B - P2A));
   const pushAt = (t) => sat((pushU(t) - 0.2) / 0.8);
   const medAt = (t) => smooth(0, 0.45, pushU(t));
   // snow phase = ∫ speed: full speed in the forest, drifting dust (35 %) once the hologram is on
@@ -275,7 +279,7 @@
     const kM = medAt(t);
     let pos = pW.lerp(pM, kM), tgt = tW.lerp(tM, kM);
     // carry scene 1's dive through the clouds: start further back and glide forward, bleeding off speed
-    const arr = 1 - sat((t - K.s2) / 2.2);
+    const arr = 1 - sat((t - K.s2) / 1.8);
     if (arr > 0) pos.addScaledVector(tgt.clone().sub(pos).normalize(), -2.2 * arr * arr * arr);
     const p = pushAt(t);
     const tgtF = A.B.clone().lerp(A.T, 0.55);
@@ -296,13 +300,14 @@
       let d = lerp(dF, d3, r);
       // collagen data: the camera closes in on the lifted wax tip and centres it (hand-off to scene 4)
       // first read the slice up close, then give the data room and settle on the scene 4 hand-off framing
-      const zc = inOut((t - (K.wax + 1.6)) / (K.collagen - K.wax - 1.6)), zb = inOut((t - K.collagen - 0.3) / (K.s4 - 0.42 - K.collagen));
+      const zc = snap3((t - WZ0) / (WZ1 - WZ0)), zb = inOut((t - K.collagen - 0.3) / (K.s4 - 0.42 - K.collagen));
       if (zc > 0) { tgt.lerp(waxCentre(t), zc); d = lerp(d, lerp(dWax * 0.5, dWax, zb), zc); }
       pos = tgt.clone().addScaledVector(dir, d);
       focus = A.M;
     }
     return { pos, tgt, p, focus };
   }
+  const WZ0 = 26.49, WZ1 = 28.1;   // quick push onto the tip: starts on the 26.49 s hit, lands on 28.10 s
   const waxLift = (t) => inOut((t - K.wax - 0.25) / 1.3);
   const waxTilt = (t) => 40 * D2R * inOut((t - K.wax - 0.7) / 1.5);
   const XM = new THREE.Matrix4(), XR = new THREE.Matrix4(), XT = new THREE.Matrix4();
@@ -700,7 +705,7 @@
     const dist = glow.position.distanceTo(camera.position), pxW = 2 * dist * Math.tan(15 * D2R) / H;
     const gPx = lerp(200, 300, c.p) * (1 + 0.35 * rimFreeze);
     glow.scale.setScalar(gPx * pxW);
-    glow.material.opacity = (0.75 + 0.25 * rimFreeze) * (1 - smooth(REV0, K.s3, tc));
+    glow.material.opacity = Math.max(rimFreeze, 1 - smooth(K.s2, K.s2 + 0.5, tc)) * (1 - smooth(REV0, K.s3, tc));   // scene 1 hand-off only; no highlight on the deer until the antler lights up
     const wc = waxCentre(tc), wd = wc.distanceTo(camera.position);
     waxGlow.position.copy(wc);
     waxGlow.scale.setScalar(lerp(120, 220, lift) * 2 * wd * Math.tan(15 * D2R) / H);
@@ -769,14 +774,14 @@
     const labOut = 1 - smooth(K.collagen - 0.2, K.collagen + 0.3, tc);
     labIds.forEach((id, i) => {
       if (!txt[id]) return;
-      let a = copyAlpha(id, tc) * labOut * (i < 3 ? 1 - smooth(K.wax + 1.5, K.wax + 2.3, tc) : 1);
+      let a = copyAlpha(id, tc) * labOut * (i < 3 ? 1 - smooth(WZ0 + 0.3, WZ1 - 0.2, tc) : 1);
       const hot = i < 3 ? (i === 2 ? 1 - ls.waxOn : 1 - smooth(K[LAYERS[i + 1].cue], K[LAYERS[i + 1].cue] + 0.4, tc)) : 1;
       const anc = i < 3 ? ant.lab[i].clone().applyMatrix4(antN.matrixWorld) : wc;
       const q = project(anc);
       const ly = LY[i];
       txt[id].style.transform = `translate(${LX}px,${ly}px)`;
       txt[id].style.opacity = (a * lerp(0.5, 1, hot)).toFixed(3);
-      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * (i < 3 ? 1 - smooth(K.wax + 1.5, K.wax + 2.3, tc) : 1) * lerp(0.45, 0.85, hot)).toFixed(3); }
+      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * (i < 3 ? 1 - smooth(WZ0 + 0.3, WZ1 - 0.2, tc) : 1) * lerp(0.45, 0.85, hot)).toFixed(3); }
       const ex = LX - 24, mx = ex - 60;
       leaders[id].setAttribute('d', `M${(q.x + 10).toFixed(1)} ${q.y.toFixed(1)}L${mx.toFixed(1)} ${ly.toFixed(1)}L${ex} ${ly}`);
       leaders[id].style.opacity = (a * lerp(0.45, 1, hot)).toFixed(3);

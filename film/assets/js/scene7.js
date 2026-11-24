@@ -49,7 +49,7 @@
 
   const DBG = {};
   let arrowSvg, arrowG, root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG, ringHalves, ringSlit,
-    body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, sDrop, satMat, bead, beadMat, film, filmMat, copy = [], lastProbe = null;
+    body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, sDrop, satMat, bead, beadMat, thread, threadMat, film, filmMat, copy = [], lastProbe = null;
   const txt = {}, shellMats = [], arms = {};
   const P1 = new THREE.Plane(), P2 = new THREE.Plane(), P3 = new THREE.Plane();
   const cutU = { on: 0 };
@@ -391,6 +391,7 @@
       drop = new THREE.Mesh(new THREE.SphereGeometry(1, 72, 54), dropMat); drop.frustumCulled = false; drop.renderOrder = 5; scene.add(drop);
       satMat = dropMat.clone(); sDrop = new THREE.Mesh(drop.geometry, satMat); sDrop.frustumCulled = false; sDrop.renderOrder = 5; scene.add(sDrop);
       beadMat = dropMat.clone(); bead = new THREE.Mesh(drop.geometry, beadMat); bead.frustumCulled = false; bead.renderOrder = 5; scene.add(bead);
+      threadMat = dropMat.clone(); threadMat.uniforms.uNeck.value = 0; thread = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 24, 1, true), threadMat); thread.frustumCulled = false; thread.renderOrder = 5; thread.visible = false; scene.add(thread);
       filmMat = new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.05, transmission: 0.6, transparent: true, opacity: 0.0, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false });
       film = new THREE.Mesh(new THREE.CircleGeometry(1, 48), filmMat); film.frustumCulled = false; scene.add(film);
 
@@ -589,34 +590,46 @@
     // drop (world): swells at the mouth into a hanging teardrop, pinches off on dropLand, falls with a small satellite; a new bead gathers
     drop.visible = false; sDrop.visible = false; bead.visible = false; film.visible = false;
     const DR = 0.003;   // drop radius (m)
+    thread.visible = false; dropMat.uniforms.uA.value = 1;
     if (tc >= DROP_SHOT) {
-      const mouth = ampW(0, 40.6, 0), tGrow = DROP_SHOT + 0.3, tDet = K.dropLand, g = 1.4;
+      // reference timing: the drop swells at the mouth, oozes down on a thin thread for ~0.8 s, the thread snaps on
+      // dropLand and the drop sinks slowly (slow motion) out of frame before the cut
+      const mouth = ampW(0, 40.6, 0), tGrow = DROP_SHOT + 0.3, tDet = K.dropLand, OOZE = 0.85;
+      const sag = (tt) => 3.2 * DR * Math.pow(smooth(tDet - OOZE, tDet, tt), 1.6);   // drop body travel below the hanging pose
+      const hang = (s, nk) => s * (1 + nk * 0.9) * 0.92;
       if (tc < tDet) {
-        const k = smooth(tGrow, tDet - 0.35, tc), nk = smooth(tDet - 0.9, tDet, tc), s0 = DR * (0.35 + 0.65 * k);
-        const wob = (1 + 0.03 * Math.sin(tc * 9) * (1 - nk)) * (1 + 0.12 * k);   // the growing drop sags under its own weight
+        const k = smooth(tGrow, tDet - OOZE, tc), nk = smooth(tDet - OOZE - 0.3, tDet - 0.2, tc), s0 = DR * (0.35 + 0.65 * k);
+        const wob = (1 + 0.03 * Math.sin(tc * 9) * (1 - nk)) * (1 + 0.1 * k + 0.06 * nk);
         drop.visible = tc > tGrow; drop.scale.set(s0 / wob, s0 * wob, s0 / wob);
-        dropMat.uniforms.uNeck.value = 0.2 + 0.8 * nk; dropMat.uniforms.uL.value = 0.5 + 0.9 * nk;
-        // the top of the neck stays in the opening
-        drop.position.copy(mouth).add(V(0, -drop.scale.y * (1 + dropMat.uniforms.uNeck.value * dropMat.uniforms.uL.value) * 0.92, 0));
-      } else {
-        const d = tc - tDet, top = (1 + 1.4) * DR * 0.92;
-        // released: the neck snaps back into the body, which rings for a moment as it falls
-        const w = Math.exp(-d * 13) * Math.cos(d * 40);
-        dropMat.uniforms.uNeck.value = 1 - smooth(0, 0.06, d); dropMat.uniforms.uL.value = 1.4;
-        drop.visible = true; drop.scale.set(DR * (1 - 0.08 * w), DR * (1 + 0.12 * w), DR * (1 - 0.08 * w));
-        drop.position.copy(mouth).add(V(0, -top - DR * 0.4 * smooth(0, 0.07, d) - 0.5 * g * d * d, 0));
-        // the thread breaks into a satellite droplet that trails behind
-        if (d < 1.2) {
-          const ds = Math.max(0, d - 0.05); sDrop.visible = d > 0.04;
-          satMat.uniforms.uNeck.value = 0; const sr = DR * 0.3 * smooth(0.04, 0.1, d);
-          sDrop.scale.set(sr, sr * (1 + 0.2 * Math.exp(-ds * 12) * Math.cos(ds * 60)), sr);
-          sDrop.position.copy(mouth).add(V(0, -DR * 1.6 - 0.5 * g * 0.9 * ds * ds, 0));
+        dropMat.uniforms.uNeck.value = 0.2 + 0.7 * nk; dropMat.uniforms.uL.value = 0.5 + 0.4 * nk;
+        const sg = sag(tc), yTop = -hang(drop.scale.y, nk) + drop.scale.y * (1 + dropMat.uniforms.uNeck.value * dropMat.uniforms.uL.value) * 0.92 - sg;
+        drop.position.copy(mouth).add(V(0, -hang(drop.scale.y, nk) - sg, 0));
+        if (sg > DR * 0.05) {   // the thread from the lip to the neck of the drop
+          const len = Math.max(0.0001, -yTop + DR * 0.15), tr = DR * lerp(0.3, 0.1, smooth(0, 3.2 * DR, sg));
+          thread.visible = true; thread.scale.set(tr, len, tr); thread.position.copy(mouth).add(V(0, -len / 2 + DR * 0.1, 0));
         }
-        // what stays behind on the lip gathers into the next drop
-        const rk = smooth(0.02, 0.25, d) * (1 - smooth(0.25, 0.9, d)), gk = 0;
-        bead.visible = true; beadMat.uniforms.uNeck.value = 0.3 * gk; beadMat.uniforms.uL.value = 0.6;
-        const br = DR * (0.38 * rk + 0.42 * gk);
-        bead.scale.set(br, br * (1 + 0.15 * gk), br);
+      } else {
+        const d = tc - tDet, nk = 1, s0 = DR * 1.16, y0 = -hang(DR * 1.16, 1) - sag(tDet);
+        // released: the neck rounds off, the body rings softly, then sinks slowly
+        const w = Math.exp(-d * 8) * Math.cos(d * 24);
+        dropMat.uniforms.uNeck.value = 0.9 * (1 - smooth(0, 0.18, d)); dropMat.uniforms.uL.value = 0.9;
+        drop.visible = true; drop.scale.set(DR * (1 - 0.06 * w), DR * (1 + 0.1 * w), DR * (1 - 0.06 * w));
+        drop.position.copy(mouth).add(V(0, y0 - 0.014 * d - 0.5 * 0.034 * d * d, 0));
+        dropMat.uniforms.uA.value = 1 - smooth(1.6, 2.05, d);
+        // the thread snaps back to the lip and leaves a tiny satellite
+        if (d < 0.25) {
+          const yTop = y0 + DR * 1.8, len = Math.max(0.0001, (-yTop + DR * 0.15) * (1 - smooth(0, 0.14, d))), tr = DR * 0.1;
+          thread.visible = len > DR * 0.05; thread.scale.set(tr, len, tr); thread.position.copy(mouth).add(V(0, -len / 2 + DR * 0.1, 0));
+        }
+        if (d < 1.6) {
+          sDrop.visible = d > 0.08; satMat.uniforms.uNeck.value = 0; const sr = DR * 0.22 * smooth(0.08, 0.16, d) * (1 - smooth(1.2, 1.6, d));
+          sDrop.scale.set(sr, sr, sr);
+          sDrop.position.copy(mouth).add(V(0, y0 + DR * 2.2 - 0.009 * Math.max(0, d - 0.08) - 0.5 * 0.03 * Math.max(0, d - 0.08) ** 2, 0));
+        }
+        const rk = smooth(0.02, 0.25, d) * (1 - smooth(0.25, 0.9, d));
+        bead.visible = true; beadMat.uniforms.uNeck.value = 0; beadMat.uniforms.uL.value = 0.6;
+        const br = DR * 0.38 * rk;
+        bead.scale.set(br, br, br);
         bead.position.copy(mouth).add(V(0, -br * 0.75, 0));
       }
     }
