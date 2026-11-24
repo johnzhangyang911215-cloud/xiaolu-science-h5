@@ -1,5 +1,5 @@
 {
-  "when": "2026-11-24T03:18:57.661Z",
+  "when": "2026-11-24T05:50:12.997Z",
   "checks": {
     "cueTable": {
       "total": 42,
@@ -140,8 +140,8 @@
           "type": "scene",
           "n": 2,
           "frame": 512,
-          "t": 17.062529,
-          "audioT": 17.062529
+          "t": 17.063055,
+          "audioT": 17.063055
         },
         "audioMsFromCue": -7,
         "clockMsFromIdeal": 13,
@@ -158,11 +158,11 @@
           "type": "scene",
           "n": 3,
           "frame": 1023,
-          "t": 34.087416,
-          "audioT": 34.087416
+          "t": 34.08453,
+          "audioT": 34.08453
         },
-        "audioMsFromCue": -3,
-        "clockMsFromIdeal": 4,
+        "audioMsFromCue": -5,
+        "clockMsFromIdeal": 1,
         "ok": true
       },
       {
@@ -177,11 +177,11 @@
           "name": "pressBottom",
           "frame": 2585,
           "cueFrame": 2585,
-          "t": 86.15432,
-          "audioT": 86.15432
+          "t": 86.159254,
+          "audioT": 86.159254
         },
-        "audioMsFromCue": 4,
-        "clockMsFromIdeal": 4,
+        "audioMsFromCue": 9,
+        "clockMsFromIdeal": 9,
         "ok": true
       },
       {
@@ -195,11 +195,11 @@
           "type": "scene",
           "n": 8,
           "frame": 3000,
-          "t": 99.98513,
-          "audioT": 99.98513
+          "t": 99.994129,
+          "audioT": 99.994129
         },
-        "audioMsFromCue": -5,
-        "clockMsFromIdeal": 2,
+        "audioMsFromCue": 4,
+        "clockMsFromIdeal": 11,
         "ok": true
       }
     ]

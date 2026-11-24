@@ -1,0 +1,71 @@
+{
+  "when": "2026-11-24T05:50:05.446Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "before": 7,
+      "first": 8,
+      "last": 8,
+      "lastFrame": 3126
+    },
+    "name": {
+      "ok": true,
+      "text": "韶初泌语鹿茸凝时抗皱冻干精华液",
+      "s5": "韶初泌语鹿茸凝时抗皱冻干精华液"
+    },
+    "product": {
+      "ok": true,
+      "fullFrom": 3039,
+      "to": 3062,
+      "overlapFrames": []
+    },
+    "logo": {
+      "ok": true,
+      "firstVisible": 3073,
+      "logoCue": 3063,
+      "endBox": {
+        "x0": 748.8046875,
+        "x1": 1171.1953125,
+        "y0": 457.0625,
+        "y1": 622.9375,
+        "w": 422.390625,
+        "h": 165.875
+      },
+      "clearSpace": 457.0625,
+      "endBg": "rgb(242, 241, 236)"
+    },
+    "logoOnlyHere": {
+      "ok": true,
+      "framesWithLogo": []
+    },
+    "mobile": [
+      {
+        "ok": true,
+        "name": "name",
+        "frame": 3045,
+        "box": {
+          "x0": 334.3,
+          "x1": 647.9,
+          "y0": 180.3,
+          "y1": 205,
+          "px": 18.9
+        }
+      },
+      {
+        "ok": true,
+        "name": "logo",
+        "frame": 3126,
+        "box": {
+          "x0": 345.7,
+          "x1": 498.3,
+          "y0": 165.1,
+          "y1": 224.9,
+          "px": null
+        }
+      }
+    ],
+    "consoleErrors": []
+  },
+  "failures": [],
+  "pass": true
+}

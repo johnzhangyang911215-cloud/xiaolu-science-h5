@@ -111,3 +111,10 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s7 .copy b{font:400 54px/1.2 "XL Serif",serif;letter-spacing:.2em}
 #s7 .copy span{font:400 38px/1.2 "XL Sans",sans-serif;letter-spacing:.1em;margin-left:30px}
 #s7 .copy b::after{content:"·";margin-left:26px;color:#C8A26A}
+#s8{position:absolute;inset:0;z-index:1;pointer-events:none;background:#F2F1EC}
+#s8 .s8-prod{position:absolute;inset:0;opacity:0;transform-origin:960px 560px}
+#s8 .s8-amp{position:absolute;left:500px;top:150px;height:780px}
+#s8 .s8-shadow{position:absolute;left:470px;top:908px;width:210px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,54,44,.28),rgba(60,54,44,0))}
+#s8 .s8-name{position:absolute;left:720px;top:500px;font:400 52px/1.3 "XL Serif",serif;letter-spacing:.1em;color:#1C1E22;white-space:nowrap;opacity:0}
+#s8 .s8-name::before{content:"";position:absolute;left:0;top:-34px;width:56px;height:2px;background:#8A6A33}
+#s8 .s8-logo{position:absolute;left:50%;top:50%;height:auto;opacity:0}
