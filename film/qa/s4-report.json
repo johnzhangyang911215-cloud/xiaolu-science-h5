@@ -1,0 +1,544 @@
+{
+  "when": "2026-11-24T01:46:58.208Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          1786,
+          4,
+          1786
+        ],
+        [
+          1787,
+          5,
+          1787
+        ],
+        [
+          1788,
+          5,
+          1788
+        ],
+        [
+          2042,
+          5,
+          2042
+        ],
+        [
+          2043,
+          6,
+          2043
+        ]
+      ]
+    },
+    "firstLook": {
+      "ok": true,
+      "frame": 1802,
+      "focus": {
+        "x": 960,
+        "y": 540
+      },
+      "brightest": {
+        "cx": 16,
+        "cy": 8,
+        "r": 65.46194444444444,
+        "g": 61.59166666666667,
+        "b": 53.034444444444446,
+        "lum": 61.79665627777778
+      }
+    },
+    "flash": {
+      "ok": true,
+      "frame": 1828,
+      "seconds": 60.93,
+      "flash": 1,
+      "chamber": {
+        "x": 960,
+        "y": 540
+      },
+      "brightest": {
+        "cx": 15,
+        "cy": 8,
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "lum": 255
+      }
+    },
+    "lightsOn": {
+      "ok": true,
+      "before": {
+        "frame": 1849,
+        "on": 0,
+        "meanLum": 12
+      },
+      "after": {
+        "frame": 1867,
+        "on": 1,
+        "meanLum": 73.2
+      }
+    },
+    "dimming": {
+      "ok": true,
+      "litAt": {
+        "mousse": 1,
+        "water": 1,
+        "emulsion": 1,
+        "cream": 1,
+        "mask": 1,
+        "box": 1
+      },
+      "halfDimFrame": {
+        "mousse": 1906,
+        "water": 1914,
+        "emulsion": 1926,
+        "cream": 1938,
+        "mask": 1950,
+        "box": 1962
+      },
+      "beforeSingle": {
+        "mousse": 0.2,
+        "water": 0.2,
+        "emulsion": 0.2,
+        "cream": 0.2,
+        "mask": 0.2,
+        "box": 0.2
+      }
+    },
+    "single": {
+      "ok": true,
+      "frame": 2006,
+      "amp": {
+        "x": 1290.3,
+        "top": 81.1,
+        "bottom": 976.7
+      },
+      "brightest": [
+        21,
+        7
+      ]
+    },
+    "tail": {
+      "ok": true,
+      "frame": 2042,
+      "chamber": {
+        "x": 1041.1,
+        "y": 659.8
+      }
+    },
+    "copy": {
+      "ok": true,
+      "copyEntries": 3,
+      "texts": [
+        {
+          "text": "华大小鹿 · 韶初泌语系列",
+          "seconds": [
+            61.77,
+            64.97
+          ],
+          "inCopy": true,
+          "window": [
+            61.72,
+            65
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "通 · 补 · 锁",
+          "seconds": [
+            62.53,
+            65.47
+          ],
+          "inCopy": true,
+          "window": [
+            62.5,
+            65.5
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "韶初泌语鹿茸凝时抗皱冻干精华液",
+          "seconds": [
+            66,
+            67.97
+          ],
+          "inCopy": true,
+          "window": [
+            65.97,
+            68
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "shots": [
+      {
+        "name": "enter",
+        "frame": 1788,
+        "n": 5,
+        "probe": {
+          "phase": "fall",
+          "focus": {
+            "x": 960,
+            "y": 540
+          },
+          "chamber": {
+            "x": 960,
+            "y": 1711.4
+          },
+          "amp": {
+            "x": 960,
+            "top": 278.3,
+            "bottom": 1969.2
+          },
+          "on": 0,
+          "flash": 0,
+          "yaw": 0,
+          "dims": {
+            "mousse": 1,
+            "water": 1,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "fall",
+        "frame": 1818,
+        "n": 5,
+        "probe": {
+          "phase": "fall",
+          "focus": {
+            "x": 960,
+            "y": 540
+          },
+          "chamber": {
+            "x": 960,
+            "y": 669.4
+          },
+          "amp": {
+            "x": 960,
+            "top": -1048.4,
+            "bottom": 974.4
+          },
+          "on": 0,
+          "flash": 0.096,
+          "yaw": 0,
+          "dims": {
+            "mousse": 1,
+            "water": 1,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "flash",
+        "frame": 1829,
+        "n": 5,
+        "probe": {
+          "phase": "flash",
+          "focus": {
+            "x": 960,
+            "y": 540
+          },
+          "chamber": {
+            "x": 960,
+            "y": 540
+          },
+          "amp": {
+            "x": 960,
+            "top": -1215.1,
+            "bottom": 851.2
+          },
+          "on": 0,
+          "flash": 0.982,
+          "yaw": 0,
+          "dims": {
+            "mousse": 1,
+            "water": 1,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "pull",
+        "frame": 1842,
+        "n": 5,
+        "probe": {
+          "phase": "flash",
+          "focus": {
+            "x": 960,
+            "y": 695.7
+          },
+          "chamber": {
+            "x": 960,
+            "y": 695.7
+          },
+          "amp": {
+            "x": 960,
+            "top": -4.9,
+            "bottom": 831.3
+          },
+          "on": 0,
+          "flash": 0.012,
+          "yaw": 0,
+          "dims": {
+            "mousse": 1,
+            "water": 1,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "family",
+        "frame": 1869,
+        "n": 5,
+        "probe": {
+          "phase": "family",
+          "focus": {
+            "x": 1172.5,
+            "y": 740.7
+          },
+          "chamber": {
+            "x": 1171.9,
+            "y": 836.5
+          },
+          "amp": {
+            "x": 1171.7,
+            "top": 594.1,
+            "bottom": 886.2
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": 0,
+          "dims": {
+            "mousse": 1,
+            "water": 1,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "truck",
+        "frame": 1908,
+        "n": 5,
+        "probe": {
+          "phase": "family",
+          "focus": {
+            "x": 972.2,
+            "y": 745.5
+          },
+          "chamber": {
+            "x": 972.2,
+            "y": 844
+          },
+          "amp": {
+            "x": 972.2,
+            "top": 594.9,
+            "bottom": 895
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": 0,
+          "dims": {
+            "mousse": 0.325,
+            "water": 0.747,
+            "emulsion": 1,
+            "cream": 1,
+            "mask": 1,
+            "box": 1
+          }
+        }
+      },
+      {
+        "name": "dim",
+        "frame": 1950,
+        "n": 5,
+        "probe": {
+          "phase": "family",
+          "focus": {
+            "x": 632.1,
+            "y": 740.2
+          },
+          "chamber": {
+            "x": 633.1,
+            "y": 847.1
+          },
+          "amp": {
+            "x": 633.6,
+            "top": 576.4,
+            "bottom": 902.5
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": 0,
+          "dims": {
+            "mousse": 0.2,
+            "water": 0.2,
+            "emulsion": 0.2,
+            "cream": 0.2,
+            "mask": 0.453,
+            "box": 0.966
+          }
+        }
+      },
+      {
+        "name": "single",
+        "frame": 1989,
+        "n": 5,
+        "probe": {
+          "phase": "single",
+          "focus": {
+            "x": 1241.6,
+            "y": 563.3
+          },
+          "chamber": {
+            "x": 1238.3,
+            "y": 836.7
+          },
+          "amp": {
+            "x": 1236.6,
+            "top": 135,
+            "bottom": 976.5
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": -0.702,
+          "dims": {
+            "mousse": 0.086,
+            "water": 0.086,
+            "emulsion": 0.086,
+            "cream": 0.086,
+            "mask": 0.086,
+            "box": 0.086
+          }
+        }
+      },
+      {
+        "name": "hero",
+        "frame": 2007,
+        "n": 5,
+        "probe": {
+          "phase": "single",
+          "focus": {
+            "x": 1296.2,
+            "y": 536.8
+          },
+          "chamber": {
+            "x": 1292.3,
+            "y": 827.9
+          },
+          "amp": {
+            "x": 1290.3,
+            "top": 81.1,
+            "bottom": 976.7
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": -1.063,
+          "dims": {
+            "mousse": 0.06,
+            "water": 0.06,
+            "emulsion": 0.06,
+            "cream": 0.06,
+            "mask": 0.06,
+            "box": 0.06
+          }
+        }
+      },
+      {
+        "name": "tail",
+        "frame": 2042,
+        "n": 5,
+        "probe": {
+          "phase": "single",
+          "focus": {
+            "x": 1042.8,
+            "y": 132.3
+          },
+          "chamber": {
+            "x": 1041.1,
+            "y": 659.8
+          },
+          "amp": {
+            "x": 1040.2,
+            "top": -713.2,
+            "bottom": 925.8
+          },
+          "on": 1,
+          "flash": 0,
+          "yaw": -1.366,
+          "dims": {
+            "mousse": 0.06,
+            "water": 0.06,
+            "emulsion": 0.06,
+            "cream": 0.06,
+            "mask": 0.06,
+            "box": 0.06
+          }
+        }
+      }
+    ],
+    "mobile": [
+      {
+        "ok": true,
+        "name": "title",
+        "frame": 1908,
+        "texts": [
+          {
+            "text": "华大小鹿 · 韶初泌语系列",
+            "x0": 75.3,
+            "x1": 768.7,
+            "y0": 34.7,
+            "y1": 58.9,
+            "px": 20.3
+          },
+          {
+            "text": "通 · 补 · 锁",
+            "x0": 75.3,
+            "x1": 768.7,
+            "y0": 65.7,
+            "y1": 79.4,
+            "px": 13.7
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "name",
+        "frame": 2007,
+        "texts": [
+          {
+            "text": "韶初泌语鹿茸凝时抗皱冻干精华液",
+            "x0": 125.9,
+            "x1": 447.6,
+            "y0": 182.4,
+            "y1": 207.7,
+            "px": 19.6
+          }
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}

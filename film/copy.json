@@ -25,6 +25,9 @@
     { "id": "s4-r2-t", "scene": 4, "in": 53.45, "out": 57.85, "text": "反刍动物基因组与进化研究", "source": "p8", "status": "approved" },
     { "id": "s4-r2-c", "scene": 4, "in": 53.45, "out": 57.85, "text": "Science 364(6446) · 2019", "source": "p8", "status": "approved" },
     { "id": "s4-r2-o", "scene": 4, "in": 53.45, "out": 57.85, "text": "研究对象 · 反刍动物进化树 · 华大参与", "source": "p8", "status": "approved" },
-    { "id": "s4-sub", "scene": 4, "in": 55.0, "out": 57.4, "text": "基因组与蛋白组检测，从原料溯源到成分筛选", "source": "p12", "status": "approved" }
+    { "id": "s4-sub", "scene": 4, "in": 55.0, "out": 57.4, "text": "基因组与蛋白组检测，从原料溯源到成分筛选", "source": "p12", "status": "approved" },
+    { "id": "s5-title", "scene": 5, "in": "family", "out": 65.0, "text": "华大小鹿 · 韶初泌语系列", "source": "p1、p19", "status": "approved" },
+    { "id": "s5-groups", "scene": 5, "in": 62.5, "out": 65.5, "text": "通 · 补 · 锁", "source": "p19", "status": "approved" },
+    { "id": "s5-name", "scene": 5, "in": "single", "out": 68.0, "text": "韶初泌语鹿茸凝时抗皱冻干精华液", "source": "KT 板 19 备案截图", "status": "approved" }
   ]
 }
