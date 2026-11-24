@@ -1,4 +1,5 @@
-/* Scene 1 · 序 · 地球到双阳 (docs/02-storyboard.md 幕 1, docs/03-production-plan.md §4).
+/* Scene 1 · 序 · 定位双阳 (V2, docs/12-v2-revision.md). Opening line over a dim globe, then three pushes onto 双阳 while
+   a HUD crosshair (43°31′N meridian/parallel + reticle + read-out) locks at `lock`; the dive into the clouds hands over to scene 2.
    Pure function of time: render(t) sets every uniform, camera and overlay from cue names, so any frame
    reproduces exactly under seek/export. (The plan suggests a paused GSAP timeline seeked by local time;
    a closed-form render(t) is equivalent and avoids timeline state.) Units: Earth radius = 1. */
@@ -8,16 +9,11 @@
   // Cue time quantised to its frame, so local time is exactly 0 on the cue frame.
   const K = {};
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
-  const CLOUD_OUT = K.shuangyang - 0.53; // the near-silence in the music ends ~0.53 s before `shuangyang`
-  const DIVE = K.shuangyang + 2.0;       // "定位稳定约 2 秒后" the dive starts
+  const P1 = K.locate, P3 = K.lock, P2 = (P1 + P3) / 2; // three pushes, one per half bar
+  const DIVE = K.lock + 1.0;                             // crosshair holds ~1 s, then the dive into scene 2
 
   const POINT = { lon: 125.67, lat: 43.52 }; // 长春 · 双阳
   const SUN = { lon: -157.3, lat: -20 };    // winter dawn: terminator ≈ 132.5°E at 43°N, Shuangyang on the night side
-  // Approximate 吉林 border (lon, lat), clockwise — hand-traced, to be checked before final layout.
-  const JILIN = [[121.7, 44.6], [122.2, 45.3], [122.6, 45.9], [123.2, 46.3], [124.0, 45.8], [124.9, 45.5], [125.7, 45.2], [126.4, 45.1],
-    [127.1, 44.8], [127.6, 44.3], [128.1, 44.1], [129.0, 44.4], [129.5, 44.0], [130.2, 44.0], [131.0, 43.5], [131.2, 43.5], [130.6, 42.4],
-    [130.3, 42.65], [129.9, 42.95], [129.4, 42.45], [128.9, 42.5], [128.1, 42.0], [127.0, 41.7], [126.0, 41.0], [125.3, 40.9], [125.0, 41.6],
-    [124.6, 42.4], [123.6, 43.0], [123.4, 43.6], [122.6, 44.2], [121.7, 44.6]];
   const PATCH = { lon0: 110, lon1: 142, lat0: 33, lat1: 54, nx: 320, ny: 210 };
   const EXAG = 14; // vertical exaggeration of the procedural terrain
 
@@ -186,7 +182,7 @@
 
   // ---------- state ----------
   let renderer, scene, camera, globe, earthMat, terrainMat, atmoMat, cloudMat, cloudScene, cloudCam;
-  let root, dot, svg, latPath, latClipRect, borderPath, leaderPath, txt = {}, copy = [], landImg = null;
+  let root, dot, svg, latPath, latClipRect, lonPath, lonClipRect, reticle, flash, txt = {}, copy = [], landImg = null;
   let active = false, lastProbe = null;
   const sun = ll(SUN.lon, SUN.lat).normalize();
   const Pdir = ll(POINT.lon, POINT.lat);
@@ -263,9 +259,21 @@
     svg = el('svg', { id: 's1-ov', viewBox: `0 0 ${W} ${H}`, width: W, height: H }, root);
     const defs = el('defs', {}, svg), clip = el('clipPath', { id: 's1-latclip' }, defs);
     latClipRect = el('rect', { x: 0, y: 0, width: 0, height: H }, clip);
+    const clip2 = el('clipPath', { id: 's1-lonclip' }, defs);
+    lonClipRect = el('rect', { x: 0, y: 0, width: W, height: 0 }, clip2);
     latPath = el('path', { class: 'lat', 'clip-path': 'url(#s1-latclip)' }, svg);
-    borderPath = el('path', { class: 'border', pathLength: 1 }, svg);
-    leaderPath = el('path', { class: 'leader', pathLength: 1 }, svg);
+    lonPath = el('path', { class: 'lat', 'clip-path': 'url(#s1-lonclip)' }, svg);
+    reticle = el('g', { class: 'reticle' }, svg);
+    el('circle', { r: 46 }, reticle);
+    el('circle', { r: 64, class: 'dash' }, reticle);
+    for (let i = 0; i < 4; i++) {
+      const a = i * Math.PI / 2, c = Math.cos(a), s2 = Math.sin(a);
+      el('line', { x1: (c * 30).toFixed(1), y1: (s2 * 30).toFixed(1), x2: (c * 78).toFixed(1), y2: (s2 * 78).toFixed(1) }, reticle);
+      const b = a + Math.PI / 4, r = 92, k = 14; // corner brackets
+      const bx = Math.cos(b) * r, by = Math.sin(b) * r, sx = Math.sign(bx), sy = Math.sign(by);
+      el('path', { d: `M${(bx - sx * k).toFixed(1)} ${by.toFixed(1)}L${bx.toFixed(1)} ${by.toFixed(1)}L${bx.toFixed(1)} ${(by - sy * k).toFixed(1)}` }, reticle);
+    }
+    flash = el('circle', { r: 46, class: 'flash' }, svg);
     dot = el('div', { id: 's1-dot' }, root);
     for (const c of copy) { txt[c.id] = el('div', { class: 'copy ' + c.id, 'data-copy': c.id }, root); txt[c.id].textContent = c.text; }
 
@@ -330,10 +338,10 @@
 
   // ---------- timeline (all times from cue names) ----------
   function cameraAt(t) {
-    const e1 = expoOut(sat((t - K.push1) / 0.8)), e2 = expoOut(sat((t - K.push2) / 0.8)), e3 = expoOut(sat((t - K.push3) / 0.8));
+    const e1 = expoOut(sat((t - P1) / 0.8)), e2 = expoOut(sat((t - P2) / 0.8)), e3 = expoOut(sat((t - P3) / 0.8));
     // Each push divides the altitude by ~3 within 0.8 s (expo.out), then a slow drift.
-    let h = 5.4 * Math.pow(1 / 3, e1 + e2 + e3) * Math.exp(-0.02 * Math.max(0, t - K.push1));
-    h *= Math.pow(0.24, inOut((t - (K.cloud - 0.1)) / (K.shuangyang - K.cloud + 0.05))); // descend through the cloud
+    let h = 5.4 * Math.pow(1 / 3, e1 + e2 + e3) * Math.exp(-0.02 * Math.max(0, t - P1));
+    h *= Math.pow(0.24, e3); // the third push goes all the way down to the regional view
     // Anchor (look-at point) walks from East Asia to 双阳 across the three pushes.
     const lon = 108 + (119 - 108) * e1 + (124.6 - 119) * e2 + (POINT.lon - 124.6) * e3;
     const lat = 38 + (41 - 38) * e1 + (43.3 - 41) * e2 + (POINT.lat - 43.3) * e3;
@@ -390,32 +398,33 @@
     const o = K.open;
     const on = t >= o - 1e-6;
     const c = cameraAt(t);
-    globe.rotation.y = 1.0 * D2R * (Math.min(t, K.push1) - K.push1); // slow spin until the first push, camera still
+    globe.rotation.y = 1.0 * D2R * (Math.min(t, P1) - P1); // slow spin until the first push, camera still
     globe.updateMatrixWorld(true);
 
-    const rise = expoOut(sat((t - K.push2) / 1.4));
+    const rise = expoOut(sat((t - P2) / 1.4));
     const A = globe.localToWorld(ll(c.lon, c.lat, 1 + pointH * rise * c.e3));
     placeCamera(c, A);
 
     const u = earthMat.uniforms;
     u.camPos.value.copy(camera.position);
-    u.uTerm.value = on ? smooth(o, o + 0.9, t) * (1 - 0.8 * smooth(K.push1 + 0.3, K.push2 + 0.4, t)) : 0;
-    u.uLights.value = 1 - 0.85 * smooth(K.push2 + 0.2, K.push3, t);
-    u.uNight.value = smooth(o + 0.4, o + 2.0, t);
-    u.uDay.value = smooth(o + 0.9, o + 2.8, t);
-    u.uRim.value = 0.35 * smooth(o + 0.3, o + 2.0, t) + 0.45 * smooth(K.push1, K.push1 + 0.5, t) * (1 - smooth(K.push2, K.push2 + 0.8, t));
-    atmoMat.uniforms.uAtmo.value = (0.5 * smooth(o + 0.2, o + 2.0, t) + 0.7 * smooth(K.push1, K.push1 + 0.5, t)) * (on ? 1 : 0);
+    const dim = 0.3 + 0.7 * smooth(P1 - 0.5, P1 + 0.3, t); // globe stays dim under the opening line
+    u.uTerm.value = on ? dim * smooth(o, o + 0.9, t) * (1 - 0.8 * smooth(P1 + 0.3, P2 + 0.4, t)) : 0;
+    u.uLights.value = 1 - 0.85 * smooth(P2 + 0.2, P3, t);
+    u.uNight.value = dim * smooth(o + 0.4, o + 2.0, t);
+    u.uDay.value = dim * smooth(o + 0.9, o + 2.8, t);
+    u.uRim.value = 0.35 * smooth(o + 0.3, o + 2.0, t) + 0.45 * smooth(P1, P1 + 0.5, t) * (1 - smooth(P2, P2 + 0.8, t));
+    atmoMat.uniforms.uAtmo.value = (0.5 * smooth(o + 0.2, o + 2.0, t) + 0.7 * smooth(P1, P1 + 0.5, t)) * (on ? 1 : 0);
 
     const gold = globe.localToWorld(ll(POINT.lon, POINT.lat, 1 + pointH * rise + 0.0003));
     const tu = terrainMat.uniforms;
     tu.uRise.value = rise;
-    tu.uAlpha.value = smooth(K.push2, K.push2 + 0.9, t);
-    tu.uSnow.value = smooth(K.push2 + 0.8, K.push3 + 0.6, t);
-    tu.uGlow.value = smooth(K.push3, K.cloud, t);
+    tu.uAlpha.value = smooth(P2, P2 + 0.9, t);
+    tu.uSnow.value = smooth(P2 + 0.6, P3 + 0.6, t);
+    tu.uGlow.value = smooth(P3, P3 + 1.0, t);
     tu.uFog.value = c.dist * 5 + 0.01;
     tu.goldPos.value.copy(gold);
 
-    const cloudK = smooth(K.cloud - 0.35, K.cloud + 0.25, t) * (1 - smooth(CLOUD_OUT - 0.1, K.shuangyang - 0.05, t));
+    const cloudK = 0;
     const endK = 0.92 * smooth(K.s2 - 1.1, K.s2, t);
     cloudMat.uniforms.uK.value = Math.max(cloudK, endK);
     cloudMat.uniforms.uT.value = t;
@@ -435,56 +444,44 @@
     dot.style.transform = `translate(${gp.x.toFixed(2)}px,${gp.y.toFixed(2)}px) scale(${breath.toFixed(4)})`;
     dot.style.opacity = gp.vis ? da.toFixed(3) : '0';
 
-    // ---- 43°N line, left → right ----
-    const latIn = smooth(K.push2 - 0.05, K.push2 + 0.2, t) * (1 - smooth(K.cloud - 0.3, K.cloud + 0.15, t));
-    const latA = latIn;
-    if (latA > 0.001) {
-      const pts = [];
-      for (let lon = 90; lon <= 160; lon += 0.25) pts.push([lon, 43]);
-      latPath.setAttribute('d', pathFor(pts, 1.0004));
-      const draw = expoOut(sat((t - K.push2 - 0.1) / 1.1));
-      latClipRect.setAttribute('width', (draw * W).toFixed(1));
+    // ---- HUD crosshair: parallel + meridian through 双阳, reticle and read-out (no region outline) ----
+    const hudA = smooth(P1 + 0.25, P1 + 0.6, t) * (1 - smooth(K.s2 - 0.9, K.s2 - 0.4, t));
+    const lock = sat((t - P1 - 0.3) / (P3 - P1 - 0.3));        // 0 → 1, exactly 1 on the lock frame
+    if (hudA > 0.001) {
+      const ptsLat = [], ptsLon = [];
+      for (let lon = 90; lon <= 160; lon += 0.25) ptsLat.push([lon, POINT.lat]);
+      for (let lat = 15; lat <= 70; lat += 0.25) ptsLon.push([POINT.lon, lat]);
+      latPath.setAttribute('d', pathFor(ptsLat, 1.0004));
+      lonPath.setAttribute('d', pathFor(ptsLon, 1.0004));
+      latClipRect.setAttribute('width', (expoOut(sat((t - P1 - 0.25) / 1.0)) * W).toFixed(1));
+      lonClipRect.setAttribute('height', (expoOut(sat((t - P1 - 0.35) / 1.0)) * H).toFixed(1));
     }
-    latPath.style.opacity = latA.toFixed(3);
-
-    // ---- 吉林 border ----
-    const bA = smooth(K.push3, K.push3 + 0.3, t) * (1 - smooth(K.cloud - 0.3, K.cloud + 0.15, t));
-    if (bA > 0.001) {
-      const pts = [];
-      for (let i = 0; i < JILIN.length - 1; i++) for (let s = 0; s < 6; s++) {
-        const k = s / 6;
-        pts.push([lerp(JILIN[i][0], JILIN[i + 1][0], k), lerp(JILIN[i][1], JILIN[i + 1][1], k)]);
-      }
-      pts.push(JILIN[0]);
-      borderPath.setAttribute('d', pathFor(pts, 1.0004));
-      borderPath.style.strokeDashoffset = (1 - expoOut(sat((t - K.push3 - 0.05) / 1.2))).toFixed(4);
-    }
-    borderPath.style.opacity = (bA * 0.75).toFixed(3);
-
-    // ---- labels ----
-    const latLabelA = copyAlpha('s1-lat', t) * smooth(K.push2 + 0.25, K.push2 + 0.6, t);
-    if (txt['s1-lat']) {
-      // Sit on the line near the left third of the frame.
-      let best = null;
-      for (let lon = 90; lon <= 160; lon += 0.5) {
-        const p = project(globe.localToWorld(ll(lon, 43, 1.0004)));
-        if (p.vis && (!best || Math.abs(p.x - 300) < Math.abs(best.x - 300))) best = p;
-      }
-      if (best) txt['s1-lat'].style.transform = `translate(${best.x.toFixed(1)}px,${(best.y - 14).toFixed(1)}px)`;
-      txt['s1-lat'].style.opacity = best ? latLabelA.toFixed(3) : '0';
+    latPath.style.opacity = (hudA * 0.8).toFixed(3);
+    lonPath.style.opacity = (hudA * 0.8).toFixed(3);
+    // reticle closes in from 3× and turns 90° until the lock, then a single flash ring
+    const rs = 1 + 2 * Math.pow(1 - inOut(lock), 2), rr = 90 * (1 - inOut(lock));
+    reticle.setAttribute('transform', `translate(${gp.x.toFixed(1)} ${gp.y.toFixed(1)}) rotate(${rr.toFixed(2)}) scale(${rs.toFixed(4)})`);
+    reticle.style.opacity = (hudA * (0.35 + 0.65 * lock)).toFixed(3);
+    const fl = sat((t - P3) / 0.6);
+    flash.setAttribute('transform', `translate(${gp.x.toFixed(1)} ${gp.y.toFixed(1)}) scale(${(1 + 1.6 * expoOut(fl)).toFixed(4)})`);
+    flash.style.opacity = (t >= P3 ? (1 - fl) * hudA : 0).toFixed(3);
+    // read-outs: digits roll until the lock, then hold the real coordinate
+    const roll = (str, k, seed) => k >= 1 ? str : str.replace(/\d/g, (d, i) => String(Math.floor(hash2(i + seed, Math.floor(t * 20)) * 10)));
+    const hx = gp.x + 96, hy = gp.y - 70;
+    for (const [id, dy, seed] of [['s1-lat', 0, 3], ['s1-lon', 34, 9]]) {
+      const e = txt[id]; if (!e) continue;
+      const c0 = copy.find((c) => c.id === id);
+      e.textContent = roll(c0.text, lock, seed);
+      e.style.transform = `translate(${hx.toFixed(1)}px,${(hy + dy).toFixed(1)}px)`;
+      e.style.opacity = (hudA * smooth(P1 + 0.4, P1 + 0.7, t)).toFixed(3);
     }
     const placeA = copyAlpha('s1-place', t);
-    const lead = sat((t - K.shuangyang) / 0.4);
-    const lx = gp.x + 26, ly = gp.y - 26, mx = gp.x + 130, my = gp.y - 120, ex = mx + 48;
-    leaderPath.setAttribute('d', `M${lx.toFixed(1)} ${ly.toFixed(1)}L${mx.toFixed(1)} ${my.toFixed(1)}L${ex.toFixed(1)} ${my.toFixed(1)}`);
-    leaderPath.style.strokeDashoffset = (1 - inOut(lead)).toFixed(4);
-    const leadA = t >= K.shuangyang ? (1 - smooth(entryTime(copy.find((e) => e.id === 's1-place').out) - 0.35, entryTime(copy.find((e) => e.id === 's1-place').out), t)) : 0;
-    leaderPath.style.opacity = leadA.toFixed(3);
-    if (txt['s1-place']) {
-      txt['s1-place'].style.transform = `translate(${(ex + 16).toFixed(1)}px,${my.toFixed(1)}px)`;
-      txt['s1-place'].style.opacity = (placeA * smooth(K.shuangyang + 0.3, K.shuangyang + 0.65, t)).toFixed(3);
+    if (txt['s1-place']) txt['s1-place'].style.opacity = (placeA * smooth(P3 + 0.05, P3 + 0.4, t)).toFixed(3);
+    if (txt['s1-open']) {
+      const a = copyAlpha('s1-open', t);
+      txt['s1-open'].style.opacity = a.toFixed(3);
+      txt['s1-open'].style.letterSpacing = (0.3 + 0.08 * sat((t - o) / (P1 - o))).toFixed(4) + 'em';
     }
-    if (txt['s1-sub']) txt['s1-sub'].style.opacity = copyAlpha('s1-sub', t).toFixed(3);
 
     lastProbe = {
       dot: { x: +gp.x.toFixed(2), y: +gp.y.toFixed(2), dx: +((gp.x - W / 2) / W).toFixed(4), dy: +((gp.y - H / 2) / H).toFixed(4), visible: gp.vis, opacity: da },

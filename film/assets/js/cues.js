@@ -5,29 +5,30 @@
   // Round half up; the epsilon absorbs float error (31.95*30 = 958.4999…).
   const frame = (s) => Math.floor(s * FPS + 0.5 + 1e-6);
 
+  // V2 (revision after S7): 91.50 s cut on the same bgm, following the user's reference edit. Every cue sits on the
+  // music's 2.128 s bar grid (or its half), measured from the original cue list.
   const CUES = {
-    open: 0.07, push1: 3.25, push2: 7.50, push3: 9.64, cloud: 11.24, shuangyang: 12.84,
-    s2: 17.07, deerStop: 21.34, deerLook: 23.45, fillStart: 31.95,
-    antlerFreeze: 34.09, layerBone: 36.20, layerBlood: 38.34, layerPowder: 40.47, wax: 42.59,
-    s4: 44.72, ref1: 48.97, ref2: 53.22, converge: 57.47,
-    s5: 59.58, family: 61.72, single: 65.97,
-    s6: 68.10, labelPowder: 72.35, labelSolvent: 74.47, close: 76.60,
-    s7: 77.65, ringGrip: 78.72, ringOff: 81.90, pressContact: 84.03, pressBottom: 86.15,
-    powderHit: 89.35, shake1: 89.35, shake2: 90.42, shake3: 91.49, snap: 93.60,
-    dropLand: 95.71, pullBack: 97.85,
-    s8: 99.99, fadeOut: 101.03, logo: 102.10, end: 104.23
+    open: 0.07, locate: 3.25, lock: 5.37,
+    s2: 7.50, dolly: 9.64, holo: 12.84, antlerGlow: 14.97, ring: 17.07,
+    s3: 21.34, layerBlood: 23.45, layerPowder: 25.58, wax: 27.71, collagen: 31.95, antlerFreeze: 34.09,
+    s4: 36.20, journal: 40.47,
+    s6: 46.85, cold: 48.97, labelPowder: 51.10, labelSolvent: 53.22, close: 55.35,
+    s7: 57.47, ringOff: 59.58, pressContact: 60.65, pressBottom: 61.72, shake1: 63.85, shake2: 64.91, snap: 65.97, dropLand: 68.10,
+    s5: 70.22, dataIn: 72.35, dataLock: 74.47,
+    s8: 81.90, logo: 82.97, fadeOut: 88.30, end: 91.50
   };
 
   // `cue` is a cue name; scene 1 is shown from t = 0 even though its cue (`open`) is 0.07 s.
+  // Scene numbers stay attached to their files; scene 5 (efficacy, scene5.js) now plays after scene 7.
   const SCENES = [
-    { n: 1, name: '序 · 地球到双阳', cue: 'open' },
-    { n: 2, name: '雪原 · 鹿头到茸尖', cue: 's2' },
-    { n: 3, name: '茸 · 蜡片的位置', cue: 'antlerFreeze' },
-    { n: 4, name: '研 · 对应研究', cue: 's4' },
-    { n: 5, name: '凝 · 系列与单支', cue: 's5' },
+    { n: 1, name: '序 · 定位双阳', cue: 'open' },
+    { n: 2, name: '鹿 · 推向鹿茸', cue: 's2' },
+    { n: 3, name: '茸 · 分层与原料数据', cue: 's3' },
+    { n: 4, name: '研 · 营养环与期刊', cue: 's4' },
     { n: 6, name: '锁 · −40℃ 双仓', cue: 's6' },
-    { n: 7, name: '释 · 使用五步', cue: 's7' },
-    { n: 8, name: '尾 · 品名与 Logo', cue: 's8' }
+    { n: 7, name: '释 · 使用三步', cue: 's7' },
+    { n: 5, name: '效 · 28 天抗皱功效', cue: 's5' },
+    { n: 8, name: '尾 · 双 Logo', cue: 's8' }
   ];
 
   const frames = {};

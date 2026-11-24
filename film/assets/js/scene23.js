@@ -8,12 +8,15 @@
   const FPS = F.fps, W = 1920, H = 1080, D2R = Math.PI / 180;
   const K = {};
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
-  const FREEZE = K.antlerFreeze;
-  const BEAT = (FREEZE - K.fillStart) / 4;         // 4 fill beats, 0.533 s each
-  const FILL = [0.10, 0.15, 0.20, 0.25];           // share of the push covered by each fill beat (plan §4)
-  const PRE = 1 - FILL.reduce((a, b) => a + b, 0); // 0.30 before fillStart
+  // V2 timeline: one continuous dolly from `dolly` onto the antler (ends at antlerGlow), hologram switch at `holo`,
+  // ring target at `ring`, layers from `s3`, collagen data counts up from `collagen` and locks on `antlerFreeze`.
+  K.deerStop = K.dolly; K.deerLook = K.dolly + 1.4;
+  const FREEZE = K.antlerFreeze;                   // deer pose clock stops here
+  const PE = K.antlerGlow;                         // push end: antler ≈ 60 % of frame
+  const PUSH0 = K.dolly - 0.6;
+  const REV0 = K.s3 - 0.9, REV1 = K.s3 + 0.1;      // shell → layered interior
   const LAYERS = [                                  // KT板44 proportions along the main beam, root → tip
-    { id: 's3-bone', cue: 'layerBone', h0: 0, h1: 0.32, col: [0.80, 0.70, 0.56] },
+    { id: 's3-bone', cue: 's3', h0: 0, h1: 0.32, col: [0.80, 0.70, 0.56] },
     { id: 's3-blood', cue: 'layerBlood', h0: 0.32, h1: 0.59, col: [0.72, 0.20, 0.15] },
     { id: 's3-powder', cue: 'layerPowder', h0: 0.59, h1: 0.96, col: [0.92, 0.66, 0.62] }
   ];
@@ -36,19 +39,12 @@
   const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
   const NOISE = (window.FILM_LIB && window.FILM_LIB.NOISE_GLSL) || '';
 
-  // ---------- camera push schedule p(t) ----------
-  function pushAt(t) {
-    if (t <= K.deerLook) return 0;
-    if (t < K.fillStart) return PRE * inOut((t - K.deerLook) / (K.fillStart - K.deerLook));
-    if (t >= FREEZE) return 1;
-    const i = Math.min(3, Math.floor((t - K.fillStart) / BEAT));
-    const x = (t - K.fillStart - i * BEAT) / BEAT;
-    let p = PRE;
-    for (let j = 0; j < i; j++) p += FILL[j];
-    return p + FILL[i] * (i < 3 ? p2out(x) : p3in(x)); // beats 1–3 punch, beat 4 accelerates into a hard stop
-  }
-  // snow phase = ∫ speed: full speed, 30 % after the freeze (still visibly falling, plan §3 QA)
-  const snowPhase = (t) => (t < FREEZE ? t : FREEZE + 0.3 * (t - FREEZE));
+  // ---------- camera push: one eased master parameter, no stepped beats ----------
+  const pushU = (t) => inOut((t - PUSH0) / (PE - PUSH0));
+  const pushAt = (t) => sat((pushU(t) - 0.2) / 0.8);
+  const medAt = (t) => smooth(0, 0.45, pushU(t));
+  // snow phase = ∫ speed: full speed in the forest, drifting dust (35 %) once the hologram is on
+  const snowPhase = (t) => (t < K.holo ? t : K.holo + 0.35 * (t - K.holo));
 
   // ---------- shaders ----------
   const skyVS = `varying vec3 vDir; void main(){ vDir = normalize(position); vec4 p = projectionMatrix * modelViewMatrix * vec4(position, 1.0); gl_Position = p.xyww; }`;
@@ -168,6 +164,8 @@
   let renderer, scene, camera, rt, dofMat, dofScene, quadCam, snowScene, snowMats = [], cloudMat, cloudScene, glow, waxGlow;
   let deerG, deerRoot, mixer, aWalk, aIdle, bones = {}, antN, antF, innerMesh, waxMesh, bodyMats = [], shellMat, farMat;
   let skyMat, groundMat, barkMat;
+  const bodyDimU = { value: 1 }, antDimU = { value: 1 }, wireU = { uHead: { value: new THREE.Vector3() }, uR: { value: 0 }, uA: { value: 0 } }, antWireU = { value: 0 };
+  let bodyWires = [], antWires = [], ringG = null, ringEls = {}, dataEls = {};
   const dimU = { value: 1 }, moonViewU = { value: new THREE.Vector3() };
   let root, svg, txt = {}, leaders = {}, dots = {}, copy = [];
   let ant = null; // near-antler geometry facts in its local frame
@@ -259,36 +257,36 @@
   }
   function camAt(t, A) {
     const x = deerX(clamp(t, K.s2, FREEZE));
-    // wide lateral track: camera lags the deer, starts on the antler tip (where scene 1 left its gold point)
+    // wide lateral track: camera lags the deer, starts on the antler tip (where scene 1's dive ended)
     const kW = sat((t - K.s2) / (K.deerStop - K.s2));
     const tgtW = V3(0.8 * x + 0.35, 1.05, 0);
     const startTgt = A.T.clone().add(V3(0, -0.5, 0));
-    const tW = startTgt.lerp(tgtW, inOut((t - K.s2 - 0.2) / 2.6));
+    const tW = startTgt.lerp(tgtW, inOut((t - K.s2 - 0.2) / 1.8));
     const pW = V3(0.8 * x + 0.75 - 0.25 * kW, 1.25, 6.6 - 0.5 * kW);
-    // medium on the raised head
+    // medium on the raised head, then the push onto the antler, both driven by one eased parameter
     const tM = A.Hd.clone().add(V3(0, 0.12, 0));
     const pM = tM.clone().addScaledVector(dirM, 2.4);
-    const kM = inOut((t - (K.deerStop - 0.8)) / (K.deerLook - K.deerStop + 0.8));
+    const kM = medAt(t);
     let pos = pW.lerp(pM, kM), tgt = tW.lerp(tM, kM);
     const p = pushAt(t);
-    if (t > K.deerLook) {
-      const tgtF = A.B.clone().lerp(A.T, 0.55);
-      tgt = bez(tM, A.B, tgtF, p);
-      const d = 2.4 * Math.pow(dF / 2.4, p);
-      pos = tgt.clone().addScaledVector(dirM.clone().lerp(dirF, p).normalize(), d);
+    const tgtF = A.B.clone().lerp(A.T, 0.55);
+    if (p > 0) {
+      const tP = bez(tM, A.B, tgtF, p);
+      const pP = tP.clone().addScaledVector(dirM.clone().lerp(dirF, p).normalize(), 2.4 * Math.pow(dF / 2.4, p));
+      pos.add(pP.sub(pM)); tgt.add(tP.sub(tM));
     }
     let focus = A.T;
-    if (t > FREEZE) {
-      const tgtF = A.B.clone().lerp(A.T, 0.55);
-      const r = inOut((t - FREEZE - 0.15) / (K.layerBone - FREEZE - 0.15));
+    if (t > PE) {
+      // slow drift into the scene 3 framing (antler left of centre, labels on the right)
+      const r = inOut((t - PE) / (K.s3 + 0.5 - PE));
       const dir = dirF.clone().lerp(dir3, r).normalize();
-      const side = V3(0, 1, 0).cross(dir).normalize().negate(); // camera-left in world: shift target right → antler sits left of centre
+      const side = V3(0, 1, 0).cross(dir).normalize().negate();
       const vw = 2 * d3 * Math.tan(15 * D2R) * W / H;
       const t3 = A.M.clone().addScaledVector(side, -0.1 * vw);
       tgt = tgtF.lerp(t3, r);
       let d = lerp(dF, d3, r);
-      // wax: float off the tip, then the camera closes in on it and centres it (hand-off to scene 4)
-      const z = inOut((t - K.wax - 0.4) / (K.s4 - 0.12 - K.wax - 0.4));
+      // collagen data: the camera closes in on the lifted wax tip and centres it (hand-off to scene 4)
+      const z = inOut((t - K.collagen) / (K.s4 - 0.12 - K.collagen));
       if (z > 0) { tgt.lerp(waxCentre(t), z); d = lerp(d, dWax, z); }
       pos = tgt.clone().addScaledVector(dir, d);
       focus = A.M;
@@ -356,18 +354,36 @@
     return {
       hh, top, base, axisL, len: A.length(), mid: base.clone().addScaledVector(A, 0.5), waxC: centre(WAX_H, 1),
       lab: LAYERS.map((L) => beam((L.h0 + L.h1) / 2)).concat([centre(0.975, 1)]),
-      lift: 1.2 * 2 * rTip
+      lift: 0.7 * 2 * rTip
     };
+  }
+
+  function wireMat(gold) {
+    const m = new THREE.MeshBasicMaterial({ wireframe: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      color: gold ? new THREE.Color(1.0, 0.78, 0.45) : new THREE.Color(0.62, 0.68, 0.78) });
+    m.onBeforeCompile = (sh) => {
+      Object.assign(sh.uniforms, wireU); sh.uniforms.uAnt = antWireU;
+      sh.vertexShader = 'varying vec3 vWX;\n' + sh.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n vWX = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+      sh.fragmentShader = 'varying vec3 vWX; uniform vec3 uHead; uniform float uR; uniform float uA; uniform float uAnt;\n' + sh.fragmentShader.replace('#include <opaque_fragment>',
+        gold ? 'outgoingLight *= 1.0; diffuseColor.a *= uAnt;\n#include <opaque_fragment>'
+          : `float dd = distance(vWX, uHead); float on = 1.0 - smoothstep(uR - 0.05, uR, dd); float band = exp(-pow((uR - dd) / 0.06, 2.0));
+             outgoingLight = outgoingLight * (on * uA + band * 2.5 * step(0.001, uR) * step(uR, 3.4)); diffuseColor.a = 1.0;
+             #include <opaque_fragment>`);
+    };
+    m.customProgramCacheKey = () => 'xl-wire-' + (gold ? 1 : 0);
+    return m;
   }
 
   function rimify(mat, warm) {
     mat.userData.rim = { value: 0 };
+    mat.userData.glow = mat.userData.glow || { value: 0 };
     mat.onBeforeCompile = (sh) => {
-      sh.uniforms.uRimK = mat.userData.rim; sh.uniforms.uDim = mat.userData.dim || dimU; sh.uniforms.uMoonV = moonViewU;
-      sh.fragmentShader = 'uniform float uRimK; uniform float uDim; uniform vec3 uMoonV;\n' + sh.fragmentShader.replace('#include <opaque_fragment>',
+      sh.uniforms.uRimK = mat.userData.rim; sh.uniforms.uDim = mat.userData.dim || dimU; sh.uniforms.uMoonV = moonViewU; sh.uniforms.uGlowK = mat.userData.glow;
+      sh.fragmentShader = 'uniform float uRimK; uniform float uDim; uniform vec3 uMoonV; uniform float uGlowK;\n' + sh.fragmentShader.replace('#include <opaque_fragment>',
         `{ float fr = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 3.0);
            float side = clamp(dot(normal, uMoonV) * 0.6 + 0.55, 0.0, 1.0);
-           outgoingLight += ${warm ? 'vec3(1.0, 0.72, 0.38)' : 'vec3(0.55, 0.62, 0.8)'} * fr * side * uRimK; outgoingLight *= uDim; }
+           outgoingLight += ${warm ? 'vec3(1.0, 0.72, 0.38)' : 'vec3(0.55, 0.62, 0.8)'} * fr * side * uRimK; outgoingLight *= uDim;
+           outgoingLight += ${warm ? 'vec3(1.0, 0.80, 0.50)' : 'vec3(0.62, 0.68, 0.80)'} * uGlowK * (0.35 + 0.65 * pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), 1.5)); }
          #include <opaque_fragment>`);
     };
     mat.customProgramCacheKey = () => 'xl-rim-' + (warm ? 1 : 0);
@@ -441,14 +457,26 @@
       stage.insertBefore(root, stage.firstChild);
       const canvas = el('canvas', { id: 's23-gl', width: W, height: H }, root);
       svg = el('svg', { id: 's23-ov', viewBox: `0 0 ${W} ${H}`, width: W, height: H }, root);
+      dataEls.box = el('div', { id: 's3-data' }, null); dataEls.vals = [];
       for (const c of copy) {
-        txt[c.id] = el('div', { class: 'copy ' + c.id + (/^s3-(bone|blood|powder|wax)$/.test(c.id) ? ' s3-lab' : ''), 'data-copy': c.id }, root);
+        const inData = /^s3-d[0-9hn]/.test(c.id);
+        const cls = 'copy ' + c.id + (/^s3-(bone|blood|powder|wax)$/.test(c.id) ? ' s3-lab' : /-d$/.test(c.id) ? ' s3-desc' : '');
+        txt[c.id] = el('div', { class: cls, 'data-copy': c.id }, inData ? dataEls.box : root);
+        if (/^s3-d\dv$/.test(c.id)) dataEls.vals.push({ el: txt[c.id], val: parseFloat(c.text.replace(/[^0-9.]/g, '')) });
         txt[c.id].textContent = c.text;
         if (txt[c.id].classList.contains('s3-lab')) {
           leaders[c.id] = el('path', { class: 'lead' + (c.id === 's3-wax' ? ' wax' : '') }, svg);
           dots[c.id] = el('circle', { class: 'adot' + (c.id === 's3-wax' ? ' wax' : ''), r: 5 }, svg);
         }
       }
+      root.appendChild(dataEls.box);
+      // ring target around the antler (V2, at `ring`)
+      ringG = el('g', { class: 'ring' }, svg);
+      ringEls.c = el('circle', { class: 'rc', cx: 0, cy: 0, r: 100 }, ringG);
+      ringEls.o = el('circle', { class: 'ro', cx: 0, cy: 0, r: 120 }, ringG);
+      ringEls.d = el('circle', { class: 'rd', cx: 0, cy: 0, r: 7 }, ringG);
+      ringEls.h = el('path', { class: 'rh' }, ringG);
+      ringG.style.opacity = 0;
       root.style.display = 'none';
 
       renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true });
@@ -507,12 +535,21 @@
       ant = analyseAntler(antN);
       shellMat = antN.material.clone(); farMat = antN.material.clone();
       antN.material = shellMat; antF.material = farMat;
-      farMat.userData.dim = dimU;
+      farMat.userData.dim = antDimU;
       shellMat.userData.dim = { value: 1 };
       rimify(shellMat, true); rimify(farMat, true);
       deerRoot.traverse((o) => {
-        if (o.isSkinnedMesh) { o.material = o.material.clone(); rimify(o.material, false); bodyMats.push(o.material); }
+        if (o.isSkinnedMesh) {
+          o.material = o.material.clone(); o.material.userData.dim = bodyDimU; rimify(o.material, false); bodyMats.push(o.material);
+          o.material.polygonOffset = true; o.material.polygonOffsetFactor = 1; o.material.polygonOffsetUnits = 1;
+          // hologram wire overlay sharing the skeleton; revealed by a sphere sweeping out from the head at `holo`
+          const w = new THREE.SkinnedMesh(o.geometry, wireMat(false));
+          w.position.copy(o.position); w.quaternion.copy(o.quaternion); w.scale.copy(o.scale);
+          w.bind(o.skeleton, o.bindMatrix); w.frustumCulled = false; w.visible = false; o.parent.add(w); bodyWires.push(w);
+        }
       });
+      for (const a of [antN, antF]) { const w = new THREE.Mesh(a.geometry, wireMat(true)); w.visible = false; w.frustumCulled = false; w.renderOrder = 3; a.add(w); antWires.push(w); }
+      shellMat.polygonOffset = farMat.polygonOffset = true; shellMat.polygonOffsetFactor = farMat.polygonOffsetFactor = 1; shellMat.polygonOffsetUnits = farMat.polygonOffsetUnits = 1;
       // inner layered body + detachable wax, sharing the near antler's local frame
       const ig = antN.geometry.clone();
       ig.setAttribute('hh', new THREE.BufferAttribute(ant.hh, 1));
@@ -537,12 +574,13 @@
       buildSnow();
 
       // calibrate the freeze framing (antler ≈ 60 % of frame height) and the scene 3 pull-back
-      poseDeer(FREEZE);
-      const A = anchors();
-      for (let i = 0; i < 6; i++) { placeCamera(camAt(FREEZE, A)); dF *= antlerFrac().frac / FRAC; }
+      poseDeer(PE);
+      let A = anchors();
+      for (let i = 0; i < 6; i++) { placeCamera(camAt(PE, A)); dF *= antlerFrac().frac / FRAC; }
       d3 = dF;
-      for (let i = 0; i < 6; i++) { placeCamera(camAt(K.layerBone + 0.5, A)); d3 *= antlerFrac().frac / FRAC3; }
-      const waxSize = Math.max(ant.lift / 1.2, 0.05 * ant.len) * antN.matrixWorld.getMaxScaleOnAxis();
+      poseDeer(K.s3 + 0.5); A = anchors();
+      for (let i = 0; i < 6; i++) { placeCamera(camAt(K.s3 + 0.5, A)); d3 *= antlerFrac().frac / FRAC3; }
+      const waxSize = Math.max(ant.lift / 0.7, 0.05 * ant.len) * antN.matrixWorld.getMaxScaleOnAxis();
       dWax = waxSize / (0.2 * 2 * Math.tan(15 * D2R)); // wax ≈ 20 % of frame height at the hand-off
       await document.fonts.load('400 36px "XL Sans"');
       await document.fonts.load('400 46px "XL Serif"');
@@ -578,19 +616,31 @@
     placeCamera(c);
     const camSpeed = camNext.distanceTo(c.pos) * FPS;
 
-    const s3 = smooth(FREEZE + 0.1, K.layerBone - 0.2, tc);       // scene 3 reveal
-    const dim = 1 - smooth(FREEZE + 0.2, K.layerBone - 0.3, tc);   // background → black, body out
+    const s3 = smooth(REV0, REV1, tc);                              // scene 3 reveal (shell → layers)
+    const holo = smooth(K.holo, K.holo + 1.4, tc);                  // forest → dark hologram space
+    const dim = 1 - holo;
     dimU.value = dim;
+    bodyDimU.value = lerp(1, 0.32, holo);
     moonViewU.value.copy(MOON).transformDirection(camera.matrixWorldInverse);
-    const rimFreeze = smooth(FREEZE, FREEZE + 0.5, tc);             // tip rim brightens within 0.5 s of the freeze
-    shellMat.userData.rim.value = (0.6 + 1.2 * smooth(K.deerLook, K.fillStart, tc) + 1.6 * rimFreeze) * (1 - s3 * 0.8);
-    farMat.userData.rim.value = shellMat.userData.rim.value * 0.5;
-    for (const m of bodyMats) m.userData.rim.value = 0.9;
+    const gl = smooth(K.antlerGlow - 0.3, K.antlerGlow + 0.5, tc);  // antlers light up gold
+    const rimFreeze = gl;
+    shellMat.userData.rim.value = (0.6 + 1.0 * holo + 1.4 * gl) * (1 - s3 * 0.8);
+    shellMat.userData.glow.value = 0.55 * gl * (1 - s3);
+    farMat.userData.rim.value = shellMat.userData.rim.value * 0.6;
+    farMat.userData.glow.value = 0.4 * gl * (1 - 0.5 * s3);
+    for (const m of bodyMats) m.userData.rim.value = lerp(0.9, 1.8, holo);
+    // wire sweep from the head
+    wireU.uHead.value.copy(A.Hd);
+    wireU.uR.value = 3.4 * Math.pow(sat((tc - K.holo) / 1.5), 1.3);
+    wireU.uA.value = 0.24 * holo;
+    for (const w of bodyWires) w.visible = tc > K.holo;
+    antWireU.value = 0.55 * smooth(K.antlerGlow - 0.6, K.antlerGlow + 0.4, tc) * (1 - 0.75 * s3);
+    for (const w of antWires) w.visible = antWireU.value > 0.001;
     shellMat.opacity = 1 - 0.75 * s3;
     shellMat.depthWrite = s3 < 0.01;
     const ls = layerState(tc), iu = innerMesh.material.uniforms, wu = waxMesh.material.uniforms;
     innerMesh.visible = s3 > 0.001;
-    iu.uA.value = s3 * lerp(1, 0.3, smooth(K.wax + 0.8, K.s4 - 0.2, tc));
+    iu.uA.value = s3 * lerp(1, 0.3, smooth(K.collagen, K.s4 - 0.2, tc));
     for (let i = 0; i < 4; i++) { iu.uB.value[i] = ls.B[i]; iu.uGrey.value[i] = ls.G[i]; wu.uB.value[i] = ls.B[i]; }
     const lift = waxLift(tc);
     waxMesh.visible = ls.waxOn > 0.001;
@@ -605,21 +655,21 @@
     const dist = glow.position.distanceTo(camera.position), pxW = 2 * dist * Math.tan(15 * D2R) / H;
     const gPx = lerp(200, 300, c.p) * (1 + 0.35 * rimFreeze);
     glow.scale.setScalar(gPx * pxW);
-    glow.material.opacity = (0.9 + 0.1 * rimFreeze) * (1 - smooth(FREEZE + 0.6, K.layerBone, tc));
+    glow.material.opacity = (0.75 + 0.25 * rimFreeze) * (1 - smooth(REV0, K.s3, tc));
     const wc = waxCentre(tc), wd = wc.distanceTo(camera.position);
     waxGlow.position.copy(wc);
-    waxGlow.scale.setScalar(lerp(160, 520, lift) * 2 * wd * Math.tan(15 * D2R) / H);
+    waxGlow.scale.setScalar(lerp(150, 340, lift) * 2 * wd * Math.tan(15 * D2R) / H);
     waxGlow.material.opacity = 0.85 * ls.waxOn;
 
     // DOF: focus on the antler tip; aperture opens as the push closes in (snow turns to bokeh)
     tmp.copy(c.focus).applyMatrix4(camera.matrixWorldInverse);
     const focus = Math.max(0.1, -tmp.z);
-    const ap = lerp(6, 26, smooth(K.deerStop, FREEZE, tc)) * (1 - s3);
+    const ap = lerp(6, 22, smooth(K.deerStop, PE, tc)) * (1 - s3);
     dofMat.uniforms.uFocus.value = focus;
     dofMat.uniforms.uCoc.value = ap * focus;
     dofMat.uniforms.uMaxR.value = ap > 0.3 ? 22 : 0;
     dofMat.uniforms.uSeed.value = Math.round(tc * FPS) % 97;
-    const ph = snowPhase(tc), snowK = 1 - smooth(FREEZE + 0.3, K.layerBone - 0.4, tc);
+    const ph = snowPhase(tc), snowK = 1 - 0.45 * smooth(K.holo, K.holo + 1.4, tc);
     for (const m of snowMats) {
       const u = m.uniforms;
       u.uC.value.copy(camera.position); u.uPh.value = ph; u.uFocus.value = focus; u.uCoc.value = Math.max(ap, 2) * focus; u.uK.value = snowK;
@@ -648,30 +698,64 @@
     }
 
     // ---- copy & labels ----
-    for (const id of ['s2-name', 's2-sub', 's3-sub']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
+    for (const id of ['s2-name', 's2-sub', 's3-sub', 's3-two']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
+    // ring target
+    {
+      const af0 = antlerFrac(), cx = project(A.B.clone().lerp(A.T, 0.45)), R = 0.62 * (af0.bottom - af0.top);
+      const ra = smooth(K.ring - 0.1, K.ring + 0.3, tc) * (1 - smooth(REV0, K.s3 - 0.2, tc));
+      ringG.style.opacity = ra.toFixed(3);
+      if (ra > 0.001) {
+        const draw = inOut((tc - K.ring) / 1.1), C = 2 * Math.PI * R;
+        ringG.setAttribute('transform', `translate(${cx.x.toFixed(1)},${cx.y.toFixed(1)})`);
+        ringEls.c.setAttribute('r', R.toFixed(1));
+        ringEls.c.setAttribute('stroke-dasharray', `${(C * draw).toFixed(1)} ${C.toFixed(1)}`);
+        ringEls.c.setAttribute('transform', 'rotate(-90)');
+        ringEls.o.setAttribute('r', (R * 1.1).toFixed(1));
+        ringEls.o.setAttribute('transform', `rotate(${(-90 + 40 * (tc - K.ring)).toFixed(2)})`);
+        const ang = -Math.PI / 2 + 2 * Math.PI * draw + 0.5 * Math.max(0, tc - K.ring - 1.1);
+        ringEls.d.setAttribute('cx', (R * Math.cos(ang)).toFixed(1)); ringEls.d.setAttribute('cy', (R * Math.sin(ang)).toFixed(1));
+        const hw = R * 1.45 * inOut((tc - K.ring - 0.2) / 0.9);
+        ringEls.h.setAttribute('d', `M${(-hw).toFixed(1)} 0H${(-R * 1.05).toFixed(1)}M${(R * 1.05).toFixed(1)} 0H${hw.toFixed(1)}`);
+      }
+    }
+    // stacked layer labels (KT板44), leaders from the antler to a fixed column
     const labIds = ['s3-bone', 's3-blood', 's3-powder', 's3-wax'];
-    const LX = 1220;
+    const LX = 1300, LY = [700, 565, 430, 280];
+    const labOut = 1 - smooth(K.collagen - 0.2, K.collagen + 0.3, tc);
     labIds.forEach((id, i) => {
       if (!txt[id]) return;
-      let a = copyAlpha(id, tc);
-      if (i < 3) a *= lerp(1, 0.55, smooth(K[LAYERS[Math.min(2, i + 1)].cue], K[LAYERS[Math.min(2, i + 1)].cue] + 0.4, tc) * (i < 2 ? 1 : 0)) * lerp(1, 0.5, ls.waxOn);
+      let a = copyAlpha(id, tc) * labOut;
+      const hot = i < 3 ? (i === 2 ? 1 - ls.waxOn : 1 - smooth(K[LAYERS[i + 1].cue], K[LAYERS[i + 1].cue] + 0.4, tc)) : 1;
       const anc = i < 3 ? ant.lab[i].clone().applyMatrix4(antN.matrixWorld) : wc;
       const q = project(anc);
-      const lx = i < 3 ? LX : Math.max(q.x + 150, LX), ly = q.y;
-      txt[id].style.transform = `translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px)`;
-      txt[id].style.opacity = a.toFixed(3);
-      const sx = q.x + 14;
-      leaders[id].setAttribute('d', `M${sx.toFixed(1)} ${q.y.toFixed(1)}L${(lx - 18).toFixed(1)} ${ly.toFixed(1)}`);
-      leaders[id].style.opacity = a.toFixed(3);
+      const ly = LY[i];
+      txt[id].style.transform = `translate(${LX}px,${ly}px)`;
+      txt[id].style.opacity = (a * lerp(0.5, 1, hot)).toFixed(3);
+      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * lerp(0.45, 0.85, hot)).toFixed(3); }
+      const ex = LX - 24, mx = ex - 60;
+      leaders[id].setAttribute('d', `M${(q.x + 10).toFixed(1)} ${q.y.toFixed(1)}L${mx.toFixed(1)} ${ly.toFixed(1)}L${ex} ${ly}`);
+      leaders[id].style.opacity = (a * lerp(0.45, 1, hot)).toFixed(3);
       dots[id].setAttribute('cx', q.x.toFixed(1)); dots[id].setAttribute('cy', q.y.toFixed(1));
       dots[id].style.opacity = a.toFixed(3);
     });
+    // collagen data panel (KT板45): numbers count up from `collagen`, lock on `antlerFreeze`
+    {
+      const pa = smooth(K.collagen - 0.1, K.collagen + 0.4, tc) * (1 - smooth(K.s4 - 0.35, K.s4 - 0.05, tc));
+      dataEls.box.style.opacity = pa.toFixed(3);
+      const roll = sat((tc - K.collagen - 0.3) / (FREEZE - K.collagen - 0.3));
+      for (const v of dataEls.vals) {
+        const k = 1 - Math.pow(1 - roll, 3);
+        v.el.textContent = '↑' + (roll >= 1 ? v.val : (v.val * k)).toFixed(2) + '%';
+        v.el.classList.toggle('lock', tc >= FREEZE);
+      }
+      dataEls.box.style.setProperty('--flash', (Math.exp(-Math.max(0, tc - FREEZE) * 4) * (tc >= FREEZE ? 1 : 0)).toFixed(3));
+    }
 
     const af = antlerFrac(), tip = project(A.T);
     lastProbe = {
       camSpeed: +camSpeed.toFixed(5), push: +c.p.toFixed(4), antlerFrac: +af.frac.toFixed(4), antlerTop: +af.top.toFixed(1), antlerBottom: +af.bottom.toFixed(1),
       tip: { x: +tip.x.toFixed(1), y: +tip.y.toFixed(1) }, snowFall: +((snowPhase(tc + 1 / FPS) - ph) * FPS).toFixed(3), snowK: +snowK.toFixed(3),
-      deerX: +deerG.position.x.toFixed(3), headRaise: +raiseAt(Math.min(tc, FREEZE)).toFixed(3), reveal: +s3.toFixed(3), dim: +dim.toFixed(3),
+      deerX: +deerG.position.x.toFixed(3), headRaise: +raiseAt(Math.min(tc, FREEZE)).toFixed(3), holo: +holo.toFixed(3), glow: +gl.toFixed(3), reveal: +s3.toFixed(3), dim: +dim.toFixed(3),
       layers: ls.B.map((b) => +b.toFixed(3)), waxLift: +lift.toFixed(3), cloud: +cloud.toFixed(3), focus: +focus.toFixed(3)
     };
   }

@@ -1,0 +1,244 @@
+{
+  "when": "2026-11-24T06:30:45.768Z",
+  "checks": {
+    "cueTable": {
+      "total": 36,
+      "mismatches": []
+    },
+    "sceneCuts": {
+      "frames": 2745,
+      "cuts": [
+        {
+          "scene": 1,
+          "plan": 0,
+          "got": 0,
+          "errorFrames": 0
+        },
+        {
+          "scene": 2,
+          "plan": 225,
+          "got": 225,
+          "errorFrames": 0
+        },
+        {
+          "scene": 3,
+          "plan": 640,
+          "got": 640,
+          "errorFrames": 0
+        },
+        {
+          "scene": 4,
+          "plan": 1086,
+          "got": 1086,
+          "errorFrames": 0
+        },
+        {
+          "scene": 5,
+          "plan": 2107,
+          "got": 2107,
+          "errorFrames": 0
+        },
+        {
+          "scene": 6,
+          "plan": 1406,
+          "got": 1406,
+          "errorFrames": 0
+        },
+        {
+          "scene": 7,
+          "plan": 1724,
+          "got": 1724,
+          "errorFrames": 0
+        },
+        {
+          "scene": 8,
+          "plan": 2457,
+          "got": 2457,
+          "errorFrames": 0
+        }
+      ],
+      "monotonic": true,
+      "frameIndexMismatches": 0
+    },
+    "keyCues": [
+      {
+        "name": "antlerFreeze",
+        "sec": 34.09,
+        "frame": 1023,
+        "byFrame": {
+          "0": {
+            "frame": 1023,
+            "scene": 3,
+            "state": "now",
+            "hit": true
+          },
+          "1": {
+            "frame": 1024,
+            "scene": 3,
+            "state": "after",
+            "hit": false
+          },
+          "-1": {
+            "frame": 1022,
+            "scene": 3,
+            "state": "before",
+            "hit": false
+          }
+        },
+        "byQuery": {
+          "frame": 1023,
+          "scene": 3,
+          "state": "now",
+          "pausedAudio": true,
+          "playing": false
+        },
+        "ok": true
+      },
+      {
+        "name": "pressBottom",
+        "sec": 61.72,
+        "frame": 1852,
+        "byFrame": {
+          "0": {
+            "frame": 1852,
+            "scene": 7,
+            "state": "now",
+            "hit": true
+          },
+          "1": {
+            "frame": 1853,
+            "scene": 7,
+            "state": "after",
+            "hit": false
+          },
+          "-1": {
+            "frame": 1851,
+            "scene": 7,
+            "state": "before",
+            "hit": false
+          }
+        },
+        "byQuery": {
+          "frame": 1852,
+          "scene": 7,
+          "state": "now",
+          "pausedAudio": true,
+          "playing": false
+        },
+        "ok": true
+      },
+      {
+        "name": "dataLock",
+        "sec": 74.47,
+        "frame": 2234,
+        "byFrame": {
+          "0": {
+            "frame": 2234,
+            "scene": 5,
+            "state": "now",
+            "hit": true
+          },
+          "1": {
+            "frame": 2235,
+            "scene": 5,
+            "state": "after",
+            "hit": false
+          },
+          "-1": {
+            "frame": 2233,
+            "scene": 5,
+            "state": "before",
+            "hit": false
+          }
+        },
+        "byQuery": {
+          "frame": 2234,
+          "scene": 5,
+          "state": "now",
+          "pausedAudio": true,
+          "playing": false
+        },
+        "ok": true
+      }
+    ],
+    "realtime": [
+      {
+        "kind": "scene",
+        "name": "s2",
+        "from": 6.4,
+        "started": true,
+        "planSec": 7.5,
+        "planFrame": 225,
+        "event": {
+          "type": "scene",
+          "n": 2,
+          "frame": 225,
+          "t": 7.486929,
+          "audioT": 7.486929
+        },
+        "audioMsFromCue": -13,
+        "clockMsFromIdeal": 4,
+        "ok": true
+      },
+      {
+        "kind": "cue",
+        "name": "antlerFreeze",
+        "from": 33,
+        "started": true,
+        "planSec": 34.09,
+        "planFrame": 1023,
+        "event": {
+          "type": "cue",
+          "name": "antlerFreeze",
+          "frame": 1023,
+          "cueFrame": 1023,
+          "t": 34.098971,
+          "audioT": 34.098971
+        },
+        "audioMsFromCue": 9,
+        "clockMsFromIdeal": 16,
+        "ok": true
+      },
+      {
+        "kind": "cue",
+        "name": "pressBottom",
+        "from": 60.6,
+        "started": true,
+        "planSec": 61.72,
+        "planFrame": 1852,
+        "event": {
+          "type": "cue",
+          "name": "pressBottom",
+          "frame": 1852,
+          "cueFrame": 1852,
+          "t": 61.726155,
+          "audioT": 61.726155
+        },
+        "audioMsFromCue": 6,
+        "clockMsFromIdeal": 9,
+        "ok": true
+      },
+      {
+        "kind": "scene",
+        "name": "s8",
+        "from": 80.8,
+        "started": true,
+        "planSec": 81.9,
+        "planFrame": 2457,
+        "event": {
+          "type": "scene",
+          "n": 8,
+          "frame": 2457,
+          "t": 81.888138,
+          "audioT": 81.888138
+        },
+        "audioMsFromCue": -12,
+        "clockMsFromIdeal": 5,
+        "ok": true
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}

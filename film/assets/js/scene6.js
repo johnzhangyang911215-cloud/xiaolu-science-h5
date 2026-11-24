@@ -15,10 +15,10 @@
   const A_SCALE = 1.25, MM = 0.001 * A_SCALE;      // same hero scale as scene 5; contents are modelled in ampoule mm
   const CY = 31.8 * MM;                             // pivot: middle of the 63.65 mm ampoule
   const R_CUT = 5.6 * MM;
-  const CUT_A = T0 + 0.15, CUT_B = T0 + 1.05;       // section sweep
-  const YAW0 = -0.82 - 0.26 * (T0 - K.single);      // scene 5's yaw on its last frame
-  const TEMP_A = T0 + 0.3, TEMP_B = T0 + 3.5;       // powder setting window (the −40℃ figure itself is fixed)
-  const FROST_A = T0 + 0.5, FROST_B = LP;
+  const CUT_A = T0 + 1.5, CUT_B = T0 + 2.4;       // section sweep
+  const YAW0 = -0.9;                                 // V2: arrives from scene 4's light point, three-quarter view
+  const TEMP_A = T0 + 1.6, TEMP_B = T0 + 4.2;       // powder setting window (the −40℃ figure itself is fixed)
+  const FROST_A = T0 + 1.8, FROST_B = LP;
   const FLIP_A = CLOSE + 0.25, FLIP_B = END - 0.02;
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -136,7 +136,7 @@
       bgMat = new THREE.ShaderMaterial({ uniforms: { uLift: { value: 0 }, uSeed: { value: 0 } }, vertexShader: quadVS, fragmentShader: bgFS, depthTest: false, depthWrite: false });
       bgScene = new THREE.Scene(); bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), bgMat));
       ovScene = new THREE.Scene(); ovCam = new THREE.OrthographicCamera(0, W, 0, H, -10, 10);
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 3; i++) {
         const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({ uniforms: { uCol: { value: new THREE.Color() }, uA: { value: 0 }, uCore: { value: 0 } },
           vertexShader: glowVS, fragmentShader: glowFS, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false, transparent: true, side: THREE.DoubleSide }));
         m.frustumCulled = false; m.visible = false; ovScene.add(m); glowMesh.push(m);
@@ -238,18 +238,17 @@
   // ---------- motion ----------
   const lift = (t) => 0.014 * inOut((t - (T0 + 0.9)) / 1.4);
   const ampC = (t) => V(0, CY + lift(t), 0);
-  const yaw = (t) => lerp(YAW0, 0, inOut((t - T0) / 1.2));
+  const yaw = (t) => lerp(YAW0, 0, inOut((t - T0 - 0.3) / 2.0));
   const flipK = (t) => inOut((t - FLIP_A) / (FLIP_B - FLIP_A));
   const cutK = (t) => inOut((t - CUT_A) / (CUT_B - CUT_A)) * (1 - inOut((t - CLOSE) / 0.55));
   function camAt(t) {
     // scene 5 ends 0.1 m from the chamber along (−0.12, 0.08, 1); start there, swing to front-on and pull back
     const c = ampC(t), chamber = c.clone().add(V(0, (3.9 - 31.8) * MM, 0));
-    const startT = chamber.clone().add(V(-0.004, 0.006, 0)), startP = startT.clone().add(V(-0.12, 0.08, 1).normalize().multiplyScalar(0.1));
-    const swing = inOut((t - T0) / 1.3);
-    const closeT = chamber.clone().add(V(0, 0.003, 0)), closeP = closeT.clone().add(V(0.0, 0.045, 1).normalize().multiplyScalar(0.085));
-    let tgt = lerpV(startT, closeT, swing), pos = lerpV(startP, closeP, swing);
+    // V2: start far with the chamber's glow on frame centre (scene 4's light point), then glide in
+    const startT = chamber.clone(), startP = startT.clone().add(V(0, 0.03, 1).normalize().multiplyScalar(1.1));
+    let tgt = startT, pos = startP;
     // full section, ampoule right of centre for the counter on the left
-    const kA = inOut((t - (T0 + 1.2)) / 1.6);
+    const kA = Math.pow(inOut((t - T0) / 2.6), 0.7);
     const aT = c.clone().add(V(-0.019, -0.004, 0)), aP = aT.clone().add(V(0.0, 0.07, 1).normalize().multiplyScalar(0.2));
     tgt = lerpV(tgt, aT, kA); pos = lerpV(pos, aP, kA);
     // labels: centre the ampoule, powder label right, solvent label left
@@ -302,11 +301,13 @@
     powderLight.intensity = lerp(0.022, 0.006, set);
     frostShellU.uFrost.value = fr;
     const scat = smooth(END - 0.6, END, tc);
+    // V2: flakes no longer stand still: they fall slowly, sway and tumble, wrapping inside a 30 mm band
     flakes.forEach((f, i) => {
-      const g = out3((tc - f.at) / 0.55), r = f.r + scat * f.drift * 6;
-      SV.setScalar(f.s * g * (1 - 0.3 * scat) + 1e-4);
-      PV.set(Math.cos(f.th) * r, f.y + scat * f.drift * 2, Math.sin(f.th) * r);
-      E.set(f.tx, -f.th + Math.PI / 2, f.tz + tc * 0.05 * f.drift); Q.setFromEuler(E);
+      const age = Math.max(0, tc - f.at), g = out3(age / 0.55), r = f.r + scat * f.drift * 6 + 0.8 * Math.sin(0.9 * tc + f.tz * 3);
+      const yy = ((f.y - (1.6 + 2.2 * f.drift) * age) % 30 + 30) % 30 - 2, edge = smooth(-2, 1, yy) * (1 - smooth(24, 28, yy));
+      SV.setScalar(f.s * g * edge * (1 - 0.3 * scat) + 1e-4);
+      PV.set(Math.cos(f.th + 0.03 * age * f.drift) * r, yy, Math.sin(f.th + 0.03 * age * f.drift) * r);
+      E.set(f.tx + 0.7 * age * f.drift, -f.th + Math.PI / 2 + 0.4 * age, f.tz + 0.9 * age * f.drift); Q.setFromEuler(E);
       frost.setMatrixAt(i, M4.compose(PV, Q, SV));
     });
     frost.instanceMatrix.needsUpdate = true;
@@ -318,6 +319,8 @@
     const pw = bodyW(0, 3.9, 0), ps = proj(pw);
     const pxPerMm = MM * H / (2 * Math.tan(15 * Math.PI / 180) * cam.position.distanceTo(pw));
     gi = 0;
+    const hand = 1 - smooth(T0 + 0.2, T0 + 1.4, tc);   // scene 4's light point hands over to the chamber
+    glow(ps[0], ps[1], 150, GOLD, 0.9 * hand, 1.0);
     glow(ps[0], ps[1], pxPerMm * 26, GOLD_G, 0.45 * (1 - set) * (1 - flipK(tc)), 0);
     glow(ps[0], ps[1], pxPerMm * 9, GOLD, 0.22 * (1 - set), 0.6);
 

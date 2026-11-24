@@ -9,7 +9,10 @@
   const FPS = F.fps, W = 1920, H = 1080;
   const K = {};
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
-  const T0 = K.s4, END = K.s5;
+  // V2: ring of nutrients (s4 → journal), then the Science cover + ruminant phylogeny (journal), then every particle
+  // converges to one light point that becomes scene 6's ampoule. The old branch/helix stages are switched off.
+  K.ref1 = K.journal; K.ref2 = 1e4; K.converge = K.s6 - 1.85;
+  const T0 = K.s4, END = K.s6;
   const N = 5200;
   const CX = 960, CY = 545;                 // where scene 3 leaves the wax
   const BLUE = [0.373, 0.722, 0.902], ICE = [0.80, 0.94, 1.0], GOLD = [1.0, 0.86, 0.62], GOLD_G = [0.80, 0.60, 0.34];
@@ -17,7 +20,12 @@
   const TX = 760;                            // branches and helix sit left of the reference cards
   const HY0 = 190, HY1 = 830, H_R = 95, H_TURNS = 3.2;
   const COMPS = ['s4-c1', 's4-c2', 's4-c3', 's4-c4', 's4-c5', 's4-c6'];
-  const CARDS = [['s4-r1-k', 's4-r1-t', 's4-r1-c', 's4-r1-o'], ['s4-r2-k', 's4-r2-t', 's4-r2-c', 's4-r2-o']];
+  const CARDS = [];
+  // ruminant families, Chen et al., Science 364(6446), 2019 (KT板42): Tragulidae basal; Cervidae sister to (Moschidae, Bovidae)
+  const TREE_X0 = 930, TREE_LX = 1480;
+  const LEAVES = [['s4-t1', 300], ['s4-t2', 390], ['s4-t3', 480], ['s4-t4', 570], ['s4-t5', 660], ['s4-t6', 750]];
+  const NODES = { n5: [1390, 705, 's4-t5', 's4-t6'], n4: [1300, 637.5, 's4-t4', 'n5'], n3: [1210, 558.75, 's4-t3', 'n4'], n2: [1120, 474.4, 's4-t2', 'n3'], n1: [990, 387.2, 's4-t1', 'n2'] };
+  const DEER_PATH = new Set(['n1', 'n2', 'n3', 'n4', 's4-t4']);
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const sat = (v) => clamp(v, 0, 1);
@@ -70,6 +78,7 @@
 
   // ---------- state ----------
   let renderer, scene, cam, pts, posA, colA, szA, glowMesh = [], fieldMat, peakTex;
+  const jr = {};
   let root, txt = {}, cards = [], copy = [], active = false, lastProbe = null, LIT = [];
   const P = {}; // per-particle constants
 
@@ -100,7 +109,7 @@
       vec3 blue = vec3(0.373, 0.722, 0.902);
       vec3 tint = mix(blue, vec3(0.80, 0.60, 0.34), uWarm);
       float inside = 1.0 - smoothstep(uR - 6.0, uR + 6.0, r);
-      vec3 c = base * mix(0.55, 1.0, inside);
+      vec3 c = base * mix(0.55, 1.0, max(inside, 1.0 - uBlue));
       c += tint * uBlue * inside * (0.035 + 0.05 * pow(1.0 - clamp(r / max(uR, 1.0), 0.0, 1.0), 1.5));
       // aperture rim, graduation ticks and a broken crosshair
       float rim = exp(-pow((r - uR) / 1.6, 2.0));
@@ -195,6 +204,25 @@
         cards[n] = card;
         ids.forEach((id, j) => { const c = copy.find((e) => e.id === id); if (c) { txt[id] = el('div', 'copy ' + 'ktco'[j], card, c.text); txt[id].dataset.copy = id; } });
       });
+      jr.box = el('div', 's4-j', root);
+      jr.cover = el('div', 's4-cover', jr.box);
+      const img = document.createElement('img'); img.src = 'assets/refs/science-2019-ruminant.webp'; img.alt = ''; jr.cover.appendChild(img);
+      el('div', 's4-glint', jr.cover);
+      const NS = 'http://www.w3.org/2000/svg';
+      jr.svg = document.createElementNS(NS, 'svg'); jr.svg.setAttribute('viewBox', `0 0 ${W} ${H}`); jr.svg.setAttribute('class', 's4-tree'); jr.box.appendChild(jr.svg);
+      const yOf = (k) => (NODES[k] ? NODES[k][1] : LEAVES.find((l) => l[0] === k)[1]);
+      const xOf = (k) => (NODES[k] ? NODES[k][0] : TREE_LX);
+      const seg = (d, x0, gold) => { const pth = document.createElementNS(NS, 'path'); pth.setAttribute('d', d); pth.setAttribute('pathLength', '1'); pth.setAttribute('class', gold ? 'gold' : ''); jr.svg.appendChild(pth); jr.segs.push({ el: pth, x0 }); };
+      jr.segs = [];
+      seg(`M${TREE_X0} ${NODES.n1[1]}H${NODES.n1[0]}`, TREE_X0, true);
+      for (const k in NODES) {
+        const [x, , a, b] = NODES[k];
+        for (const c of [a, b]) seg(`M${x} ${(NODES[k][1]).toFixed(1)}V${yOf(c).toFixed(1)}H${xOf(c)}`, x, DEER_PATH.has(k) && DEER_PATH.has(c));
+      }
+      jr.labs = LEAVES.map(([id, y]) => { const c = copy.find((e) => e.id === id); const d = el('div', 'copy s4-leaf' + (id === 's4-t4' ? ' deer' : ''), jr.box, c ? c.text : ''); d.style.transform = `translate(${TREE_LX + 22}px,${y}px) translateY(-50%)`; return d; });
+      jr.dot = document.createElementNS(NS, 'circle'); jr.dot.setAttribute('class', 'dot'); jr.dot.setAttribute('cx', TREE_LX); jr.dot.setAttribute('cy', 570); jr.dot.setAttribute('r', 7); jr.svg.appendChild(jr.dot);
+      for (const id of ['s4-j-k', 's4-j-cap']) { const c = copy.find((e) => e.id === id); if (c) { txt[id] = el('div', 'copy ' + id, id === 's4-j-k' ? jr.box : root, c.text); txt[id].dataset.copy = id; } }
+      await img.decode().catch(() => {});
       const sc = copy.find((e) => e.id === 's4-sub');
       if (sc) { txt['s4-sub'] = el('div', 'copy s4-sub', root, sc.text); txt['s4-sub'].dataset.copy = 's4-sub'; }
       root.style.display = 'none';
@@ -293,14 +321,12 @@
         size = nk >= 0 ? 5 : 4;
       }
       if (k1 < 1) { bright = lerp(0.9, bright, k1); hl = Math.max(hl, 0.7 * (1 - k1)); size = lerp(5, size, k1); }
-      // stage 2: ring → stem-cell pool → branches
+      // stage 2: the ring dissolves into faint drifting dust behind the journal
       if (!dust && tc >= K.ref1) {
-        const k2 = inOut((tc - (K.ref1 + P.st[i] * 0.3)) / 0.55), tp = treePos(i, tc);
-        x = lerp(x, tp[0], k2); y = lerp(y, tp[1], k2);
-        const pooled = front0 - P.lag[i] <= 0;
-        bright = lerp(bright, tp[2] ? 1.0 : pooled ? 0.6 : 0.42, k2);
-        hl = lerp(hl, tp[2] ? 0.8 : pooled ? 0.3 : 0, k2);
-        size = lerp(size, tp[2] ? 5.5 : 4.2, k2);
+        const k2 = inOut((tc - (K.ref1 + P.st[i] * 0.4)) / 0.9);
+        const wx = 120 + 1680 * hash(i * 3.31 + 0.7) + 30 * Math.sin(0.25 * tc + P.ph[i]), wy = 90 + 900 * hash(i * 7.13 + 0.3) + 22 * Math.cos(0.2 * tc + P.ph[i]);
+        x = lerp(x, wx, k2); y = lerp(y, wy, k2);
+        bright = lerp(bright, 0.1 + 0.08 * P.sp[i], k2); hl = lerp(hl, 0, k2); size = lerp(size, 2.6 + 1.6 * P.sp[i], k2);
       }
       // stage 3: branches → double helix
       if (!dust && helixOn) {
@@ -347,7 +373,7 @@
       glow(n[0], n[1], 230, BLUE, 0.75 * a, 0.5);
       if (k === curLit && tc < K.ref1) focus = [n[0], n[1]];
     }
-    const treeOn = smooth(K.ref1 + 0.3, K.ref1 + 0.7, tc) * (1 - smooth(K.ref2, K.ref2 + 0.5, tc));
+    const treeOn = 0;
     glow(POOL[0], POOL[1], 170, BLUE, 0.5 * treeOn * (1 - smooth(K.ref1 + 1.5, K.ref1 + 3.4, tc)), 0.3);
     for (const g of SEG) {
       const d = front0 - 20;
@@ -355,7 +381,7 @@
       const q = chainAt(g, clamp(d, g.L0, g.L0 + g.len));
       glow(q[0], q[1], 130, ICE, 0.55 * treeOn * grow, 0.4);
     }
-    if (tc >= K.ref1 && tc < K.ref2) { const q = chainAt(SEG[0], clamp(front0 - 20, 0, SEG[0].len)); focus = [q[0], q[1]]; }
+    if (tc >= K.ref1 && tc < K.converge) focus = [1200, 540];
     const scanA = smooth(K.ref2 + 0.9, K.ref2 + 1.2, tc) * (1 - smooth(K.converge - 0.3, K.converge + 0.2, tc));
     glow(TX, sy, 300, BLUE, 0.45 * scanA, 0.2);
     if (tc >= K.ref2 && tc < K.converge) focus = [TX, sy];
@@ -370,8 +396,9 @@
     // microscope field
     const u = fieldMat.uniforms;
     u.uR.value = FIELD_R * p2out((tc - T0) / 0.9) * (1 - inOut((tc - (K.converge + 1.0)) / 0.9) * 0.88);
-    u.uBlue.value = smooth(T0, T0 + 0.35, tc) * (1 - smooth(K.converge + 1.0, END - 0.3, tc));
-    u.uRet.value = smooth(T0 + 0.4, T0 + 1.1, tc) * (1 - smooth(K.converge + 0.3, K.converge + 1.0, tc));
+    const jFade = 1 - smooth(K.journal - 0.1, K.journal + 0.7, tc);
+    u.uBlue.value = smooth(T0, T0 + 0.35, tc) * jFade;
+    u.uRet.value = smooth(T0 + 0.4, T0 + 1.1, tc) * jFade;
     u.uPeakRev.value = sat((tc - (K.ref2 + 0.35)) / 0.7);
     u.uPeak.value = smooth(K.ref2 + 0.35, K.ref2 + 0.7, tc) * (1 - smooth(K.ref2 + 1.6, K.ref2 + 2.6, tc));
     u.uWarm.value = warm;
@@ -398,6 +425,22 @@
       cardA.push(+(ai * (1 - ao)).toFixed(3));
     });
     if (txt['s4-sub']) txt['s4-sub'].style.opacity = copyAlpha('s4-sub', tc).toFixed(3);
+    // journal: cover slides in, tree draws root → leaves, the deer lineage in gold
+    const J = K.journal, jOut = 1 - smooth(K.converge - 0.1, K.converge + 0.5, tc);
+    const cIn = p2out((tc - J - 0.1) / 0.8);
+    jr.cover.style.opacity = (smooth(J + 0.1, J + 0.6, tc) * jOut).toFixed(3);
+    jr.cover.style.transform = `translate(${(-60 * (1 - cIn)).toFixed(1)}px,0) perspective(1600px) rotateY(${(14 * (1 - cIn) + 6).toFixed(2)}deg) scale(${lerp(1, 0.96, smooth(K.converge - 0.4, K.converge + 0.5, tc)).toFixed(4)})`;
+    jr.cover.style.setProperty('--g', sat((tc - J - 0.7) / 0.9).toFixed(3));
+    const TD0 = J + 0.7, TD = 1.7;
+    for (const sg of jr.segs) {
+      const k = sat((tc - TD0 - (sg.x0 - TREE_X0) / (TREE_LX - TREE_X0) * TD) / 0.4);
+      sg.el.style.strokeDashoffset = (1 - k).toFixed(4); sg.el.style.opacity = jOut.toFixed(3);
+    }
+    jr.labs.forEach((d, i) => { d.style.opacity = (smooth(TD0 + TD + 0.1 + 0.08 * i, TD0 + TD + 0.45 + 0.08 * i, tc) * jOut).toFixed(3); });
+    const dotA = smooth(TD0 + TD + 0.5, TD0 + TD + 0.8, tc) * jOut;
+    jr.dot.style.opacity = dotA.toFixed(3); jr.dot.setAttribute('r', (7 + 3 * Math.sin(5 * tc)).toFixed(2));
+    if (txt['s4-j-k']) txt['s4-j-k'].style.opacity = (smooth(J + 0.6, J + 1.0, tc) * jOut).toFixed(3);
+    if (txt['s4-j-cap']) txt['s4-j-cap'].style.opacity = copyAlpha('s4-j-cap', tc).toFixed(3);
 
     lastProbe = {
       phase: tc < LIT[0] ? 'sample' : tc < K.ref1 ? 'ring' : tc < K.ref2 ? 'branches' : tc < K.converge ? 'helix' : 'converge',

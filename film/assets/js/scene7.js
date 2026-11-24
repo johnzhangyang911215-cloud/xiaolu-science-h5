@@ -15,16 +15,18 @@
   const FPS = F.fps, W = 1920, H = 1080;
   const K = {};
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
-  const T0 = K.s7, END = K.s8;
+  // V2 (no hands, reference video 57–72 s): product only, step list on the left. Cues the V1 hand choreography used are derived here.
+  K.ringGrip = K.s7 + 0.6; K.shake3 = K.shake2; K.powderHit = K.pressBottom + 1.45; K.pullBack = 1e4;
+  const T0 = K.s7, END = K.s5;
   const A_SCALE = 1.25, MM = 0.001 * A_SCALE, CYMM = 31.8;
   const GAP = 2.6;                       // mm the tail cap travels; the safety ring fills this gap until it is pulled
   const HAND_S = 1.25;                   // arms GLB is life size; hands share the 1.25× hero scale of the ampoule
   const PRESS_A = K.pressContact, PRESS_B = K.pressBottom;
   const CUT_IN = PRESS_B + 0.25;         // hard cut to the section under the click flash
-  const SEC_OUT = K.shake3 + 0.95, SEC_CLOSE = SEC_OUT + 0.5;   // section closes after the third shake
-  const SNAP_SHOT = SEC_CLOSE + 0.15;    // re-shoot for the snap
+  const SEC_OUT = K.shake2 + 0.45, SEC_CLOSE = SEC_OUT + 0.35;  // section closes after the second shake
+  const SNAP_SHOT = SEC_CLOSE + 0.1;     // re-shoot for the snap
   const DROP_SHOT = K.snap + 0.55;       // follow the drop
-  const SPREAD_SHOT = K.dropLand + 0.5;  // macro of the fingertip spreading
+  const SPREAD_SHOT = 1e4;               // V2: no spreading shot
   const PALM = new THREE.Vector3(0.004, -0.058, 0.004);   // right palm surface under the opening (world m)
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -46,7 +48,7 @@
   }
 
   const DBG = {};
-  let root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG,
+  let arrowSvg, arrowG, root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG,
     body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, film, filmMat, copy = [], lastProbe = null;
   const txt = {}, shellMats = [], arms = {};
   const P1 = new THREE.Plane(), P2 = new THREE.Plane(), P3 = new THREE.Plane();
@@ -259,7 +261,12 @@
       const rim = new THREE.DirectionalLight(0xdfe4ea, 1.6); rim.position.set(0.7, 0.6, -1.0); scene.add(rim);
 
       const loader = new T3X.GLTFLoader().setMeshoptDecoder(T3X.MeshoptDecoder);
-      const [gA, gH] = await Promise.all([loader.loadAsync('assets/models/ampoule.glb'), loader.loadAsync('assets/models/arms.glb')]);
+      const gA = await loader.loadAsync('assets/models/ampoule.glb');
+      // press cue: gold chevrons riding on the silver tail cap (SVG overlay)
+      const NS = 'http://www.w3.org/2000/svg';
+      arrowSvg = document.createElementNS(NS, 'svg'); arrowSvg.setAttribute('viewBox', `0 0 ${W} ${H}`); arrowSvg.setAttribute('class', 's7-arrow'); root.appendChild(arrowSvg);
+      arrowG = document.createElementNS(NS, 'g'); arrowSvg.appendChild(arrowG);
+      for (let i = 0; i < 3; i++) { const pth = document.createElementNS(NS, 'path'); pth.setAttribute('d', 'M-26 -16 L0 0 L-26 16'); pth.setAttribute('transform', `translate(${-i * 26} 0)`); arrowG.appendChild(pth); }
 
       ampG = new THREE.Group(); scene.add(ampG);
       off = new THREE.Group(); off.position.y = -CYMM * MM; ampG.add(off);
@@ -353,8 +360,6 @@
       filmMat = new THREE.MeshPhysicalMaterial({ color: 0xfbf8f3, roughness: 0.05, transmission: 0.6, transparent: true, opacity: 0.0, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false });
       film = new THREE.Mesh(new THREE.CircleGeometry(1, 48), filmMat); film.frustumCulled = false; scene.add(film);
 
-      setupArm(gH.scene, 'L');
-      setupArm(T3X.SkeletonUtils.clone(gH.scene), 'R');
       renderer.compile(scene, cam);
     })();
     return init.p;
@@ -407,22 +412,23 @@
       const cT = ampW(0, 6, 0), cP = cT.clone().add(V(0.05, 0.06, 0.16));
       tgt = lerpV(tgt, cT, kc); pos = lerpV(pos, cP, kc);
       const kp = inOut((t - PRESS_A) / (PRESS_B - PRESS_A));
-      const pT = ampW(0, 4, 0), pP = pT.clone().add(V(0.04, 0.045, 0.12));
+      const pT = ampW(0, 10, 0), pP = pT.clone().add(V(0.04, 0.045, 0.12).multiplyScalar(1.55));
       return { pos: lerpV(pos, pP, kp), tgt: lerpV(tgt, pT, kp) };
     }
     if (t < SNAP_SHOT) {
       // follow the powder down: cap → surface → body
       const y = lerp(6, 15.5, inOut((t - CUT_IN) / (K.powderHit - CUT_IN))) + 6 * inOut((t - K.powderHit) / 2.5);
       const tgt = ampW(0, y, 0); tgt.x = 0;
-      return { pos: tgt.clone().add(V(0, 0.01, 1).normalize().multiplyScalar(lerp(0.085, 0.12, inOut((t - K.powderHit) / 3)))), tgt };
+      return { pos: tgt.clone().add(V(0, 0.01, 1).normalize().multiplyScalar(lerp(0.14, 0.17, inOut((t - K.powderHit) / 3)))), tgt };
     }
     if (t < DROP_SHOT) {   // ④ both pinches and the neck
       const tgt = ampW(0, 38, 0); return { pos: tgt.clone().add(V(0.0, 0.04, 0.27)), tgt };
     }
     if (t < SPREAD_SHOT) {   // follow the drop from the mouth to the palm
-      const k = inOut((t - (DROP_SHOT + 0.5)) / (K.dropLand - DROP_SHOT - 0.3));
-      const tgt = lerpV(V(0.004, -0.02, 0.0), PALM.clone().add(V(0, 0.004, 0)), k);
-      return { pos: tgt.clone().add(lerpV(V(0.02, 0.04, 0.22), V(0.02, 0.15, 0.09), k)), tgt };
+      const k = 0;
+      const tgt = ampW(0, 40.6, 0).add(V(0, 0.012, 0));
+      const kb = inOut((t - K.dropLand - 0.2) / (END - K.dropLand));
+      return { pos: tgt.clone().add(V(0.02, 0.03, 0.38).multiplyScalar(lerp(1, 1.12, kb))), tgt };
     }
     // ⑤ macro over the palm, pulling back from pullBack into the white
     const kb = inOut((t - K.pullBack) / (END - K.pullBack));
@@ -441,7 +447,7 @@
     const pd = pressDepth(tc);
     base.position.y = (-GAP + GAP * pd) / 1;   // base mesh lives in model (mm) space
     // ring: present until ringOff, then tears off along the tab and tumbles away
-    const rk = sat((tc - K.ringOff) / 0.55);
+    const rk = sat((tc - K.ringOff) / 0.9);
     ringG.visible = rk < 1;
     ringG.position.set(0, 0, 0); ringG.rotation.set(0, 0, 0);
     const pull = smooth(K.ringOff - 1.1, K.ringOff, tc) * (1 - rk);
@@ -459,7 +465,10 @@
 
     let c = camAt(tc);
     if (DBG.cam) c = DBG.cam(c, ampW, V);
-    cam.position.copy(c.pos); cam.lookAt(c.tgt); cam.updateMatrixWorld(); cam.updateProjectionMatrix();
+    cam.position.copy(c.pos); cam.lookAt(c.tgt); cam.updateMatrixWorld();
+    // V2: the step list owns the left third, so the product sits right of centre
+    const vx = -260 * smooth(T0, T0 + 1.2, tc); if (vx) cam.setViewOffset(W, H, vx, 0, W, H); else cam.clearViewOffset();
+    cam.updateProjectionMatrix();
 
     // snap: head hinges at the neck and leaves
     const sk = smooth(K.snap - 0.06, K.snap + 0.12, tc), sa = sat((tc - K.snap - 0.1) / 0.5);
@@ -492,12 +501,12 @@
       R = { ...POSE.catchR, w: 1, at: PALM.toArray() };
       L2 = { ...POSE.spreadL, w: 1, at: PALM.clone().add(V(Math.cos(a) * rr - 0.002, 0.0035 + 0.006 * (1 - smooth(0, 0.35, u)), Math.sin(a) * rr * 0.6)).toArray() };
     }
-    const tipL = poseArm(arms.L, DBG.L !== undefined ? DBG.L : L2, ampG.quaternion), tipR = poseArm(arms.R, DBG.R !== undefined ? DBG.R : R, ampG.quaternion);
-    // once torn, the ring rides away hooked on the right index, tilting off the finger
-    if (rk > 0 && rk < 1 && tipR) {
-      ringG.parent.updateMatrixWorld(true);
-      const lp = ringG.parent.worldToLocal(tipR.clone()), hook = V(8.2 * Math.cos(TAB_A), 5.0, 8.2 * Math.sin(TAB_A));
-      ringG.position.copy(lp.sub(hook)); ringG.rotation.set(rk * 0.9, 0, rk * 0.5);
+    const tipR = null;
+    // once torn, the ring springs off along its tab, tumbling and shrinking away
+    if (rk > 0 && rk < 1) {
+      const e = out3(rk), dx = Math.cos(TAB_A), dz = Math.sin(TAB_A);
+      ringG.position.set(dx * 26 * e, -9 * e, dz * 26 * e); ringG.rotation.set(rk * 1.6, rk * 0.6, rk * 1.1);
+      ringG.scale.setScalar(1 - 0.5 * rk);
     }
 
     // powder: cake shrinks from the open side, grains fall (model +y is world-down in the section), then sink and dissolve
@@ -519,7 +528,7 @@
         const d = tc - g.ta; hit++;
         y = SURF + g.sink * (1 - Math.exp(-d * 0.8)) * 2.2 + 3 * sat(d / 4);
         x += g.dx * (1 - Math.exp(-d * 0.7)); z += g.dz * (1 - Math.exp(-d * 0.7));
-        s *= 1 - smooth(0.3, 2.6, d) * (0.3 + 0.7 * smooth(K.shake1 - 0.2, K.shake3 + 0.6, tc));
+        s *= 1 - smooth(0.3, 2.0, d) * (0.3 + 0.7 * smooth(K.shake1 - 0.2, K.shake2 + 0.5, tc));
       } else if (left * 5.8 + 1.0 < y) s = s;   // still in the cake
       if (tc < ti) { y = g.y0 + base.position.y; if (y > cy1 + 0.2 + base.position.y) s = 0; }
       SV.setScalar(Math.max(s, 1e-4));
@@ -529,7 +538,7 @@
     });
     grains.instanceMatrix.needsUpdate = true;
     grains.visible = inSec;
-    const mixK = smooth(K.shake1, K.shake3 + 0.8, tc);
+    const mixK = smooth(K.shake1, K.shake2 + 0.5, tc);
     const bloom = smooth(K.powderHit - 0.2, K.powderHit + 0.5, tc);
     cloudMats.forEach((m, i) => { m.uniforms.uA.value = 0.55 * bloom * (1 - 0.65 * mixK); m.uniforms.uSeed.value = i * 3.1 + tc * (0.2 + mixK * 2); });
     liqCapMat.color.setRGB(lerp(0.874, 0.93, mixK), lerp(0.898, 0.92, mixK), lerp(0.914, 0.89, mixK)); liqCapMat.opacity = lerp(0.42, 0.62, mixK);
@@ -539,8 +548,8 @@
     // drop (world): forms at the opening, stretches, falls, lands at dropLand
     drop.visible = false; film.visible = false;
     const DR = 0.0034;   // drop radius (m)
-    if (tc >= DROP_SHOT && tc < SPREAD_SHOT + 0.6) {
-      const mouth = ampW(0, 40.6, 0), surf = PALM.clone().add(V(0, DR * 0.55, 0));
+    if (tc >= DROP_SHOT) {
+      const mouth = ampW(0, 40.6, 0), surf = mouth.clone().add(V(0.004, -0.11, 0));
       const g = 0.55, fallT = Math.sqrt(2 * Math.max(0.001, mouth.y - DR - surf.y) / g), tDet = K.dropLand - fallT, tGrow = DROP_SHOT + 0.45;
       drop.visible = tc > tGrow;
       if (tc < tDet) {          // swells at the mouth, hanging and stretching
@@ -560,8 +569,8 @@
         drop.scale.multiplyScalar(1 - k); drop.visible = k < 0.99;
       }
     }
-    if (tc >= SPREAD_SHOT) {
-      const u = tc - SPREAD_SHOT, r = 0.004 + 0.012 * smooth(0, 1.8, u);
+    if (false) {
+      const u = tc - K.dropLand - 0.15, r = 0.004 + 0.012 * smooth(0, 1.8, u);
       film.visible = true; film.position.copy(PALM).add(V(-0.002, 0.0006, 0)); film.rotation.set(-Math.PI / 2, 0, 0);
       film.scale.set(r, r * 0.75, 1); filmMat.opacity = 0.7 * smooth(0, 0.4, u);
     }
@@ -569,18 +578,32 @@
     // background, flash, white-out
     bgMat.uniforms.uLift.value = smooth(T0, T0 + 1.07, tc);
     bgMat.uniforms.uSeed.value = (Math.floor(tc * FPS) % 97) * 0.37;
-    bgMat.uniforms.uWhite.value = smooth(K.pullBack + 0.6, END, tc);
+    bgMat.uniforms.uWhite.value = 0;
     const fl = Math.exp(-Math.max(0, tc - PRESS_B) * 9) * (tc >= PRESS_B - 1e-6 ? 1 : 0) + 0.6 * Math.exp(-Math.max(0, tc - K.snap) * 10) * (tc >= K.snap ? 1 : 0);
     const fp = proj(ampW(0, tc < K.snap ? 6 : 40.5, 0));
     flashMat.uniforms.uC.value.set(fp[0] / W, 1 - fp[1] / H); flashMat.uniforms.uA.value = 0.45 * fl; flashMat.uniforms.uR.value = 0.07;
-    whiteMat.uniforms.uA.value = 0.85 * smooth(END - 0.9, END, tc);
+    whiteMat.uniforms.uCol.value.setRGB(0.039, 0.043, 0.051); whiteMat.uniforms.uA.value = smooth(END - 0.55, END - 0.05, tc);
 
     renderer.clear();
     renderer.render(bgScene, cam);
     renderer.render(scene, cam);
     renderer.render(ovScene, ovCam);
 
-    for (const ce of copy) txt[ce.id].style.opacity = copyAlpha(ce.id, tc).toFixed(3);
+    // step list: all steps stay listed, the current one is lit
+    const listA = smooth(T0 + 0.3, T0 + 0.9, tc) * (1 - smooth(END - 0.6, END - 0.1, tc));
+    let cur = -1; copy.forEach((ce, i) => { if (tc >= entryTime(ce.in)) cur = i; });
+    copy.forEach((ce, i) => {
+      const e = txt[ce.id], on = i === cur ? smooth(entryTime(ce.in), entryTime(ce.in) + 0.35, tc) : 0;
+      e.style.opacity = (listA * (0.32 + 0.68 * on)).toFixed(3); e.classList.toggle('on', i === cur);
+      e.style.transform = `translate(${(18 * on).toFixed(1)}px,0)`;
+    });
+    // press arrow: from the tail end, pointing along the axis towards the head, riding the cap in
+    const aA = smooth(K.ringOff + 0.7, PRESS_A - 0.1, tc) * (1 - smooth(PRESS_B + 0.1, PRESS_B + 0.45, tc));
+    const pa = proj(ampW(0, base.position.y - 1.2, 0)), pb = proj(ampW(0, base.position.y + 12, 0));
+    const dxs = pb[0] - pa[0], dys = pb[1] - pa[1], dl = Math.hypot(dxs, dys) || 1, ux = dxs / dl, uy = dys / dl;
+    const bob = 14 * Math.sin(tc * 7) * (1 - smooth(PRESS_A - 0.2, PRESS_A, tc));
+    arrowG.setAttribute('transform', `translate(${(pa[0] - ux * (36 + bob)).toFixed(1)} ${(pa[1] - uy * (36 + bob)).toFixed(1)}) rotate(${(Math.atan2(uy, ux) * 180 / Math.PI).toFixed(2)})`);
+    arrowSvg.style.opacity = aA.toFixed(3);
 
     const capEnd = proj(ampW(0, base.position.y, 0)), tp = tipR ? proj(tipR) : null;
     lastProbe = {

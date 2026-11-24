@@ -9,7 +9,7 @@ from fontTools import subset
 root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'film')
 copy = json.load(open(os.path.join(root, 'copy.json'), encoding='utf-8'))
 chars = set(''.join(e['text'] for e in copy['entries']))
-chars |= set('0123456789 .,:;!?-–—+%°·()（），。、：；！？“”‘’《》℃−×/')
+chars |= set('0123456789 .,:;!?-–—+%°·()（），。、：；！？“”‘’《》℃−×/↑↓*|')
 text = ''.join(sorted(chars))
 for src, name in zip(sys.argv[1:3], ['film-serif', 'film-sans']):
     out = os.path.join(root, 'assets', 'fonts', name + '.woff2')
