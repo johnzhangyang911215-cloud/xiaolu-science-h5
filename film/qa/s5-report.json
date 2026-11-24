@@ -1,5 +1,5 @@
 {
-  "when": "2026-11-24T02:12:55.545Z",
+  "when": "2026-11-24T03:18:45.533Z",
   "checks": {
     "entry": {
       "ok": true,
@@ -49,45 +49,45 @@
     },
     "freeze": {
       "ok": true,
-      "start": 20,
+      "start": -40,
       "monotonic": true,
-      "minus40At": 71.43,
+      "minus40At": 68.1,
       "setAtLabel": 1,
       "frostAtLabel": 1,
       "samples": [
         [
           68.1,
-          20,
+          -40,
           0
         ],
         [
           68.6,
-          19,
+          -40,
           0.329
         ],
         [
           69.1,
-          13,
+          -40,
           0.992
         ],
         [
           69.6,
-          1,
+          -40,
           1
         ],
         [
           70.1,
-          -13,
+          -40,
           1
         ],
         [
           70.6,
-          -27,
+          -40,
           1
         ],
         [
           71.1,
-          -36,
+          -40,
           1
         ],
         [
@@ -200,97 +200,13 @@
     },
     "copy": {
       "ok": true,
-      "copyEntries": 7,
+      "copyEntries": 8,
       "texts": [
         {
-          "text": "20℃",
+          "text": "−40℃",
           "seconds": [
             68.33,
-            68.57
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "19℃",
-          "seconds": [
-            68.6,
-            68.7
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "18℃",
-          "seconds": [
-            68.73,
-            68.8
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "17℃",
-          "seconds": [
-            68.83,
-            68.87
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "16℃",
-          "seconds": [
-            68.9,
-            68.93
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "15℃",
-          "seconds": [
-            68.97,
-            69
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "14℃",
-          "seconds": [
-            69.03,
-            69.07
+            72.27
           ],
           "inCopy": true,
           "window": [
@@ -315,757 +231,15 @@
           "banned": []
         },
         {
-          "text": "13℃",
+          "text": "结构示意",
           "seconds": [
-            69.1,
-            69.13
+            69.23,
+            75.97
           ],
           "inCopy": true,
           "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "12℃",
-          "seconds": [
-            69.17,
-            69.17
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "11℃",
-          "seconds": [
             69.2,
-            69.23
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "10℃",
-          "seconds": [
-            69.27,
-            69.27
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "9℃",
-          "seconds": [
-            69.3,
-            69.3
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "8℃",
-          "seconds": [
-            69.33,
-            69.33
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "7℃",
-          "seconds": [
-            69.37,
-            69.4
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "6℃",
-          "seconds": [
-            69.43,
-            69.43
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "5℃",
-          "seconds": [
-            69.47,
-            69.47
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "4℃",
-          "seconds": [
-            69.5,
-            69.5
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "3℃",
-          "seconds": [
-            69.53,
-            69.53
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "2℃",
-          "seconds": [
-            69.57,
-            69.57
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "1℃",
-          "seconds": [
-            69.6,
-            69.63
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "0℃",
-          "seconds": [
-            69.67,
-            69.67
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−1℃",
-          "seconds": [
-            69.7,
-            69.7
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−2℃",
-          "seconds": [
-            69.73,
-            69.73
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−3℃",
-          "seconds": [
-            69.77,
-            69.77
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−4℃",
-          "seconds": [
-            69.8,
-            69.8
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−5℃",
-          "seconds": [
-            69.83,
-            69.83
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−6℃",
-          "seconds": [
-            69.87,
-            69.87
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−7℃",
-          "seconds": [
-            69.9,
-            69.9
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−8℃",
-          "seconds": [
-            69.93,
-            69.93
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−9℃",
-          "seconds": [
-            69.97,
-            69.97
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−10℃",
-          "seconds": [
-            70,
-            70
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−11℃",
-          "seconds": [
-            70.03,
-            70.03
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−12℃",
-          "seconds": [
-            70.07,
-            70.07
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−13℃",
-          "seconds": [
-            70.1,
-            70.1
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−14℃",
-          "seconds": [
-            70.13,
-            70.13
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−15℃",
-          "seconds": [
-            70.17,
-            70.17
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−16℃",
-          "seconds": [
-            70.2,
-            70.2
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−17℃",
-          "seconds": [
-            70.23,
-            70.23
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−18℃",
-          "seconds": [
-            70.27,
-            70.27
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−19℃",
-          "seconds": [
-            70.3,
-            70.3
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−20℃",
-          "seconds": [
-            70.33,
-            70.33
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−21℃",
-          "seconds": [
-            70.37,
-            70.4
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−22℃",
-          "seconds": [
-            70.43,
-            70.43
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−23℃",
-          "seconds": [
-            70.47,
-            70.47
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−24℃",
-          "seconds": [
-            70.5,
-            70.5
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−25℃",
-          "seconds": [
-            70.53,
-            70.53
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−26℃",
-          "seconds": [
-            70.57,
-            70.57
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−27℃",
-          "seconds": [
-            70.6,
-            70.63
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−28℃",
-          "seconds": [
-            70.67,
-            70.67
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−29℃",
-          "seconds": [
-            70.7,
-            70.7
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−30℃",
-          "seconds": [
-            70.73,
-            70.73
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−31℃",
-          "seconds": [
-            70.77,
-            70.8
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−32℃",
-          "seconds": [
-            70.83,
-            70.83
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−33℃",
-          "seconds": [
-            70.87,
-            70.9
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−34℃",
-          "seconds": [
-            70.93,
-            70.97
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−35℃",
-          "seconds": [
-            71,
-            71.03
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−36℃",
-          "seconds": [
-            71.07,
-            71.1
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−37℃",
-          "seconds": [
-            71.13,
-            71.17
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−38℃",
-          "seconds": [
-            71.2,
-            71.27
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−39℃",
-          "seconds": [
-            71.3,
-            71.4
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
-          ],
-          "withinWindow": true,
-          "banned": []
-        },
-        {
-          "text": "−40℃",
-          "seconds": [
-            71.43,
-            72.27
-          ],
-          "inCopy": true,
-          "window": [
-            68.3,
-            72.3
+            76
           ],
           "withinWindow": true,
           "banned": []
@@ -1171,7 +345,7 @@
             }
           },
           "cut": 0,
-          "temp": 20,
+          "temp": -40,
           "set": 0,
           "frost": 0,
           "flip": 0,
@@ -1198,6 +372,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 1038.6,
+            "y": 790.7
           }
         }
       },
@@ -1228,7 +406,7 @@
             }
           },
           "cut": 0.5,
-          "temp": 19,
+          "temp": -40,
           "set": 0.018,
           "frost": 0.002,
           "flip": 0,
@@ -1255,6 +433,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 1007.9,
+            "y": 780.2
           }
         }
       },
@@ -1285,7 +467,7 @@
             }
           },
           "cut": 1,
-          "temp": -19,
+          "temp": -40,
           "set": 0.5,
           "frost": 0.427,
           "flip": 0,
@@ -1312,6 +494,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 1119.2,
+            "y": 904.3
           }
         }
       },
@@ -1369,6 +555,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 1149.1,
+            "y": 930.9
           }
         }
       },
@@ -1426,6 +616,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 970.5,
+            "y": 909.6
           }
         }
       },
@@ -1483,6 +677,10 @@
               },
               "k": 1
             }
+          },
+          "schema": {
+            "x": 970.5,
+            "y": 909.6
           }
         }
       },
@@ -1540,6 +738,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 1075.9,
+            "y": 916
           }
         }
       },
@@ -1597,6 +799,10 @@
               },
               "k": 0
             }
+          },
+          "schema": {
+            "x": 959.2,
+            "y": 974.5
           }
         }
       }
@@ -1608,7 +814,7 @@
         "frame": 2115,
         "texts": [
           {
-            "text": "−24℃",
+            "text": "−40℃",
             "x0": 136.7,
             "x1": 303.3,
             "y0": 130,
@@ -1622,6 +828,14 @@
             "y0": 202.2,
             "y1": 226.5,
             "px": 20.3
+          },
+          {
+            "text": "结构示意",
+            "x0": 453.8,
+            "x1": 517.6,
+            "y0": 332.1,
+            "y1": 344.4,
+            "px": 12.3
           }
         ]
       },
@@ -1645,6 +859,14 @@
             "y0": 143.2,
             "y1": 183.4,
             "px": 13.8
+          },
+          {
+            "text": "结构示意",
+            "x0": 393.9,
+            "x1": 457.7,
+            "y0": 328.5,
+            "y1": 340.7,
+            "px": 12.3
           }
         ]
       },

@@ -1,6 +1,6 @@
 /* Scene 6 · 锁 · −40℃ 双仓 (docs/02-storyboard.md 幕 6).
    Picks up scene 5's push onto the freeze chamber. A section plane sweeps across the ampoule from the side and opens it:
-   warm gold freeze-dried powder in the tail chamber, clear solvent in the body. A counter rolls from 20℃ to −40℃ while frost
+   near-white freeze-dried powder in the silver tail chamber, clear solvent in the body. −40℃ (p38) is shown as a fixed figure while frost
    grows outward from the chamber wall and the powder sets into a porous cake. 72.35 labels the powder chamber (p38, p39),
    74.47 the solvent chamber (p39); 76.60 the labels retract, the section closes and the ampoule turns tail-up at frame centre
    for scene 7. The cut is two world-space clipping planes intersected (front half ∩ swept side); the contents are drawn by
@@ -17,7 +17,7 @@
   const R_CUT = 5.6 * MM;
   const CUT_A = T0 + 0.15, CUT_B = T0 + 1.05;       // section sweep
   const YAW0 = -0.82 - 0.26 * (T0 - K.single);      // scene 5's yaw on its last frame
-  const TEMP_A = T0 + 0.3, TEMP_B = T0 + 3.5;       // 20℃ → −40℃
+  const TEMP_A = T0 + 0.3, TEMP_B = T0 + 3.5;       // powder setting window (the −40℃ figure itself is fixed)
   const FROST_A = T0 + 0.5, FROST_B = LP;
   const FLIP_A = CLOSE + 0.25, FLIP_B = END - 0.02;
 
@@ -272,7 +272,7 @@
     m.material.uniforms.uCol.value.setRGB(col[0], col[1], col[2]); m.material.uniforms.uA.value = a; m.material.uniforms.uCore.value = core || 0;
   }
   const fmtTemp = (v) => (v < 0 ? '−' + -v : String(v)) + '℃';
-  const tempAt = (t) => Math.round(lerp(20, -40, inOut((t - TEMP_A) / (TEMP_B - TEMP_A))));
+  const tempAt = () => -40;   // p38 gives only the end point; no illustrative start value
 
   const M4 = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(), SV = V(1, 1, 1), PV = V(0, 0, 0);
   function render(t) {
@@ -345,11 +345,18 @@
     const lp = label('s6-powder', bodyW(2.2, 3.9, 0), 1), ls = label('s6-solvent', bodyW(-2.2, 27.5, 0), -1);
 
     const top = proj(bodyW(0, 63.65, 0)), bot = proj(bodyW(0, 0, 0)), sv = proj(bodyW(0, 27.1, 0)), mid = proj(ampG.position);
+    let schema = null;
+    if (txt['s6-schema']) {   // small caption under the cut-away
+      const lo = top[1] > bot[1] ? top : bot, sx2 = clamp(lo[0], 200, 1720), sy2 = Math.min(lo[1] + 36, 1030);
+      txt['s6-schema'].style.opacity = copyAlpha('s6-schema', tc).toFixed(3);
+      txt['s6-schema'].style.transform = `translate(${sx2.toFixed(1)}px,${sy2.toFixed(1)}px) translate(-50%,0)`;
+      schema = { x: +sx2.toFixed(1), y: +sy2.toFixed(1) };
+    }
     lastProbe = {
       phase: tc < CUT_B ? 'cut' : tc < LP ? 'freeze' : tc < CLOSE ? 'labels' : 'close',
       powder: { x: +ps[0].toFixed(1), y: +ps[1].toFixed(1) }, solvent: { x: +sv[0].toFixed(1), y: +sv[1].toFixed(1) },
       amp: { x: +mid[0].toFixed(1), y: +mid[1].toFixed(1), top: { x: +top[0].toFixed(1), y: +top[1].toFixed(1) }, bottom: { x: +bot[0].toFixed(1), y: +bot[1].toFixed(1) } },
-      cut: +ck.toFixed(3), temp, set: +set.toFixed(3), frost: +fr.toFixed(3), flip: +flipK(tc).toFixed(3), labels: { powder: lp, solvent: ls }
+      cut: +ck.toFixed(3), temp, set: +set.toFixed(3), frost: +fr.toFixed(3), flip: +flipK(tc).toFixed(3), labels: { powder: lp, solvent: ls }, schema
     };
   }
 

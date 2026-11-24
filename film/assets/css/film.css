@@ -102,4 +102,12 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s6 .s6-powder b,#s6 .s6-solvent b{display:block;font:400 50px/1.2 "XL Serif",serif;color:#C8A26A;letter-spacing:.16em}
 #s6 .s6-powder span,#s6 .s6-solvent span{display:block}
 #s6 .s6-solvent{text-align:right}
+#s6 .s6-schema{left:0;top:0;font:400 34px/1 "XL Sans",sans-serif;letter-spacing:.3em;color:rgba(242,241,236,.62)}
 #s6 .s6-lock{left:0;right:0;top:900px;text-align:center;font:400 56px/1.2 "XL Serif",serif;letter-spacing:.24em}
+#s7{position:absolute;inset:0;z-index:1;pointer-events:none}
+#s7-gl{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#s7 .copy{position:absolute;left:0;right:0;top:930px;opacity:0;text-align:center;white-space:nowrap;color:#F2F1EC;text-shadow:0 0 18px rgba(0,0,0,.65)}
+#s7 .copy i{font:400 38px/1 "XL Sans",sans-serif;font-style:normal;color:#C8A26A;letter-spacing:.08em;margin-right:28px;vertical-align:6px}
+#s7 .copy b{font:400 54px/1.2 "XL Serif",serif;letter-spacing:.2em}
+#s7 .copy span{font:400 38px/1.2 "XL Sans",sans-serif;letter-spacing:.1em;margin-left:30px}
+#s7 .copy b::after{content:"·";margin-left:26px;color:#C8A26A}

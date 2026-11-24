@@ -1,0 +1,763 @@
+{
+  "when": "2026-11-24T03:17:44.505Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          2329,
+          6,
+          2329
+        ],
+        [
+          2330,
+          7,
+          2330
+        ],
+        [
+          2331,
+          7,
+          2331
+        ],
+        [
+          2999,
+          7,
+          2999
+        ]
+      ]
+    },
+    "press": {
+      "ok": true,
+      "targetFrame": 2585,
+      "firstBottomFrame": 2585,
+      "frameError": 0,
+      "maxTipToCapMm": 2.31
+    },
+    "order": {
+      "ok": true,
+      "phases": [
+        "ready",
+        "ring",
+        "approach",
+        "press",
+        "click",
+        "fall",
+        "shake",
+        "snap",
+        "spread"
+      ]
+    },
+    "ring": {
+      "ok": true,
+      "atGrip": 0,
+      "afterOff": -1
+    },
+    "powder": {
+      "ok": true,
+      "fallSeconds": 3.2,
+      "sampledFramesWithGrainsInAir": 27,
+      "minSection": 1
+    },
+    "shots": [
+      {
+        "name": "ready",
+        "frame": 2346,
+        "n": 7,
+        "probe": {
+          "phase": "ready",
+          "pressDepth": 0,
+          "capY": -2.6,
+          "ring": 0,
+          "capEnd": {
+            "x": 1076,
+            "y": 249.7
+          },
+          "tipR": {
+            "x": 1487,
+            "y": -517.1
+          },
+          "tipToCapMm": 63.25,
+          "grains": {
+            "inAir": 0,
+            "hit": 0
+          },
+          "section": 0,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "ring",
+        "frame": 2418,
+        "n": 7,
+        "probe": {
+          "phase": "ring",
+          "pressDepth": 0,
+          "capY": -2.6,
+          "ring": 0,
+          "capEnd": {
+            "x": 1103.9,
+            "y": 460.7
+          },
+          "tipR": {
+            "x": 1001.8,
+            "y": 448.8
+          },
+          "tipToCapMm": 11.66,
+          "grains": {
+            "inAir": 0,
+            "hit": 0
+          },
+          "section": 0,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "ringOff",
+        "frame": 2469,
+        "n": 7,
+        "probe": {
+          "phase": "approach",
+          "pressDepth": 0,
+          "capY": -2.6,
+          "ring": 0.727,
+          "capEnd": {
+            "x": 1103.8,
+            "y": 460.8
+          },
+          "tipR": {
+            "x": 1387.8,
+            "y": 132.5
+          },
+          "tipToCapMm": 49.27,
+          "grains": {
+            "inAir": 0,
+            "hit": 0
+          },
+          "section": 0,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "contact",
+        "frame": 2535,
+        "n": 7,
+        "probe": {
+          "phase": "press",
+          "pressDepth": 0.1172,
+          "capY": -2.295,
+          "ring": -1,
+          "capEnd": {
+            "x": 1062.2,
+            "y": 489.6
+          },
+          "tipR": {
+            "x": 1056.1,
+            "y": 454.5
+          },
+          "tipToCapMm": 2.31,
+          "grains": {
+            "inAir": 0,
+            "hit": 0
+          },
+          "section": 0,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "press",
+        "frame": 2585,
+        "n": 7,
+        "probe": {
+          "phase": "click",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 1024.7,
+            "y": 508.3
+          },
+          "tipR": {
+            "x": 1017.2,
+            "y": 463.3
+          },
+          "tipToCapMm": 2.31,
+          "grains": {
+            "inAir": 32,
+            "hit": 0
+          },
+          "section": 0,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "fall",
+        "frame": 2628,
+        "n": 7,
+        "probe": {
+          "phase": "fall",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 903.5,
+            "y": 264.6
+          },
+          "tipR": null,
+          "tipToCapMm": null,
+          "grains": {
+            "inAir": 384,
+            "hit": 15
+          },
+          "section": 1,
+          "mix": 0,
+          "snap": 0
+        }
+      },
+      {
+        "name": "shake",
+        "frame": 2718,
+        "n": 7,
+        "probe": {
+          "phase": "shake",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 824.5,
+            "y": 66.8
+          },
+          "tipR": null,
+          "tipToCapMm": null,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 1,
+          "mix": 0.382,
+          "snap": 0
+        }
+      },
+      {
+        "name": "snap",
+        "frame": 2817,
+        "n": 7,
+        "probe": {
+          "phase": "snap",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 960,
+            "y": 878.3
+          },
+          "tipR": {
+            "x": 1077.7,
+            "y": 378.9
+          },
+          "tipToCapMm": 57.45,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 0,
+          "mix": 1,
+          "snap": 1
+        }
+      },
+      {
+        "name": "drop",
+        "frame": 2856,
+        "n": 7,
+        "probe": {
+          "phase": "snap",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 745.3,
+            "y": -598.5
+          },
+          "tipR": {
+            "x": 1092.5,
+            "y": 888.7
+          },
+          "tipToCapMm": 102.85,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 0,
+          "mix": 1,
+          "snap": 1
+        }
+      },
+      {
+        "name": "land",
+        "frame": 2877,
+        "n": 7,
+        "probe": {
+          "phase": "spread",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 606.3,
+            "y": -1087.1
+          },
+          "tipR": {
+            "x": 1090.5,
+            "y": 721.4
+          },
+          "tipToCapMm": 102.85,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 0,
+          "mix": 1,
+          "snap": 1
+        }
+      },
+      {
+        "name": "spread",
+        "frame": 2928,
+        "n": 7,
+        "probe": {
+          "phase": "spread",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 807.4,
+            "y": -374.4
+          },
+          "tipR": {
+            "x": 1053.5,
+            "y": 651.4
+          },
+          "tipToCapMm": 102.85,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 0,
+          "mix": 1,
+          "snap": 1
+        }
+      },
+      {
+        "name": "end",
+        "frame": 2997,
+        "n": 7,
+        "probe": {
+          "phase": "spread",
+          "pressDepth": 1,
+          "capY": 0,
+          "ring": -1,
+          "capEnd": {
+            "x": 867.4,
+            "y": -15.1
+          },
+          "tipR": {
+            "x": 1022.1,
+            "y": 614.1
+          },
+          "tipToCapMm": 102.85,
+          "grains": {
+            "inAir": 0,
+            "hit": 520
+          },
+          "section": 0,
+          "mix": 1,
+          "snap": 1
+        }
+      }
+    ],
+    "palette": {
+      "ok": true,
+      "hits": []
+    },
+    "copy": {
+      "ok": true,
+      "copyEntries": 5,
+      "texts": [
+        {
+          "text": "01",
+          "seconds": [
+            78.77,
+            81.7
+          ],
+          "inCopy": true,
+          "window": [
+            78.72,
+            81.75
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "拉环",
+          "seconds": [
+            78.77,
+            81.7
+          ],
+          "inCopy": true,
+          "window": [
+            78.72,
+            81.75
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "拉去尾部安全环",
+          "seconds": [
+            78.77,
+            81.7
+          ],
+          "inCopy": true,
+          "window": [
+            78.72,
+            81.75
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "02",
+          "seconds": [
+            82.03,
+            89.17
+          ],
+          "inCopy": true,
+          "window": [
+            82,
+            89.2
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "按压",
+          "seconds": [
+            82.03,
+            89.17
+          ],
+          "inCopy": true,
+          "window": [
+            82,
+            89.2
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "按下尾盖，冻干粉落入溶媒",
+          "seconds": [
+            82.03,
+            89.17
+          ],
+          "inCopy": true,
+          "window": [
+            82,
+            89.2
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "03",
+          "seconds": [
+            89.4,
+            93.4
+          ],
+          "inCopy": true,
+          "window": [
+            89.35,
+            93.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "摇匀",
+          "seconds": [
+            89.4,
+            93.4
+          ],
+          "inCopy": true,
+          "window": [
+            89.35,
+            93.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "轻摇，充分复溶",
+          "seconds": [
+            89.4,
+            93.4
+          ],
+          "inCopy": true,
+          "window": [
+            89.35,
+            93.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "04",
+          "seconds": [
+            93.63,
+            95.5
+          ],
+          "inCopy": true,
+          "window": [
+            93.6,
+            95.55
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "掰开",
+          "seconds": [
+            93.63,
+            95.5
+          ],
+          "inCopy": true,
+          "window": [
+            93.6,
+            95.55
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "掰开瓶头，滴出精华",
+          "seconds": [
+            93.63,
+            95.5
+          ],
+          "inCopy": true,
+          "window": [
+            93.6,
+            95.55
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "05",
+          "seconds": [
+            95.73,
+            99.57
+          ],
+          "inCopy": true,
+          "window": [
+            95.71,
+            99.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "涂抹",
+          "seconds": [
+            95.73,
+            99.57
+          ],
+          "inCopy": true,
+          "window": [
+            95.71,
+            99.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "取适量涂抹于面部",
+          "seconds": [
+            95.73,
+            99.57
+          ],
+          "inCopy": true,
+          "window": [
+            95.71,
+            99.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "mobile": [
+      {
+        "ok": true,
+        "name": "ring",
+        "frame": 2418,
+        "texts": [
+          {
+            "text": "01",
+            "x0": 316.7,
+            "x1": 334.2,
+            "y0": 337.6,
+            "y1": 357.5,
+            "px": 13.7
+          },
+          {
+            "text": "拉环",
+            "x0": 344.3,
+            "x1": 410.8,
+            "y0": 333.3,
+            "y1": 361.1,
+            "px": 19.5
+          },
+          {
+            "text": "拉去尾部安全环",
+            "x0": 421.6,
+            "x1": 527.3,
+            "y0": 339.8,
+            "y1": 359.7,
+            "px": 13.7
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "press",
+        "frame": 2585,
+        "texts": [
+          {
+            "text": "02",
+            "x0": 279,
+            "x1": 296.4,
+            "y0": 337.6,
+            "y1": 357.5,
+            "px": 13.7
+          },
+          {
+            "text": "按压",
+            "x0": 306.5,
+            "x1": 373,
+            "y0": 333.3,
+            "y1": 361.1,
+            "px": 19.5
+          },
+          {
+            "text": "按下尾盖，冻干粉落入溶媒",
+            "x0": 383.9,
+            "x1": 565,
+            "y0": 339.8,
+            "y1": 359.7,
+            "px": 13.7
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "shake",
+        "frame": 2718,
+        "texts": [
+          {
+            "text": "03",
+            "x0": 316.7,
+            "x1": 334.2,
+            "y0": 337.6,
+            "y1": 357.5,
+            "px": 13.7
+          },
+          {
+            "text": "摇匀",
+            "x0": 344.3,
+            "x1": 410.8,
+            "y0": 333.3,
+            "y1": 361.1,
+            "px": 19.5
+          },
+          {
+            "text": "轻摇，充分复溶",
+            "x0": 421.6,
+            "x1": 527.3,
+            "y0": 339.8,
+            "y1": 359.7,
+            "px": 13.7
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "snap",
+        "frame": 2835,
+        "texts": [
+          {
+            "text": "04",
+            "x0": 301.6,
+            "x1": 319.1,
+            "y0": 337.6,
+            "y1": 357.5,
+            "px": 13.7
+          },
+          {
+            "text": "掰开",
+            "x0": 329.2,
+            "x1": 395.7,
+            "y0": 333.3,
+            "y1": 361.1,
+            "px": 19.5
+          },
+          {
+            "text": "掰开瓶头，滴出精华",
+            "x0": 406.5,
+            "x1": 542.3,
+            "y0": 339.8,
+            "y1": 359.7,
+            "px": 13.7
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "spread",
+        "frame": 2928,
+        "texts": [
+          {
+            "text": "05",
+            "x0": 309.2,
+            "x1": 326.6,
+            "y0": 337.6,
+            "y1": 357.5,
+            "px": 13.7
+          },
+          {
+            "text": "涂抹",
+            "x0": 336.7,
+            "x1": 403.2,
+            "y0": 333.3,
+            "y1": 361.1,
+            "px": 19.5
+          },
+          {
+            "text": "取适量涂抹于面部",
+            "x0": 414,
+            "x1": 534.8,
+            "y0": 339.8,
+            "y1": 359.7,
+            "px": 13.7
+          }
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}

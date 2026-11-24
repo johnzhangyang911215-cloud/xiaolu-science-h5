@@ -3,12 +3,12 @@
 /* S5 acceptance (docs/02-storyboard.md 幕 6):
    1. entry — scene 5 on frame s6−1, scene 6 on s6 … s7−1, scene 7 on s7;
    2. first look — at s6 + 0.5 s the brightest 32×18 cell holds the gold powder (probe.powder) and is warm;
-   3. freeze — temperature starts at 20, never rises, reads −40 before 72.3 s; powder set and frost complete by labelPowder;
+   3. freeze — the figure reads −40 (p38) on every frame, with no illustrative start value; powder set and frost complete by labelPowder;
    4. section — fully open between 69.3 s and `close`, shut again on the last frame;
    5. labels — each callout stays hidden before its cue and is drawn within 0.5 s after it;
    6. tail — last frame: ampoule tail-up (flip ≈ 1, bottom above top) near frame centre (cut point for 幕 7);
    7. palette — no cool "tech blue" cell (b − r > 40 and b > 120) in any key frame;
-   8. copy — only scene 6 copy.json entries inside their windows (the counter may show any “N℃” inside the s6-temp window), no banned words;
+   8. copy — only scene 6 copy.json entries inside their windows (the figure “−40℃” inside the s6-temp window, “结构示意” under the section), no banned words;
    9. mobile — 844×390 at counter, label and lock frames: text inside the viewport, glyphs ≥ 12 px;
    plus no console errors and key-frame screenshots in film/qa/s5_*.jpg.
    Usage: node tools/check_scene6.cjs      Writes film/qa/s5-report.json. */
@@ -82,7 +82,7 @@ const near = (c, p) => Math.abs(c.cx - Math.floor(p.x / 60)) <= 1 && Math.abs(c.
         if (f >= fr(69.3) && f < C.close && p.cut < 0.999) open = false;
       }
       const p0 = (await at(C.s6)).probe, pl = (await at(C.labelPowder)).probe, pe = (await at(C.s7 - 1)).probe;
-      const ok = p0.temp === 20 && mono && first40 !== null && first40 / 30 <= 72.3 && pl.set > 0.99 && pl.frost > 0.99;
+      const ok = p0.temp === -40 && temps.every((x) => x[1] === -40) && mono && first40 !== null && first40 / 30 <= 72.3 && pl.set > 0.99 && pl.frost > 0.99;
       report.checks.freeze = { ok, start: p0.temp, monotonic: mono, minus40At: first40 && +(first40 / 30).toFixed(2), setAtLabel: pl.set, frostAtLabel: pl.frost, samples: temps };
       if (!ok) fail('freeze: ' + JSON.stringify(report.checks.freeze));
       const ok2 = open && pe.cut === 0;

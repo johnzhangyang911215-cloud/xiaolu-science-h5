@@ -189,7 +189,7 @@
   boot().then(() => {
     window.__ready = true;
     if (CAPTURE) seek(isNaN(t0) ? 0 : t0);
-    else if (!isNaN(t0)) seek(t0); // ?t= jumps and stays paused; Space plays
+    else if (!isNaN(t0)) { seek(t0); startBtn.hidden = false; } // ?t= jumps there paused; tapping the start button plays from t
     else { startBtn.hidden = false; render(0); play(); } // may be blocked by the autoplay policy; the start button then stays
     requestAnimationFrame(loop);
   }).catch((e) => { console.error('film boot failed:', e); });

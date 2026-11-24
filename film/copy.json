@@ -29,10 +29,16 @@
     { "id": "s5-title", "scene": 5, "in": "family", "out": 65.0, "text": "华大小鹿 · 韶初泌语系列", "source": "p1、p19", "status": "approved" },
     { "id": "s5-groups", "scene": 5, "in": 62.5, "out": 65.5, "text": "通 · 补 · 锁", "source": "p19", "status": "approved" },
     { "id": "s5-name", "scene": 5, "in": "single", "out": 68.0, "text": "韶初泌语鹿茸凝时抗皱冻干精华液", "source": "KT 板 19 备案截图", "status": "approved" },
-    { "id": "s6-temp", "scene": 6, "in": 68.3, "out": 72.3, "text": "−40℃", "source": "p38（计数从 20℃ 起为示意）", "status": "approved" },
+    { "id": "s6-temp", "scene": 6, "in": 68.3, "out": 72.3, "text": "−40℃", "source": "p38", "status": "approved" },
     { "id": "s6-title", "scene": 6, "in": 69.0, "out": 72.3, "text": "急速真空冻干", "source": "p38", "status": "approved" },
     { "id": "s6-powder", "scene": 6, "in": "labelPowder", "out": "close", "text": "冻干仓 · 鹿茸提取物冻干粉 5 mg", "source": "p38、p39", "status": "approved" },
     { "id": "s6-solvent", "scene": 6, "in": "labelSolvent", "out": "close", "text": "溶媒仓 · 依克多因 + 肌肽 1.5 mL", "source": "p39", "status": "approved" },
-    { "id": "s6-lock", "scene": 6, "in": 76.0, "out": 77.5, "text": "双仓锁鲜，按压激活", "source": "p38", "status": "approved" }
+    { "id": "s6-lock", "scene": 6, "in": 76.0, "out": 77.5, "text": "双仓锁鲜，按压激活", "source": "p38", "status": "approved" },
+    { "id": "s6-schema", "scene": 6, "in": 69.2, "out": 76.0, "text": "结构示意", "source": "剖面为示意图", "status": "approved" },
+    { "id": "s7-1", "scene": 7, "in": 78.72, "out": 81.75, "text": "01 拉环 · 拉去尾部安全环", "source": "《实拍使用方法2》", "status": "approved" },
+    { "id": "s7-2", "scene": 7, "in": 82.0, "out": 89.2, "text": "02 按压 · 按下尾盖，冻干粉落入溶媒", "source": "《实拍使用方法2》、p38", "status": "approved" },
+    { "id": "s7-3", "scene": 7, "in": 89.35, "out": 93.45, "text": "03 摇匀 · 轻摇，充分复溶", "source": "《实拍使用方法2》", "status": "approved" },
+    { "id": "s7-4", "scene": 7, "in": 93.6, "out": 95.55, "text": "04 掰开 · 掰开瓶头，滴出精华", "source": "《实拍使用方法2》", "status": "approved" },
+    { "id": "s7-5", "scene": 7, "in": 95.71, "out": 99.6, "text": "05 涂抹 · 取适量涂抹于面部", "source": "《实拍使用方法2》", "status": "approved" }
   ]
 }
