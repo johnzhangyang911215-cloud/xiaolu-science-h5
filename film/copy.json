@@ -10,6 +10,21 @@
     { "id": "s3-blood", "scene": 3, "in": "layerBlood", "out": 43.7, "text": "血片", "source": "KT板44", "status": "approved" },
     { "id": "s3-powder", "scene": 3, "in": "layerPowder", "out": 43.7, "text": "粉片", "source": "KT板44", "status": "approved" },
     { "id": "s3-wax", "scene": 3, "in": "wax", "out": 44.6, "text": "蜡片 · 二杠茸顶端 2% 处", "source": "p38", "status": "approved" },
-    { "id": "s3-sub", "scene": 3, "in": 43.0, "out": 44.6, "text": "鹿茸生长最活跃的部位", "source": "p38", "status": "approved" }
+    { "id": "s3-sub", "scene": 3, "in": 43.0, "out": 44.6, "text": "鹿茸生长最活跃的部位", "source": "p38", "status": "approved" },
+    { "id": "s4-c1", "scene": 4, "in": 45.79, "out": "ref1", "text": "蛋白质", "source": "p38", "status": "approved" },
+    { "id": "s4-c2", "scene": 4, "in": 46.32, "out": "ref1", "text": "氨基酸", "source": "p38", "status": "approved" },
+    { "id": "s4-c3", "scene": 4, "in": 46.85, "out": "ref1", "text": "多肽", "source": "p38", "status": "approved" },
+    { "id": "s4-c4", "scene": 4, "in": 47.38, "out": "ref1", "text": "磷脂", "source": "p38", "status": "approved" },
+    { "id": "s4-c5", "scene": 4, "in": 47.91, "out": "ref1", "text": "维生素", "source": "p38", "status": "approved" },
+    { "id": "s4-c6", "scene": 4, "in": 48.44, "out": "ref1", "text": "钙磷镁", "source": "p38", "status": "approved" },
+    { "id": "s4-r1-k", "scene": 4, "in": 49.3, "out": 53.45, "text": "文献 ①", "source": "分镜", "status": "approved" },
+    { "id": "s4-r1-t", "scene": 4, "in": 49.3, "out": 53.45, "text": "鹿茸再生干细胞研究", "source": "p7", "status": "approved" },
+    { "id": "s4-r1-c", "scene": 4, "in": 49.3, "out": 53.45, "text": "Qin T, et al. · Science · 2023", "source": "p7", "status": "approved" },
+    { "id": "s4-r1-o", "scene": 4, "in": 49.3, "out": 53.45, "text": "研究对象 · 鹿茸干细胞", "source": "p7", "status": "approved" },
+    { "id": "s4-r2-k", "scene": 4, "in": 53.45, "out": 57.85, "text": "文献 ②", "source": "分镜", "status": "approved" },
+    { "id": "s4-r2-t", "scene": 4, "in": 53.45, "out": 57.85, "text": "反刍动物基因组与进化研究", "source": "p8", "status": "approved" },
+    { "id": "s4-r2-c", "scene": 4, "in": 53.45, "out": 57.85, "text": "Science 364(6446) · 2019", "source": "p8", "status": "approved" },
+    { "id": "s4-r2-o", "scene": 4, "in": 53.45, "out": 57.85, "text": "研究对象 · 反刍动物进化树 · 华大参与", "source": "p8", "status": "approved" },
+    { "id": "s4-sub", "scene": 4, "in": 55.0, "out": 57.4, "text": "基因组与蛋白组检测，从原料溯源到成分筛选", "source": "p12", "status": "approved" }
   ]
 }

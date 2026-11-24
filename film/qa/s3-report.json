@@ -1,0 +1,763 @@
+{
+  "when": "2026-11-24T01:11:30.813Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          1341,
+          3,
+          1341
+        ],
+        [
+          1342,
+          4,
+          1342
+        ],
+        [
+          1343,
+          4,
+          1343
+        ],
+        [
+          1786,
+          4,
+          1786
+        ],
+        [
+          1787,
+          5,
+          1787
+        ]
+      ]
+    },
+    "firstLook": {
+      "ok": true,
+      "frame": 1357,
+      "focus": {
+        "x": 960,
+        "y": 545
+      },
+      "brightest": {
+        "cx": 15,
+        "cy": 9,
+        "r": 198.71583333333334,
+        "g": 221.54777777777778,
+        "b": 230.35861111111112,
+        "lum": 217.32984855555554
+      }
+    },
+    "beats": [
+      {
+        "ok": true,
+        "k": 1,
+        "frame": 1380,
+        "lit": 0,
+        "focus": {
+          "x": 985.1,
+          "y": 216
+        },
+        "brightest": [
+          16,
+          3
+        ]
+      },
+      {
+        "ok": true,
+        "k": 2,
+        "frame": 1396,
+        "lit": 1,
+        "focus": {
+          "x": 1261.9,
+          "y": 411.8
+        },
+        "brightest": [
+          21,
+          6
+        ]
+      },
+      {
+        "ok": true,
+        "k": 3,
+        "frame": 1412,
+        "lit": 2,
+        "focus": {
+          "x": 1220,
+          "y": 748.3
+        },
+        "brightest": [
+          20,
+          12
+        ]
+      },
+      {
+        "ok": true,
+        "k": 4,
+        "frame": 1427,
+        "lit": 3,
+        "focus": {
+          "x": 904.2,
+          "y": 870.2
+        },
+        "brightest": [
+          15,
+          14
+        ]
+      },
+      {
+        "ok": true,
+        "k": 5,
+        "frame": 1443,
+        "lit": 4,
+        "focus": {
+          "x": 646.9,
+          "y": 649.3
+        },
+        "brightest": [
+          10,
+          10
+        ]
+      },
+      {
+        "ok": true,
+        "k": 6,
+        "frame": 1459,
+        "lit": 5,
+        "focus": {
+          "x": 720.3,
+          "y": 318.2
+        },
+        "brightest": [
+          11,
+          5
+        ]
+      }
+    ],
+    "oneCard": {
+      "ok": true,
+      "framesWithTwoCards": 0
+    },
+    "blueInside": {
+      "ok": true,
+      "first": {
+        "frame": 1342,
+        "brightest": {
+          "cx": 16,
+          "cy": 9,
+          "r": 214.045,
+          "g": 204.06472222222223,
+          "b": 187.59666666666666,
+          "lum": 204.9975356666667
+        }
+      },
+      "last": {
+        "frame": 1786,
+        "warm": 1,
+        "brightest": {
+          "cx": 15,
+          "cy": 9,
+          "r": 80.77694444444444,
+          "g": 66.44083333333333,
+          "b": 46.57833333333333,
+          "lum": 68.05461805555555
+        }
+      }
+    },
+    "copy": {
+      "ok": true,
+      "copyEntries": 15,
+      "texts": [
+        {
+          "text": "蛋白质",
+          "seconds": [
+            45.83,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            45.79,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "氨基酸",
+          "seconds": [
+            46.37,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            46.32,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "多肽",
+          "seconds": [
+            46.9,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            46.85,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "磷脂",
+          "seconds": [
+            47.43,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            47.38,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "维生素",
+          "seconds": [
+            47.93,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            47.91,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "钙磷镁",
+          "seconds": [
+            48.47,
+            48.93
+          ],
+          "inCopy": true,
+          "window": [
+            48.44,
+            48.97
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "文献 ①",
+          "seconds": [
+            49.33,
+            53.4
+          ],
+          "inCopy": true,
+          "window": [
+            49.3,
+            53.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "鹿茸再生干细胞研究",
+          "seconds": [
+            49.33,
+            53.4
+          ],
+          "inCopy": true,
+          "window": [
+            49.3,
+            53.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "Qin T, et al. · Science · 2023",
+          "seconds": [
+            49.33,
+            53.4
+          ],
+          "inCopy": true,
+          "window": [
+            49.3,
+            53.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "研究对象 · 鹿茸干细胞",
+          "seconds": [
+            49.33,
+            53.4
+          ],
+          "inCopy": true,
+          "window": [
+            49.3,
+            53.45
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "文献 ②",
+          "seconds": [
+            53.5,
+            57.8
+          ],
+          "inCopy": true,
+          "window": [
+            53.45,
+            57.85
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "反刍动物基因组与进化研究",
+          "seconds": [
+            53.5,
+            57.8
+          ],
+          "inCopy": true,
+          "window": [
+            53.45,
+            57.85
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "Science 364(6446) · 2019",
+          "seconds": [
+            53.5,
+            57.8
+          ],
+          "inCopy": true,
+          "window": [
+            53.45,
+            57.85
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "研究对象 · 反刍动物进化树 · 华大参与",
+          "seconds": [
+            53.5,
+            57.8
+          ],
+          "inCopy": true,
+          "window": [
+            53.45,
+            57.85
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "基因组与蛋白组检测，从原料溯源到成分筛选",
+          "seconds": [
+            55.03,
+            57.37
+          ],
+          "inCopy": true,
+          "window": [
+            55,
+            57.4
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "shots": [
+      {
+        "name": "enter",
+        "frame": 1343,
+        "n": 4,
+        "probe": {
+          "phase": "sample",
+          "focus": {
+            "x": 960,
+            "y": 545
+          },
+          "lit": -1,
+          "front": 0,
+          "scanY": 190,
+          "warm": 0,
+          "field": 36.4,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "sample",
+        "frame": 1357,
+        "n": 4,
+        "probe": {
+          "phase": "sample",
+          "focus": {
+            "x": 960,
+            "y": 545
+          },
+          "lit": -1,
+          "front": 0,
+          "scanY": 190,
+          "warm": 0,
+          "field": 401.2,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "ring",
+        "frame": 1392,
+        "n": 4,
+        "probe": {
+          "phase": "ring",
+          "focus": {
+            "x": 1260.8,
+            "y": 409.4
+          },
+          "lit": 1,
+          "front": 0,
+          "scanY": 190,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "ring6",
+        "frame": 1458,
+        "n": 4,
+        "probe": {
+          "phase": "ring",
+          "focus": {
+            "x": 719.8,
+            "y": 318.7
+          },
+          "lit": 5,
+          "front": 0,
+          "scanY": 190,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "pool",
+        "frame": 1488,
+        "n": 4,
+        "probe": {
+          "phase": "branches",
+          "focus": {
+            "x": 714.7,
+            "y": 790.7
+          },
+          "lit": 5,
+          "front": 0.107,
+          "scanY": 190,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0.648,
+            0
+          ]
+        }
+      },
+      {
+        "name": "grow",
+        "frame": 1524,
+        "n": 4,
+        "probe": {
+          "phase": "branches",
+          "focus": {
+            "x": 730.7,
+            "y": 416.6
+          },
+          "lit": 5,
+          "front": 0.683,
+          "scanY": 190,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            1,
+            0
+          ]
+        }
+      },
+      {
+        "name": "tree",
+        "frame": 1578,
+        "n": 4,
+        "probe": {
+          "phase": "branches",
+          "focus": {
+            "x": 740,
+            "y": 370
+          },
+          "lit": 5,
+          "front": 1.05,
+          "scanY": 190,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            1,
+            0
+          ]
+        }
+      },
+      {
+        "name": "peaks",
+        "frame": 1626,
+        "n": 4,
+        "probe": {
+          "phase": "helix",
+          "focus": {
+            "x": 760,
+            "y": 190.7
+          },
+          "lit": 5,
+          "front": 1.05,
+          "scanY": 190.7,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0,
+            1
+          ]
+        }
+      },
+      {
+        "name": "helix",
+        "frame": 1674,
+        "n": 4,
+        "probe": {
+          "phase": "helix",
+          "focus": {
+            "x": 760,
+            "y": 542
+          },
+          "lit": 5,
+          "front": 1.05,
+          "scanY": 542,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0,
+            1
+          ]
+        }
+      },
+      {
+        "name": "converge",
+        "frame": 1746,
+        "n": 4,
+        "probe": {
+          "phase": "converge",
+          "focus": {
+            "x": 960,
+            "y": 545
+          },
+          "lit": 5,
+          "front": 1.05,
+          "scanY": 830,
+          "warm": 0,
+          "field": 500,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "gold",
+        "frame": 1785,
+        "n": 4,
+        "probe": {
+          "phase": "converge",
+          "focus": {
+            "x": 960,
+            "y": 545
+          },
+          "lit": 5,
+          "front": 1.05,
+          "scanY": 830,
+          "warm": 1,
+          "field": 60,
+          "cards": [
+            0,
+            0
+          ]
+        }
+      }
+    ],
+    "mobile": [
+      {
+        "ok": true,
+        "name": "ring",
+        "frame": 1458,
+        "texts": [
+          {
+            "text": "蛋白质",
+            "x0": 454.7,
+            "x1": 499.2,
+            "y0": 53.4,
+            "y1": 66.4,
+            "px": 13
+          },
+          {
+            "text": "氨基酸",
+            "x0": 558.3,
+            "x1": 602.7,
+            "y0": 156,
+            "y1": 169,
+            "px": 13
+          },
+          {
+            "text": "多肽",
+            "x0": 525.6,
+            "x1": 555.2,
+            "y0": 272,
+            "y1": 285,
+            "px": 13
+          },
+          {
+            "text": "磷脂",
+            "x0": 359.6,
+            "x1": 389.3,
+            "y0": 327.2,
+            "y1": 340.2,
+            "px": 13
+          },
+          {
+            "text": "维生素",
+            "x0": 241.3,
+            "x1": 285.7,
+            "y0": 224.6,
+            "y1": 237.6,
+            "px": 13
+          },
+          {
+            "text": "钙磷镁",
+            "x0": 274,
+            "x1": 318.4,
+            "y0": 108.6,
+            "y1": 121.6,
+            "px": 13
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "card1",
+        "frame": 1545,
+        "texts": [
+          {
+            "text": "文献 ①",
+            "x0": 491.3,
+            "x1": 678.4,
+            "y0": 135.1,
+            "y1": 147.3,
+            "px": 12.3
+          },
+          {
+            "text": "鹿茸再生干细胞研究",
+            "x0": 491.3,
+            "x1": 678.4,
+            "y0": 156,
+            "y1": 177.7,
+            "px": 17.3
+          },
+          {
+            "text": "Qin T, et al. · Science · 2023",
+            "x0": 491.3,
+            "x1": 678.4,
+            "y0": 185.6,
+            "y1": 201.6,
+            "px": 12.3
+          },
+          {
+            "text": "研究对象 · 鹿茸干细胞",
+            "x0": 491.3,
+            "x1": 678.4,
+            "y0": 206.6,
+            "y1": 223.8,
+            "px": 12.2
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "card2",
+        "frame": 1680,
+        "texts": [
+          {
+            "text": "文献 ②",
+            "x0": 491.3,
+            "x1": 716,
+            "y0": 135.1,
+            "y1": 147.3,
+            "px": 12.3
+          },
+          {
+            "text": "反刍动物基因组与进化研究",
+            "x0": 491.3,
+            "x1": 716,
+            "y0": 156,
+            "y1": 177.7,
+            "px": 17.3
+          },
+          {
+            "text": "Science 364(6446) · 2019",
+            "x0": 491.3,
+            "x1": 716,
+            "y0": 185.6,
+            "y1": 201.6,
+            "px": 12.3
+          },
+          {
+            "text": "研究对象 · 反刍动物进化树 · 华大参与",
+            "x0": 491.3,
+            "x1": 716,
+            "y0": 206.6,
+            "y1": 223.8,
+            "px": 12.2
+          },
+          {
+            "text": "基因组与蛋白组检测，从原料溯源到成分筛选",
+            "x0": 75.3,
+            "x1": 768.7,
+            "y0": 315.9,
+            "y1": 335.8,
+            "px": 16.7
+          }
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}
