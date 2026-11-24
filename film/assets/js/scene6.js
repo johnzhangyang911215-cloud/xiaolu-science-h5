@@ -31,7 +31,7 @@
   const lerpV = (a, b, k) => a.clone().lerp(b, k);
   function rng(seed) { let a = seed >>> 0; return () => { a += 0x6D2B79F5; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
-  let root, svg, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, ampG, body, ped, pedMat, ringMat, powderLight, frost, frostMat, frostShellU,
+  let root, svg, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, ampG, body, ped, ringMat, powderLight, frost, frostMat, frostShellU,
     copy = [], lastProbe = null;
   const txt = {}, lines = {}, glowMesh = [], shellMats = [], powderMats = [];
   let frostU;
@@ -132,12 +132,15 @@
       const key = new THREE.DirectionalLight(0xf2f1ec, 2.1); key.position.set(-0.6, 1.0, 0.9); scene.add(key);
       const rim = new THREE.DirectionalLight(0xdfe4ea, 1.7); rim.position.set(0.7, 0.6, -1.0); scene.add(rim);
 
-      // scene 5's light table, left behind as the ampoule lifts
-      pedMat = new THREE.MeshStandardMaterial({ color: 0x15171a, roughness: 0.55, metalness: 0.2, transparent: true });
-      ped = new THREE.Group(); scene.add(ped);
-      const pc = new THREE.Mesh(new THREE.CylinderGeometry(0.030, 0.033, 0.010, 64), pedMat); pc.position.y = -0.005; ped.add(pc);
-      ringMat = new THREE.MeshBasicMaterial({ color: 0xdde6ee, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
-      const ring = new THREE.Mesh(new THREE.RingGeometry(0.0255, 0.0295, 96), ringMat); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.0002; ped.add(ring);
+      // no plinth: a soft pool of light under the floating ampoule, with one thin ring that drifts outward
+      ringMat = new THREE.ShaderMaterial({ uniforms: { uA: { value: 0 }, uR: { value: 0.3 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, side: THREE.DoubleSide,
+        vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
+        fragmentShader: `uniform float uA, uR; varying vec2 vUv;
+          void main(){ float r = length(vUv - 0.5) * 2.;
+            float pool = exp(-r * r * 9.) * 0.55 + exp(-r * r * 60.) * 0.5;
+            float ring = exp(-pow((r - uR) / 0.035, 2.)) * 0.28 * (1. - smoothstep(0.55, 0.95, uR));
+            gl_FragColor = vec4(vec3(0.86, 0.91, 0.96) * (pool + ring) * uA, 1.); }` });
+      ped = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.16), ringMat); ped.rotation.x = -Math.PI / 2; ped.position.y = -0.004; ped.renderOrder = -1; scene.add(ped);
 
       ampG = new THREE.Group(); scene.add(ampG);
       const off = new THREE.Group(); off.position.y = -CY; ampG.add(off);
@@ -272,7 +275,7 @@
   }
 
   // ---------- motion ----------
-  const lift = (t) => 0.014 * inOut((t - (T0 + 0.9)) / 1.4);
+  const lift = (t) => 0.004 + 0.0012 * Math.sin((t - T0) * 2.2) * (1 - smooth(T0 + 0.9, T0 + 1.6, t)) + 0.014 * inOut((t - (T0 + 0.9)) / 1.4);   // hovers above the light, then rises
   const ampC = (t) => V(0, CY + lift(t), 0);
   const yaw = (t) => lerp(YAW0, 0, inOut((t - T0 - 0.3) / 2.0));
   const flipK = (t) => inOut((t - FLIP_A) / (FLIP_B - FLIP_A));
@@ -327,7 +330,7 @@
     cam.position.copy(c.pos); cam.lookAt(c.tgt); cam.updateMatrixWorld(); cam.updateProjectionMatrix();
 
     const pedA = 1 - smooth(T0 + 0.9, T0 + 1.9, tc);
-    ped.visible = pedA > 0.01; pedMat.opacity = pedA; ringMat.opacity = 0.8 * pedA;
+    ped.visible = pedA > 0.01; ringMat.uniforms.uA.value = pedA * smooth(T0 - 0.2, T0 + 0.4, tc); ringMat.uniforms.uR.value = 0.18 + 0.8 * smooth(T0, T0 + 1.9, tc);
 
     // freezing: the powder sets, frost spreads outward
     const set = smooth(TEMP_A, TEMP_B + 0.6, tc), fr = smooth(FROST_A, FROST_B, tc);
