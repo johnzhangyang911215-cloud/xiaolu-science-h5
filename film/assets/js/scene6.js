@@ -23,6 +23,7 @@
   const TEMP_A = T0 + 1.6, TEMP_B = T0 + 4.2;       // powder setting window (the −40℃ figure itself is fixed)
   const FROST_A = T0 + 1.8, FROST_B = LP;
   const FLIP_A = CLOSE + 0.25, FLIP_B = END - 0.02;
+  const FLIP_ANG = Math.PI * 2 / 3;                 // V3.7: stop at scene 7's diagonal hold (head lower-left) so the cut is a match cut
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const sat = (v) => clamp(v, 0, 1);
@@ -107,7 +108,7 @@
       for (const c of copy) {
         txt[c.id] = el('div', 'copy ' + c.id, root, c.text); txt[c.id].dataset.copy = c.id;
         // callouts: chamber name on top, contents below
-        if (/^s6-(powder|solvent)$/.test(c.id)) { const [a, b] = c.text.split(' · '); txt[c.id].textContent = ''; el('b', '', txt[c.id], a); el('span', '', txt[c.id], b); }
+        if (/^s6-(powder|solvent)$/.test(c.id)) { const [a, b] = c.text.split('\n'); txt[c.id].textContent = ''; el('b', '', txt[c.id], a); el('span', '', txt[c.id], b); }
       }
       root.style.display = 'none';
 
@@ -325,7 +326,7 @@
     const tc = clamp(t, T0, END - 1e-4);
 
     ampG.position.copy(ampC(tc));
-    ampG.rotation.set(0, yaw(tc), Math.PI * flipK(tc));
+    ampG.rotation.set(0, yaw(tc), FLIP_ANG * flipK(tc));
     ampG.updateMatrixWorld(true);
     const ck = cutK(tc), sx = lerp(-R_CUT, R_CUT, ck);
     // local planes (ampoule space, before the −CY offset — x and z are unaffected by it) moved to world space

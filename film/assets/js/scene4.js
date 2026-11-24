@@ -11,11 +11,12 @@
   for (const k in F.cueFrames) K[k] = F.cueFrames[k] / FPS;
   // V2: ring of nutrients (s4 → journal), then the Science cover + ruminant phylogeny (journal), then every particle
   // converges to one light point that becomes scene 6's ampoule. The old branch/helix stages are switched off.
-  K.ref1 = K.journal; K.ref2 = 1e4; K.converge = K.s6 - 1.85;
+  K.ref1 = K.journal; K.ref2 = 1e4; K.converge = K.s6 - 1.05; // V3.7: journal holds longer, the converge is a quick 1 s gather (no dead air before s6)
   const T0 = K.s4, END = K.s6;
   const N = 5200;
   const CX = 960, CY = 545;                 // where scene 3 leaves the wax
-  const BLUE = [0.373, 0.722, 0.902], ICE = [0.80, 0.94, 1.0], GOLD = [1.0, 0.86, 0.62], GOLD_G = [0.80, 0.60, 0.34];
+  const BLUE = [0.95, 0.84, 0.64], ICE = [1.0, 0.96, 0.88], // V3.7: warm white/gold instead of tech blue, continuous with the wax light
+    GOLD = [1.0, 0.86, 0.62], GOLD_G = [0.80, 0.60, 0.34];
   const RING_R = 330, FIELD_R = 500;
   const TX = 760;                            // branches and helix sit left of the reference cards
   const HY0 = 190, HY1 = 830, H_R = 95, H_TURNS = 3.2;
@@ -106,7 +107,7 @@
       vec2 px = vec2(vUv.x * 1920.0, (1.0 - vUv.y) * 1080.0);
       vec2 d = px - uC; float r = length(d);
       vec3 base = vec3(0.039, 0.043, 0.051);
-      vec3 blue = vec3(0.373, 0.722, 0.902);
+      vec3 blue = vec3(0.95, 0.84, 0.64);
       vec3 tint = mix(blue, vec3(0.80, 0.60, 0.34), uWarm);
       float inside = 1.0 - smoothstep(uR - 6.0, uR + 6.0, r);
       vec3 c = base * mix(0.55, 1.0, max(inside, 1.0 - uBlue));
@@ -294,7 +295,7 @@
   function render(t) {
     if (!renderer || !active) return;
     const tc = clamp(t, T0, END - 1e-4);
-    const warm = smooth(K.converge + 0.75, END - 0.45, tc);
+    const warm = smooth(K.converge + 0.2, END - 0.3, tc);
     const curLit = LIT.reduce((n, a, k) => (tc >= a ? k : n), -1);
     const helixOn = tc >= K.ref2, front0 = front(tc), sy = scanY(tc);
     const fade1 = 1 - smooth(T0 + 0.05, T0 + 0.35, tc); // gold → blue switch of the sample
@@ -339,7 +340,7 @@
       }
       // stage 4: everything spirals into one point, blue → gold
       if (tc >= K.converge) {
-        const k4 = inOut((tc - (K.converge + 0.15 + P.st[i] * 0.7)) / 1.1);
+        const k4 = inOut((tc - (K.converge + 0.05 + P.st[i] * 0.35)) / 0.6);
         const r = Math.hypot(x - CX, y - CY) * (1 - k4), a = Math.atan2(y - CY, x - CX) + 1.6 * k4;
         x = CX + r * Math.cos(a); y = CY + r * Math.sin(a);
         bright *= lerp(1, 0.12, k4) * (1 - smooth(END - 0.5, END - 0.2, tc) * 0.8);
@@ -385,7 +386,7 @@
     const scanA = smooth(K.ref2 + 0.9, K.ref2 + 1.2, tc) * (1 - smooth(K.converge - 0.3, K.converge + 0.2, tc));
     glow(TX, sy, 300, BLUE, 0.45 * scanA, 0.2);
     if (tc >= K.ref2 && tc < K.converge) focus = [TX, sy];
-    const fin = smooth(K.converge + 0.6, END - 0.35, tc);
+    const fin = smooth(K.converge + 0.3, END - 0.2, tc);
     const fc = mixc(BLUE, GOLD_G, warm);
     glow(CX, CY, lerp(120, 230, fin), fc, 0.9 * fin, 0);
     glow(CX, CY, 60, mixc(ICE, GOLD, warm), 1.2 * fin, 1.4);
@@ -395,7 +396,7 @@
 
     // microscope field
     const u = fieldMat.uniforms;
-    u.uR.value = FIELD_R * p2out((tc - T0) / 0.9) * (1 - inOut((tc - (K.converge + 1.0)) / 0.9) * 0.88);
+    u.uR.value = FIELD_R * p2out((tc - T0) / 0.9) * (1 - inOut((tc - (K.converge + 0.3)) / 0.6) * 0.88);
     const jFade = 1 - smooth(K.journal - 0.1, K.journal + 0.7, tc);
     u.uBlue.value = smooth(T0, T0 + 0.35, tc) * jFade;
     u.uRet.value = smooth(T0 + 0.4, T0 + 1.1, tc) * jFade;

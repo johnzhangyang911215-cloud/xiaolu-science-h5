@@ -774,14 +774,15 @@
     const labOut = 1 - smooth(K.collagen - 0.2, K.collagen + 0.3, tc);
     labIds.forEach((id, i) => {
       if (!txt[id]) return;
-      let a = copyAlpha(id, tc) * labOut * (i < 3 ? 1 - smooth(WZ0 + 0.3, WZ1 - 0.2, tc) : 1);
+      const layOut = i < 2 ? 1 - smooth(WZ0 + 0.3, WZ1 - 0.2, tc) : i === 2 ? 1 - smooth(K.wax - 0.45, K.wax + 0.05, tc) : 1; // 粉片 hands over to 蜡片
+      let a = copyAlpha(id, tc) * labOut * layOut;
       const hot = i < 3 ? (i === 2 ? 1 - ls.waxOn : 1 - smooth(K[LAYERS[i + 1].cue], K[LAYERS[i + 1].cue] + 0.4, tc)) : 1;
       const anc = i < 3 ? ant.lab[i].clone().applyMatrix4(antN.matrixWorld) : wc;
       const q = project(anc);
       const ly = LY[i];
       txt[id].style.transform = `translate(${LX}px,${ly}px)`;
       txt[id].style.opacity = (a * lerp(0.5, 1, hot)).toFixed(3);
-      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * (i < 3 ? 1 - smooth(WZ0 + 0.3, WZ1 - 0.2, tc) : 1) * lerp(0.45, 0.85, hot)).toFixed(3); }
+      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * layOut * lerp(0.45, 0.85, hot)).toFixed(3); }
       const ex = LX - 24, mx = ex - 60;
       leaders[id].setAttribute('d', `M${(q.x + 10).toFixed(1)} ${q.y.toFixed(1)}L${mx.toFixed(1)} ${ly.toFixed(1)}L${ex} ${ly}`);
       leaders[id].style.opacity = (a * lerp(0.45, 1, hot)).toFixed(3);
@@ -792,9 +793,9 @@
     {
       const pa = smooth(K.collagen - 0.1, K.collagen + 0.4, tc) * (1 - smooth(K.s4 - 0.35, K.s4 - 0.05, tc));
       dataEls.box.style.opacity = pa.toFixed(3);
-      const roll = sat((tc - K.collagen - 0.3) / (FREEZE - K.collagen - 0.3));
+      const roll = sat((tc - K.collagen - 0.2) / 1.2); // settle by collagen+1.4 so the numbers hold ~3 s before s4
       for (const v of dataEls.vals) {
-        const k = 1 - Math.pow(1 - roll, 3);
+        const k = roll >= 1 ? 1 : 1 - Math.pow(2, -10 * roll);
         v.el.textContent = '↑' + (roll >= 1 ? v.val : (v.val * k)).toFixed(2) + '%';
         v.el.classList.toggle('lock', tc >= FREEZE);
       }

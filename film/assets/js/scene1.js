@@ -249,7 +249,7 @@
   }
 
   function el(tag, attrs, parent) {
-    const ns = tag === 'div' || tag === 'canvas' ? null : 'http://www.w3.org/2000/svg';
+    const ns = tag === 'div' || tag === 'canvas' || tag === 'b' || tag === 'span' ? null : 'http://www.w3.org/2000/svg';
     const e = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
     for (const k in attrs) e.setAttribute(k, attrs[k]);
     if (parent) parent.appendChild(e);
@@ -280,7 +280,12 @@
     }
     flash = el('circle', { r: 46, class: 'flash' }, svg);
     dot = el('div', { id: 's1-dot' }, root);
-    for (const c of copy) { txt[c.id] = el('div', { class: 'copy ' + c.id, 'data-copy': c.id }, root); txt[c.id].textContent = c.text; }
+    for (const c of copy) {
+      txt[c.id] = el('div', { class: 'copy ' + c.id, 'data-copy': c.id }, root);
+      const [l1, l2] = c.text.split('\n');
+      if (l2 === undefined) txt[c.id].textContent = c.text;
+      else { el('b', {}, txt[c.id]).textContent = l1; el('span', {}, txt[c.id]).textContent = l2; }
+    }
 
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
     renderer.setPixelRatio(1);

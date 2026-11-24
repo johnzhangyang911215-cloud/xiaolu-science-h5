@@ -21,7 +21,7 @@
   const SOLID_A = LOGO + 1.65, SOLID_B = LOGO + 2.35;        // solid mark replaces the swarm
   const WORD_A = LOGO + 2.0, WORD_B = LOGO + 2.9;
   const LINE_A = LOGO + 2.7, LINE_B = LOGO + 3.6;
-  const OUT_A = FADE + 0.25, OUT_B = FADE + 1.25;            // words leave; logos stay to the last frame
+  const OUT_A = FADE + 0.7, OUT_B = FADE + 1.7;  // V3.7: held longer for reading time            // words leave; logos stay to the last frame
 
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const smooth = (a, b, x) => { const u = clamp((x - a) / (b - a), 0, 1); return u * u * (3 - 2 * u); };
@@ -47,7 +47,7 @@
     el('i', 's8-bar', logos);
     lg = el('img', 's8-logo', logos); lg.alt = '华大小鹿 YOUTH MESSAGER'; lg.src = 'assets/brand/logo-h.svg';
     line = el('div', 's8-line', root, txt('s8-line'));
-    name = el('div', 's8-name', root, txt('s8-name'));
+    name = el('div', 's8-name', root); txt('s8-name').split('\n').forEach((l, i) => el(i ? 'span' : 'b', '', name, l));
     return Promise.all([decode(amp), decode(box), decode(lg), decode(bgi)]);
   }
 

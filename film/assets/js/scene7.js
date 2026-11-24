@@ -229,7 +229,7 @@
       const canvas = document.createElement('canvas'); canvas.id = 's7-gl'; canvas.width = W; canvas.height = H; root.appendChild(canvas);
       for (const c of copy) {
         const e = el('div', 'copy ' + c.id, root); e.dataset.copy = c.id;
-        const m = /^(\d\d) (.+?) · (.+)$/.exec(c.text);
+        const m = /^(\d\d) (.+?)(?:：| · )(.+)$/.exec(c.text);
         if (m) { el('i', '', e, m[1]); el('b', '', e, m[2]); el('span', '', e, m[3]); } else e.textContent = c.text;
         txt[c.id] = e;
       }
@@ -418,7 +418,7 @@
     let q, p;
     if (t < CUT_IN) {
       // one turn into the reference hold (head lower-left, tail upper-right); ring pull and press both happen in it
-      q = Q_UP.clone().slerp(Q_DIAG, inOut((t - T0) / 1.3));
+      q = Q_DIAG.clone(); // V3.7: scene 6 already ends in this hold (match cut, no second turn)
       p = V(0, 0.01 + 0.004 * Math.sin((t - T0) * 1.3), 0);
     } else if (t < SNAP_SHOT) {
       // V3.5: same tilted hold and the same angle as the press, so the press outside and the fall inside read together
@@ -436,7 +436,7 @@
     return { q, p };
   }
 
-  const PRESS_DIR = V(0.04, 0.045, 0.12).normalize(), PRESS_D = 0.085;
+  const PRESS_DIR = V(0.04, 0.045, 0.12).normalize(), PRESS_D = 0.085 * 1.08;
   function camAt(t) {
     // returns pos, tgt (world)
     if (t < CUT_IN) {
@@ -509,7 +509,8 @@
     if (DBG.cam) c = DBG.cam(c, ampW, V);
     cam.position.copy(c.pos); cam.lookAt(c.tgt); cam.updateMatrixWorld();
     // V2: the step list owns the left third, so the product sits right of centre
-    const vx = -260 * smooth(T0, T0 + 1.2, tc); if (vx) cam.setViewOffset(W, H, vx, 0, W, H); else cam.clearViewOffset();
+    // V3.7: 140 px further right so the bottle clears the step list
+    const vx = -400 * smooth(T0, T0 + 1.2, tc); if (vx) cam.setViewOffset(W, H, vx, 0, W, H); else cam.clearViewOffset();
     cam.updateProjectionMatrix();
 
     // snap: head hinges at the neck and leaves
@@ -646,7 +647,7 @@
     const fl = Math.exp(-Math.max(0, tc - PRESS_B) * 9) * (tc >= PRESS_B - 1e-6 ? 1 : 0) + 0.6 * Math.exp(-Math.max(0, tc - K.snap) * 10) * (tc >= K.snap ? 1 : 0);
     const fp = proj(ampW(0, tc < K.snap ? 6 : 40.5, 0));
     flashMat.uniforms.uC.value.set(fp[0] / W, 1 - fp[1] / H); flashMat.uniforms.uA.value = 0.45 * fl; flashMat.uniforms.uR.value = 0.07;
-    whiteMat.uniforms.uCol.value.setRGB(0.039, 0.043, 0.051); whiteMat.uniforms.uA.value = smooth(END - 0.55, END - 0.05, tc);
+    whiteMat.uniforms.uCol.value.setRGB(0.153, 0.157, 0.173); // V3.7: dissolve into the graphite ground, not black whiteMat.uniforms.uA.value = smooth(END - 0.55, END - 0.05, tc);
 
     renderer.clear();
     renderer.render(bgScene, cam);
