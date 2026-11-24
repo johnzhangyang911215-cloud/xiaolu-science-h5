@@ -28,6 +28,11 @@
     { "id": "s4-sub", "scene": 4, "in": 55.0, "out": 57.4, "text": "基因组与蛋白组检测，从原料溯源到成分筛选", "source": "p12", "status": "approved" },
     { "id": "s5-title", "scene": 5, "in": "family", "out": 65.0, "text": "华大小鹿 · 韶初泌语系列", "source": "p1、p19", "status": "approved" },
     { "id": "s5-groups", "scene": 5, "in": 62.5, "out": 65.5, "text": "通 · 补 · 锁", "source": "p19", "status": "approved" },
-    { "id": "s5-name", "scene": 5, "in": "single", "out": 68.0, "text": "韶初泌语鹿茸凝时抗皱冻干精华液", "source": "KT 板 19 备案截图", "status": "approved" }
+    { "id": "s5-name", "scene": 5, "in": "single", "out": 68.0, "text": "韶初泌语鹿茸凝时抗皱冻干精华液", "source": "KT 板 19 备案截图", "status": "approved" },
+    { "id": "s6-temp", "scene": 6, "in": 68.3, "out": 72.3, "text": "−40℃", "source": "p38（计数从 20℃ 起为示意）", "status": "approved" },
+    { "id": "s6-title", "scene": 6, "in": 69.0, "out": 72.3, "text": "急速真空冻干", "source": "p38", "status": "approved" },
+    { "id": "s6-powder", "scene": 6, "in": "labelPowder", "out": "close", "text": "冻干仓 · 鹿茸提取物冻干粉 5 mg", "source": "p38、p39", "status": "approved" },
+    { "id": "s6-solvent", "scene": 6, "in": "labelSolvent", "out": "close", "text": "溶媒仓 · 依克多因 + 肌肽 1.5 mL", "source": "p39", "status": "approved" },
+    { "id": "s6-lock", "scene": 6, "in": 76.0, "out": 77.5, "text": "双仓锁鲜，按压激活", "source": "p38", "status": "approved" }
   ]
 }

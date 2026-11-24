@@ -89,3 +89,17 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s5 .s5-title{top:96px;font:400 56px/1.2 "XL Serif",serif;letter-spacing:.16em;text-shadow:0 0 18px rgba(0,0,0,.6)}
 #s5 .s5-groups{top:182px;font:400 38px/1 "XL Sans",sans-serif;letter-spacing:.5em;color:#C8A26A}
 #s5 .s5-name{left:140px;right:auto;top:505px;text-align:left;font:400 54px/1.3 "XL Serif",serif;letter-spacing:.1em;text-shadow:0 0 18px rgba(0,0,0,.7)}
+
+/* ---- scene 6 ---- */
+#s6{position:absolute;inset:0;z-index:1;pointer-events:none}
+#s6-gl,#s6-lines{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#s6-lines polyline{fill:none;stroke:#C8A26A;stroke-width:2}
+#s6-lines circle{fill:#C8A26A}
+#s6 .copy{position:absolute;opacity:0;white-space:nowrap;color:#F2F1EC;text-shadow:0 0 18px rgba(0,0,0,.6)}
+#s6 .s6-temp{left:170px;top:360px;font:400 168px/1 "XL Sans",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+#s6 .s6-title{left:178px;top:560px;font:400 56px/1.2 "XL Serif",serif;letter-spacing:.2em}
+#s6 .s6-powder,#s6 .s6-solvent{left:0;top:0;font:400 38px/1.35 "XL Sans",sans-serif;letter-spacing:.06em}
+#s6 .s6-powder b,#s6 .s6-solvent b{display:block;font:400 50px/1.2 "XL Serif",serif;color:#C8A26A;letter-spacing:.16em}
+#s6 .s6-powder span,#s6 .s6-solvent span{display:block}
+#s6 .s6-solvent{text-align:right}
+#s6 .s6-lock{left:0;right:0;top:900px;text-align:center;font:400 56px/1.2 "XL Serif",serif;letter-spacing:.24em}

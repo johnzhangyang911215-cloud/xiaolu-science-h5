@@ -163,10 +163,10 @@
         if (!o.isMesh) return;
         o.frustumCulled = false;
         if (o.material) { o.material = o.material.clone(); envMats.push(o.material); o.material.userData.c0 = o.material.color.clone(); o.material.userData.t0 = o.material.transmission || 0; }
-        if (/lower_cartridge/i.test(o.name)) { chamberMat = o.material; chamberMat.emissive = new THREE.Color(0xffb866); chamberMat.emissiveIntensity = 0; }
+        if (/push_base/i.test(o.name)) { chamberMat = o.material; chamberMat.emissive = new THREE.Color(0xffb866); chamberMat.emissiveIntensity = 0; }
       });
       ampModel.updateMatrixWorld(true);
-      ampModel.traverse((o) => { if (o.isMesh && /lower_cartridge/i.test(o.name)) chBox = new THREE.Box3().setFromObject(o); });
+      ampModel.traverse((o) => { if (o.isMesh && /push_base/i.test(o.name)) chBox = new THREE.Box3().setFromObject(o); });
       const bb = new THREE.Box3().setFromObject(ampModel);
       AMP_H = bb.max.y - bb.min.y;
       CH = chBox ? chBox.getCenter(V(0, 0, 0)) : V(0, 0.012 * A_SCALE, 0); // chamber centre in ampG space

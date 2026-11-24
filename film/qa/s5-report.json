@@ -1,0 +1,1671 @@
+{
+  "when": "2026-11-24T02:12:55.545Z",
+  "checks": {
+    "entry": {
+      "ok": true,
+      "frames": [
+        [
+          2042,
+          5,
+          2042
+        ],
+        [
+          2043,
+          6,
+          2043
+        ],
+        [
+          2044,
+          6,
+          2044
+        ],
+        [
+          2329,
+          6,
+          2329
+        ],
+        [
+          2330,
+          7,
+          2330
+        ]
+      ]
+    },
+    "firstLook": {
+      "ok": true,
+      "frame": 2058,
+      "powder": {
+        "x": 1016.9,
+        "y": 645.5
+      },
+      "brightest": {
+        "cx": 17,
+        "cy": 10,
+        "r": 255,
+        "g": 255,
+        "b": 254.9936111111111,
+        "lum": 254.99953872222224
+      }
+    },
+    "freeze": {
+      "ok": true,
+      "start": 20,
+      "monotonic": true,
+      "minus40At": 71.43,
+      "setAtLabel": 1,
+      "frostAtLabel": 1,
+      "samples": [
+        [
+          68.1,
+          20,
+          0
+        ],
+        [
+          68.6,
+          19,
+          0.329
+        ],
+        [
+          69.1,
+          13,
+          0.992
+        ],
+        [
+          69.6,
+          1,
+          1
+        ],
+        [
+          70.1,
+          -13,
+          1
+        ],
+        [
+          70.6,
+          -27,
+          1
+        ],
+        [
+          71.1,
+          -36,
+          1
+        ],
+        [
+          71.6,
+          -40,
+          1
+        ],
+        [
+          72.1,
+          -40,
+          1
+        ],
+        [
+          72.6,
+          -40,
+          1
+        ],
+        [
+          73.1,
+          -40,
+          1
+        ],
+        [
+          73.6,
+          -40,
+          1
+        ],
+        [
+          74.1,
+          -40,
+          1
+        ],
+        [
+          74.6,
+          -40,
+          1
+        ],
+        [
+          75.1,
+          -40,
+          1
+        ],
+        [
+          75.6,
+          -40,
+          1
+        ],
+        [
+          76.1,
+          -40,
+          1
+        ],
+        [
+          76.6,
+          -40,
+          1
+        ],
+        [
+          77.1,
+          -40,
+          0.02
+        ],
+        [
+          77.6,
+          -40,
+          0
+        ]
+      ]
+    },
+    "section": {
+      "ok": true,
+      "openFrom69_3ToClose": true,
+      "cutAtEnd": 0
+    },
+    "labels": {
+      "ok": true,
+      "powder": {
+        "ok": true,
+        "before": 0,
+        "after": 1,
+        "textOpacity": 1
+      },
+      "solvent": {
+        "ok": true,
+        "before": 0,
+        "after": 1,
+        "textOpacity": 1
+      }
+    },
+    "tail": {
+      "ok": true,
+      "frame": 2329,
+      "flip": 0.999,
+      "amp": {
+        "x": 960,
+        "y": 539.8,
+        "top": {
+          "x": 959.2,
+          "y": 938.5
+        },
+        "bottom": {
+          "x": 960.9,
+          "y": 137
+        }
+      }
+    },
+    "palette": {
+      "ok": true,
+      "blueCells": []
+    },
+    "copy": {
+      "ok": true,
+      "copyEntries": 7,
+      "texts": [
+        {
+          "text": "20℃",
+          "seconds": [
+            68.33,
+            68.57
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "19℃",
+          "seconds": [
+            68.6,
+            68.7
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "18℃",
+          "seconds": [
+            68.73,
+            68.8
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "17℃",
+          "seconds": [
+            68.83,
+            68.87
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "16℃",
+          "seconds": [
+            68.9,
+            68.93
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "15℃",
+          "seconds": [
+            68.97,
+            69
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "14℃",
+          "seconds": [
+            69.03,
+            69.07
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "急速真空冻干",
+          "seconds": [
+            69.03,
+            72.27
+          ],
+          "inCopy": true,
+          "window": [
+            69,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "13℃",
+          "seconds": [
+            69.1,
+            69.13
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "12℃",
+          "seconds": [
+            69.17,
+            69.17
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "11℃",
+          "seconds": [
+            69.2,
+            69.23
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "10℃",
+          "seconds": [
+            69.27,
+            69.27
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "9℃",
+          "seconds": [
+            69.3,
+            69.3
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "8℃",
+          "seconds": [
+            69.33,
+            69.33
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "7℃",
+          "seconds": [
+            69.37,
+            69.4
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "6℃",
+          "seconds": [
+            69.43,
+            69.43
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "5℃",
+          "seconds": [
+            69.47,
+            69.47
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "4℃",
+          "seconds": [
+            69.5,
+            69.5
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "3℃",
+          "seconds": [
+            69.53,
+            69.53
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "2℃",
+          "seconds": [
+            69.57,
+            69.57
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "1℃",
+          "seconds": [
+            69.6,
+            69.63
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "0℃",
+          "seconds": [
+            69.67,
+            69.67
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−1℃",
+          "seconds": [
+            69.7,
+            69.7
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−2℃",
+          "seconds": [
+            69.73,
+            69.73
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−3℃",
+          "seconds": [
+            69.77,
+            69.77
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−4℃",
+          "seconds": [
+            69.8,
+            69.8
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−5℃",
+          "seconds": [
+            69.83,
+            69.83
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−6℃",
+          "seconds": [
+            69.87,
+            69.87
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−7℃",
+          "seconds": [
+            69.9,
+            69.9
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−8℃",
+          "seconds": [
+            69.93,
+            69.93
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−9℃",
+          "seconds": [
+            69.97,
+            69.97
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−10℃",
+          "seconds": [
+            70,
+            70
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−11℃",
+          "seconds": [
+            70.03,
+            70.03
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−12℃",
+          "seconds": [
+            70.07,
+            70.07
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−13℃",
+          "seconds": [
+            70.1,
+            70.1
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−14℃",
+          "seconds": [
+            70.13,
+            70.13
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−15℃",
+          "seconds": [
+            70.17,
+            70.17
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−16℃",
+          "seconds": [
+            70.2,
+            70.2
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−17℃",
+          "seconds": [
+            70.23,
+            70.23
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−18℃",
+          "seconds": [
+            70.27,
+            70.27
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−19℃",
+          "seconds": [
+            70.3,
+            70.3
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−20℃",
+          "seconds": [
+            70.33,
+            70.33
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−21℃",
+          "seconds": [
+            70.37,
+            70.4
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−22℃",
+          "seconds": [
+            70.43,
+            70.43
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−23℃",
+          "seconds": [
+            70.47,
+            70.47
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−24℃",
+          "seconds": [
+            70.5,
+            70.5
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−25℃",
+          "seconds": [
+            70.53,
+            70.53
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−26℃",
+          "seconds": [
+            70.57,
+            70.57
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−27℃",
+          "seconds": [
+            70.6,
+            70.63
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−28℃",
+          "seconds": [
+            70.67,
+            70.67
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−29℃",
+          "seconds": [
+            70.7,
+            70.7
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−30℃",
+          "seconds": [
+            70.73,
+            70.73
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−31℃",
+          "seconds": [
+            70.77,
+            70.8
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−32℃",
+          "seconds": [
+            70.83,
+            70.83
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−33℃",
+          "seconds": [
+            70.87,
+            70.9
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−34℃",
+          "seconds": [
+            70.93,
+            70.97
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−35℃",
+          "seconds": [
+            71,
+            71.03
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−36℃",
+          "seconds": [
+            71.07,
+            71.1
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−37℃",
+          "seconds": [
+            71.13,
+            71.17
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−38℃",
+          "seconds": [
+            71.2,
+            71.27
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−39℃",
+          "seconds": [
+            71.3,
+            71.4
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "−40℃",
+          "seconds": [
+            71.43,
+            72.27
+          ],
+          "inCopy": true,
+          "window": [
+            68.3,
+            72.3
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "冻干仓",
+          "seconds": [
+            72.4,
+            76.57
+          ],
+          "inCopy": true,
+          "window": [
+            72.35,
+            76.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "鹿茸提取物冻干粉 5 mg",
+          "seconds": [
+            72.4,
+            76.57
+          ],
+          "inCopy": true,
+          "window": [
+            72.35,
+            76.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "溶媒仓",
+          "seconds": [
+            74.5,
+            76.57
+          ],
+          "inCopy": true,
+          "window": [
+            74.47,
+            76.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "依克多因 + 肌肽 1.5 mL",
+          "seconds": [
+            74.5,
+            76.57
+          ],
+          "inCopy": true,
+          "window": [
+            74.47,
+            76.6
+          ],
+          "withinWindow": true,
+          "banned": []
+        },
+        {
+          "text": "双仓锁鲜，按压激活",
+          "seconds": [
+            76.03,
+            77.47
+          ],
+          "inCopy": true,
+          "window": [
+            76,
+            77.5
+          ],
+          "withinWindow": true,
+          "banned": []
+        }
+      ],
+      "missing": []
+    },
+    "shots": [
+      {
+        "name": "enter",
+        "frame": 2045,
+        "n": 6,
+        "probe": {
+          "phase": "cut",
+          "powder": {
+            "x": 1038.9,
+            "y": 658.4
+          },
+          "solvent": {
+            "x": 1040.7,
+            "y": 70
+          },
+          "amp": {
+            "x": 1041.1,
+            "y": -52.6,
+            "top": {
+              "x": 1043.8,
+              "y": -914.7
+            },
+            "bottom": {
+              "x": 1038.6,
+              "y": 754.7
+            }
+          },
+          "cut": 0,
+          "temp": 20,
+          "set": 0,
+          "frost": 0,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 1059,
+                "y": 665.8
+              },
+              "end": {
+                "x": 1249,
+                "y": 605.8
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 1021.1,
+                "y": 67.8
+              },
+              "end": {
+                "x": 831.1,
+                "y": 7.8
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "cut",
+        "frame": 2061,
+        "n": 6,
+        "probe": {
+          "phase": "cut",
+          "powder": {
+            "x": 1008.1,
+            "y": 640.2
+          },
+          "solvent": {
+            "x": 1009.1,
+            "y": 7
+          },
+          "amp": {
+            "x": 1009.3,
+            "y": -124.5,
+            "top": {
+              "x": 1010.7,
+              "y": -1045.6
+            },
+            "bottom": {
+              "x": 1007.9,
+              "y": 744.2
+            }
+          },
+          "cut": 0.5,
+          "temp": 19,
+          "set": 0.018,
+          "frost": 0.002,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 1058,
+                "y": 644.2
+              },
+              "end": {
+                "x": 1248,
+                "y": 584.2
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 959.8,
+                "y": 2.9
+              },
+              "end": {
+                "x": 769.8,
+                "y": -57.1
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "freeze",
+        "frame": 2109,
+        "n": 6,
+        "probe": {
+          "phase": "freeze",
+          "powder": {
+            "x": 1119.5,
+            "y": 809.9
+          },
+          "solvent": {
+            "x": 1121.4,
+            "y": 457.5
+          },
+          "amp": {
+            "x": 1121.7,
+            "y": 385.1,
+            "top": {
+              "x": 1124.4,
+              "y": -114.5
+            },
+            "bottom": {
+              "x": 1119.2,
+              "y": 868.3
+            }
+          },
+          "cut": 1,
+          "temp": -19,
+          "set": 0.5,
+          "frost": 0.427,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 1152.9,
+                "y": 809.9
+              },
+              "end": {
+                "x": 1342.9,
+                "y": 749.9
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 1087.6,
+                "y": 451.4
+              },
+              "end": {
+                "x": 897.6,
+                "y": 391.4
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "minus40",
+        "frame": 2160,
+        "n": 6,
+        "probe": {
+          "phase": "freeze",
+          "powder": {
+            "x": 1149.4,
+            "y": 847
+          },
+          "solvent": {
+            "x": 1151.3,
+            "y": 558.8
+          },
+          "amp": {
+            "x": 1151.7,
+            "y": 499.7,
+            "top": {
+              "x": 1154.4,
+              "y": 92.8
+            },
+            "bottom": {
+              "x": 1149.1,
+              "y": 894.9
+            }
+          },
+          "cut": 1,
+          "temp": -40,
+          "set": 0.992,
+          "frost": 0.973,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 1176.8,
+                "y": 847
+              },
+              "end": {
+                "x": 1366.8,
+                "y": 787
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 1123.7,
+                "y": 553.8
+              },
+              "end": {
+                "x": 933.7,
+                "y": 493.8
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "powder",
+        "frame": 2202,
+        "n": 6,
+        "probe": {
+          "phase": "labels",
+          "powder": {
+            "x": 970.5,
+            "y": 822.7
+          },
+          "solvent": {
+            "x": 970.6,
+            "y": 517.5
+          },
+          "amp": {
+            "x": 970.6,
+            "y": 455.1,
+            "top": {
+              "x": 970.7,
+              "y": 27
+            },
+            "bottom": {
+              "x": 970.5,
+              "y": 873.6
+            }
+          },
+          "cut": 1,
+          "temp": -40,
+          "set": 1,
+          "frost": 1,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 999.5,
+                "y": 822.9
+              },
+              "end": {
+                "x": 1189.5,
+                "y": 762.9
+              },
+              "k": 1
+            },
+            "solvent": {
+              "anchor": {
+                "x": 941.4,
+                "y": 512.2
+              },
+              "end": {
+                "x": 751.4,
+                "y": 452.2
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "labels",
+        "frame": 2268,
+        "n": 6,
+        "probe": {
+          "phase": "labels",
+          "powder": {
+            "x": 970.5,
+            "y": 822.7
+          },
+          "solvent": {
+            "x": 970.6,
+            "y": 517.5
+          },
+          "amp": {
+            "x": 970.6,
+            "y": 455.1,
+            "top": {
+              "x": 970.7,
+              "y": 27
+            },
+            "bottom": {
+              "x": 970.5,
+              "y": 873.6
+            }
+          },
+          "cut": 1,
+          "temp": -40,
+          "set": 1,
+          "frost": 1,
+          "flip": 0,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 999.5,
+                "y": 822.9
+              },
+              "end": {
+                "x": 1189.5,
+                "y": 762.9
+              },
+              "k": 1
+            },
+            "solvent": {
+              "anchor": {
+                "x": 941.4,
+                "y": 512.2
+              },
+              "end": {
+                "x": 751.4,
+                "y": 452.2
+              },
+              "k": 1
+            }
+          }
+        }
+      },
+      {
+        "name": "close",
+        "frame": 2310,
+        "n": 6,
+        "probe": {
+          "phase": "close",
+          "powder": {
+            "x": 1062.6,
+            "y": 831.6
+          },
+          "solvent": {
+            "x": 983.4,
+            "y": 541.4
+          },
+          "amp": {
+            "x": 967.2,
+            "y": 482.3,
+            "top": {
+              "x": 856.7,
+              "y": 77.5
+            },
+            "bottom": {
+              "x": 1075.9,
+              "y": 880
+            }
+          },
+          "cut": 0.173,
+          "temp": -40,
+          "set": 1,
+          "frost": 1,
+          "flip": 0.085,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 1090.2,
+                "y": 824.1
+              },
+              "end": {
+                "x": 1280.2,
+                "y": 764.1
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 954.3,
+                "y": 544
+              },
+              "end": {
+                "x": 764.3,
+                "y": 484
+              },
+              "k": 0
+            }
+          }
+        }
+      },
+      {
+        "name": "tail",
+        "frame": 2329,
+        "n": 6,
+        "probe": {
+          "phase": "close",
+          "powder": {
+            "x": 960.8,
+            "y": 186.7
+          },
+          "solvent": {
+            "x": 960.2,
+            "y": 480.6
+          },
+          "amp": {
+            "x": 960,
+            "y": 539.8,
+            "top": {
+              "x": 959.2,
+              "y": 938.5
+            },
+            "bottom": {
+              "x": 960.9,
+              "y": 137
+            }
+          },
+          "cut": 0,
+          "temp": -40,
+          "set": 1,
+          "frost": 1,
+          "flip": 0.999,
+          "labels": {
+            "powder": {
+              "anchor": {
+                "x": 932.9,
+                "y": 186.6
+              },
+              "end": {
+                "x": 1122.9,
+                "y": 126.6
+              },
+              "k": 0
+            },
+            "solvent": {
+              "anchor": {
+                "x": 987.9,
+                "y": 485.7
+              },
+              "end": {
+                "x": 797.9,
+                "y": 425.7
+              },
+              "k": 0
+            }
+          }
+        }
+      }
+    ],
+    "mobile": [
+      {
+        "ok": true,
+        "name": "counter",
+        "frame": 2115,
+        "texts": [
+          {
+            "text": "−24℃",
+            "x0": 136.7,
+            "x1": 303.3,
+            "y0": 130,
+            "y1": 190.7,
+            "px": 60.7
+          },
+          {
+            "text": "急速真空冻干",
+            "x0": 139.6,
+            "x1": 285.2,
+            "y0": 202.2,
+            "y1": 226.5,
+            "px": 20.3
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "labels",
+        "frame": 2265,
+        "texts": [
+          {
+            "text": "冻干仓鹿茸提取物冻干粉 5 mg",
+            "x0": 511.4,
+            "x1": 666.1,
+            "y0": 255.4,
+            "y1": 295.6,
+            "px": 13.8
+          },
+          {
+            "text": "溶媒仓依克多因 + 肌肽 1.5 mL",
+            "x0": 185.5,
+            "x1": 340.2,
+            "y0": 143.2,
+            "y1": 183.4,
+            "px": 13.8
+          }
+        ]
+      },
+      {
+        "ok": true,
+        "name": "lock",
+        "frame": 2310,
+        "texts": [
+          {
+            "text": "双仓锁鲜，按压激活",
+            "x0": 75.3,
+            "x1": 768.7,
+            "y0": 325,
+            "y1": 349.3,
+            "px": 20.3
+          }
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "consoleErrors": [],
+  "pass": true
+}
