@@ -33,7 +33,8 @@
 
   let root, svg, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, ampG, body, ped, pedMat, ringMat, powderLight, frost, frostMat, frostShellU,
     copy = [], lastProbe = null;
-  const txt = {}, lines = {}, glowMesh = [], shellMats = [], powderMats = [], flakes = [];
+  const txt = {}, lines = {}, glowMesh = [], shellMats = [], powderMats = [];
+  let frostU;
   const P1 = new THREE.Plane(), P2 = new THREE.Plane(), P3 = new THREE.Plane();
   const powderU = { uSet: { value: 0 } };
 
@@ -83,26 +84,6 @@
           totalEmissiveRadiance *= (1.0 - .75 * pore) * (.7 + .6 * fN);`);
     };
     mat.customProgramCacheKey = () => 's6-porous';
-  }
-
-  function flakeGeometry() {
-    // extruded hexagonal branches (same construction as the Codex frozen-chamber flakes), unit radius ≈ 1
-    const pos = [];
-    function rod(ax, ay, bx, by, w, d) {
-      const dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy), nx = -dy / l * w * 0.5, ny = dx / l * w * 0.5;
-      const v = [[ax + nx, ay + ny, -d], [bx + nx, by + ny, -d], [bx - nx, by - ny, -d], [ax - nx, ay - ny, -d],
-        [ax + nx, ay + ny, d], [bx + nx, by + ny, d], [bx - nx, by - ny, d], [ax - nx, ay - ny, d]];
-      for (const f of [[0, 3, 2, 1], [4, 5, 6, 7], [0, 1, 5, 4], [1, 2, 6, 5], [2, 3, 7, 6], [3, 0, 4, 7]])
-        for (const tri of [[f[0], f[1], f[2]], [f[0], f[2], f[3]]]) for (const i of tri) pos.push(...v[i]);
-    }
-    for (let k = 0; k < 6; k++) {
-      const a = k * Math.PI / 3, c = Math.cos(a), s = Math.sin(a); rod(0, 0, c, s, 0.07, 0.03);
-      for (const f of [0.48, 0.73]) for (const side of [-1, 1]) {
-        const x = c * f, y = s * f, b = a + side * Math.PI * 0.67, r = f === 0.48 ? 0.23 : 0.28;
-        rod(x, y, x + Math.cos(b) * r, y + Math.sin(b) * r, 0.05, 0.025);
-      }
-    }
-    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals(); return g;
   }
 
   async function init(stage, copyEntries) {
@@ -161,7 +142,7 @@
       ampG = new THREE.Group(); scene.add(ampG);
       const off = new THREE.Group(); off.position.y = -CY; ampG.add(off);
       const gltf = await new T3X.GLTFLoader().setMeshoptDecoder(T3X.MeshoptDecoder).loadAsync('assets/models/ampoule.glb');
-      const model = gltf.scene; model.scale.multiplyScalar(A_SCALE); off.add(model);
+      const model = gltf.scene; window.FILM_AMP.apply(model); model.scale.multiplyScalar(A_SCALE); off.add(model);
       model.traverse((o) => {
         if (!o.isMesh) return;
         o.frustumCulled = false;
@@ -190,19 +171,20 @@
       const sepM = new THREE.Mesh(new THREE.CylinderGeometry(5.1, 5.1, 0.6, 64), cut(sep)); sepM.position.y = 7.4; body.add(sepM);
       const sepC = new THREE.Mesh(new THREE.PlaneGeometry(10.2, 0.6), cap(sep.clone())); sepC.position.y = 7.4; body.add(sepC);
       const liq = new THREE.MeshPhysicalMaterial({ color: 0xf3f5f6, roughness: 0.04, transmission: 1, thickness: 9, ior: 1.33, transparent: true });
-      const liqM = new THREE.Mesh(new THREE.CylinderGeometry(4.8, 4.8, 25, 64), cut(liq)); liqM.position.y = 27.1; body.add(liqM);
+      const liqM = new THREE.Mesh(window.FILM_AMP.innerLathe(14.6, 39.55, 0.7, 64), cut(liq)); body.add(liqM);
       const liqCapMat = cap(new THREE.MeshStandardMaterial({ color: 0xdfe5e9, roughness: 0.12, metalness: 0, emissive: 0xe8eef2, emissiveIntensity: 0.12, transparent: true, opacity: 0.42, depthWrite: false }));
-      const liqC = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 25), liqCapMat); liqC.position.y = 27.1; body.add(liqC);
-      const men = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 0.35), cap(new THREE.MeshBasicMaterial({ color: 0xf2f1ec, transparent: true, opacity: 0.55 })));
+      const liqC = new THREE.Mesh(window.FILM_AMP.sectionGeometry(14.6, 39.55, 0.7), liqCapMat); body.add(liqC);
+      const men = new THREE.Mesh(new THREE.PlaneGeometry(2 * (window.FILM_AMP.radiusAt(39.55) - 0.7), 0.35), cap(new THREE.MeshBasicMaterial({ color: 0xf2f1ec, transparent: true, opacity: 0.55 })));
       men.position.y = 39.55; body.add(men);
       // bright edges where the plane cuts the chamber and body walls
       const rimMat = cap(new THREE.MeshBasicMaterial({ color: 0xf2f1ec, transparent: true, opacity: 0.85, toneMapped: false }));
-      for (const [x, y0, y1] of [[5.5, 0.4, 7.6], [5.4, 7.6, 14.18], [5.5, 14.0, 40.5], [-5.5, 0.4, 7.6], [-5.4, 7.6, 14.18], [-5.5, 14.0, 40.5]]) {
+      for (const [x, y0, y1] of [[5.5, 0.4, 7.6], [5.4, 7.6, 14.18], [-5.5, 0.4, 7.6], [-5.4, 7.6, 14.18]]) {
         const m = new THREE.Mesh(new THREE.PlaneGeometry(0.42, y1 - y0), rimMat); m.position.set(x, (y0 + y1) / 2, 0.01); body.add(m);
       }
+      for (const sd of [1, -1]) { const m = new THREE.Mesh(window.FILM_AMP.rimGeometry(14.0, window.FILM_AMP.NECK, 0.42, sd), rimMat); m.position.z = 0.01; body.add(m); }
       // dark interior behind the solvent so the section reads as depth
       const backMat = cap(new THREE.MeshBasicMaterial({ color: 0x26282c }));
-      const back = new THREE.Mesh(new THREE.PlaneGeometry(9.2, 25.6), backMat); back.position.set(0, 27.2, -1.6); body.add(back);
+      const back = new THREE.Mesh(window.FILM_AMP.sectionGeometry(14.4, 40.0, 1.0), backMat); back.position.set(0, 0, -1.6); body.add(back);
       powderLight = new THREE.PointLight(0xffc27a, 0, 0.06, 2); powderLight.position.copy(PW); body.add(powderLight);
 
       // frost film on the chamber wall that climbs up the body
@@ -220,15 +202,69 @@
       frostMat.customProgramCacheKey = () => 's6-frost';
       const fs = new THREE.Mesh(new THREE.CylinderGeometry(5.72, 5.72, 18, 72, 1, true), frostMat); fs.position.y = 9; fs.renderOrder = 3; body.add(fs);
 
-      // flakes grow from the wall outward (back and sides only, so the cut stays readable)
-      const rand = rng(6068), N = 140;
+      // V3: ice-crystal particles instead of snowflakes. They condense out of the −40℃ cold, swirl, then are drawn onto the
+      // chamber (back and sides) and into the powder, glint while the labels hold, and scatter at the cut. Pure function of t (GPU).
+      const rand = rng(6068), N = 14000;
+      const aS = new Float32Array(N * 3), aT = new Float32Array(N * 3), aK = new Float32Array(N * 4);
       for (let i = 0; i < N; i++) {
-        const d = Math.pow(rand(), 1.6) * 11, th = Math.PI * (0.92 + 1.16 * rand()), r = 5.9 + d;
-        flakes.push({ th, r, y: 0.5 + rand() * (13 + d * 0.8), s: 0.7 + rand() * 1.5 * (0.6 + d / 11), at: FROST_A + (d / 11) * (FROST_B - FROST_A - 0.9) + rand() * 0.5,
-          tx: (rand() - 0.5) * 1.2, tz: rand() * Math.PI, drift: 0.6 + rand() });
+        const inner = i < N * 0.22;
+        // start: a cold cloud round the lower body, never between the camera and the cut (front |x| < 8)
+        const gauss = () => { let u = 0; for (let k = 0; k < 4; k++) u += rand(); return (u - 2) / 0.577; };
+        const mist = !inner && rand() < 0.1;
+        let th, r, x, z;
+        do { th = rand() * Math.PI * 2; r = 6.2 + Math.abs(gauss()) * (mist ? 11 : 9.5); x = Math.cos(th) * r; z = Math.sin(th) * r; } while (z > -2 && Math.abs(x) < 8.5);
+        aS.set([x, 7 + gauss() * 8, z], i * 3);
+        if (inner) {   // into the freeze-dried cake (seen through the cut)
+          const u = rand() * 2 - 1; aT.set([u * 4.3, 0.9 + rand() * 6.2, -0.3 - rand() * 1.2], i * 3);
+        } else {        // settle as rime on the chamber wall, back and sides only
+          const tt = Math.PI * (0.94 + 1.12 * rand()), rr = 5.75 + Math.pow(rand(), 3) * 1.4;
+          aT.set([Math.cos(tt) * rr, -0.2 + Math.pow(rand(), 0.8) * 15, Math.sin(tt) * rr], i * 3);
+        }
+        const born = FROST_A - 0.5 + Math.pow(rand(), 1.3) * 1.6, gather = FROST_A + 0.9 + rand() * 1.2 + (inner ? 0.5 : 0);
+        const size = mist ? 9 + rand() * 12 : (inner ? 0.5 : 0.55) + Math.pow(rand(), 3) * (inner ? 0.6 : 1.8);
+        aK.set([born, gather, size, inner ? 1 : rand() * 0.99], i * 4);
       }
-      const flakeMat = new THREE.MeshStandardMaterial({ color: 0xf2f1ec, emissive: 0xf2f1ec, emissiveIntensity: 0.18, roughness: 0.35, metalness: 0, transparent: true });
-      frost = new THREE.InstancedMesh(flakeGeometry(), flakeMat, N); frost.frustumCulled = false; body.add(frost);
+      const pg = new THREE.BufferGeometry();
+      pg.setAttribute('position', new THREE.BufferAttribute(aS, 3)); pg.setAttribute('aT', new THREE.BufferAttribute(aT, 3)); pg.setAttribute('aK', new THREE.BufferAttribute(aK, 4));
+      frostU = { uT: { value: 0 }, uScat: { value: 0 }, uPx: { value: 1 }, uEnd: { value: END } };
+      frost = new THREE.Points(pg, new THREE.ShaderMaterial({
+        uniforms: frostU, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+        vertexShader: `uniform float uT, uScat, uPx; attribute vec3 aT; attribute vec4 aK; varying float vA; varying float vW;
+          void main() {
+            float age = max(uT - aK.x, 0.0), inner = step(0.999, aK.w);
+            float g = smoothstep(aK.y, aK.y + 1.5, uT); g = g * g * (3.0 - 2.0 * g);
+            // swirl: slow rotation about the axis, sinking, with a little turbulence
+            float sw = (1.0 - g) * age;
+            float a = 0.22 * sw * (0.6 + aK.w), c = cos(a), s = sin(a);
+            vec3 p = vec3(c * position.x - s * position.z, position.y - 0.9 * sw, s * position.x + c * position.z);
+            p += (1.0 - g) * 0.7 * vec3(sin(1.3 * uT + aK.w * 40.0), sin(0.9 * uT + aK.w * 23.0), cos(1.1 * uT + aK.w * 31.0));
+            float mist = step(3.0, aK.z);
+            // inflow spirals in rather than flying straight
+            float sp = 1.4 * g * (1.0 - g) * (0.5 + aK.w); float cs = cos(sp), ss = sin(sp);
+            vec3 tg = vec3(cs * aT.x - ss * aT.z, aT.y, ss * aT.x + cs * aT.z);
+            vec3 q = mix(p, tg, g * (1.0 - mist));
+            q += g * (1.0 - inner) * 0.08 * vec3(sin(2.0 * uT + aK.w * 50.0), 0.0, cos(2.0 * uT + aK.w * 50.0));
+            // scatter outward at the end
+            vec2 rd = normalize(q.xz + vec2(1e-3)); q.xz += rd * uScat * (6.0 + 14.0 * aK.w); q.y += uScat * (aK.w - 0.4) * 8.0;
+            vec4 mv = modelViewMatrix * vec4(q, 1.0); gl_Position = projectionMatrix * mv;
+            float born = smoothstep(aK.x, aK.x + 0.7, uT);
+            float tw = 0.55 + 0.45 * sin(uT * (3.0 + 5.0 * aK.w) + aK.w * 60.0);
+            vA = born * mix(0.75, tw, g) * (1.0 - uScat) * (1.0 - inner * smoothstep(0.75, 1.0, g) * 0.85);
+            vA *= mix(1.0, 0.05 * (1.0 - smoothstep(aK.y - 0.3, aK.y + 1.2, uT)), mist);
+            vW = aK.z;
+            gl_PointSize = max(1.0, aK.z * uPx / -mv.z * (1.0 - 0.35 * g));
+          }`,
+        fragmentShader: `varying float vA; varying float vW;
+          void main() {
+            vec2 d = gl_PointCoord - 0.5; float r2 = dot(d, d) * 4.0;
+            float core = vW > 3.0 ? exp(-r2 * 2.0) : exp(-r2 * 9.0), halo = exp(-r2 * 2.6) * 0.35;
+            // a faint four-point glint on the larger crystals
+            float star = vW > 1.25 && vW < 3.0 ? max(0.0, 1.0 - abs(d.x) * 30.0) * max(0.0, 1.0 - abs(d.y) * 2.2) + max(0.0, 1.0 - abs(d.y) * 30.0) * max(0.0, 1.0 - abs(d.x) * 2.2) : 0.0;
+            float a = (core + halo + 0.35 * star) * vA; if (a < 0.004) discard;
+            gl_FragColor = vec4(vec3(0.86, 0.92, 1.0) * a * 1.3, a);
+          }`,
+      }));
+      frost.frustumCulled = false; frost.renderOrder = 4; body.add(frost);
 
       renderer.compile(scene, cam);
     })();
@@ -301,17 +337,9 @@
     powderLight.intensity = lerp(0.022, 0.006, set);
     frostShellU.uFrost.value = fr;
     const scat = smooth(END - 0.6, END, tc);
-    // V2: flakes no longer stand still: they fall slowly, sway and tumble, wrapping inside a 30 mm band
-    flakes.forEach((f, i) => {
-      const age = Math.max(0, tc - f.at), g = out3(age / 0.55), r = f.r + scat * f.drift * 6 + 0.8 * Math.sin(0.9 * tc + f.tz * 3);
-      const yy = ((f.y - (1.6 + 2.2 * f.drift) * age) % 30 + 30) % 30 - 2, edge = smooth(-2, 1, yy) * (1 - smooth(24, 28, yy));
-      SV.setScalar(f.s * g * edge * (1 - 0.3 * scat) + 1e-4);
-      PV.set(Math.cos(f.th + 0.03 * age * f.drift) * r, yy, Math.sin(f.th + 0.03 * age * f.drift) * r);
-      E.set(f.tx + 0.7 * age * f.drift, -f.th + Math.PI / 2 + 0.4 * age, f.tz + 0.9 * age * f.drift); Q.setFromEuler(E);
-      frost.setMatrixAt(i, M4.compose(PV, Q, SV));
-    });
-    frost.instanceMatrix.needsUpdate = true;
-    frost.material.opacity = 0.85 * (1 - 0.5 * scat);
+    // ice-crystal particles (pixel size per mm at unit depth = focal length in px × world size of 1 mm)
+    frostU.uT.value = tc; frostU.uScat.value = out3(scat);
+    frostU.uPx.value = cam.projectionMatrix.elements[5] * H * 0.5 * body.matrixWorld.getMaxScaleOnAxis() * 0.32;
 
     bgMat.uniforms.uLift.value = smooth(T0, END, tc);
     bgMat.uniforms.uSeed.value = (Math.floor(tc * FPS) % 97) * 0.37;

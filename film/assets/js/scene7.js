@@ -48,7 +48,7 @@
   }
 
   const DBG = {};
-  let arrowSvg, arrowG, root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG,
+  let arrowSvg, arrowG, root, renderer, scene, cam, bgScene, bgMat, ovScene, ovCam, flashMat, whiteMat, ampG, off, model, base, head, headPivot, ring, ringG, ringHalves, ringSlit,
     body, cake, sealL, sealR, liqCapMat, liqMat, cloudMats = [], grains, drop, dropMat, film, filmMat, copy = [], lastProbe = null;
   const txt = {}, shellMats = [], arms = {};
   const P1 = new THREE.Plane(), P2 = new THREE.Plane(), P3 = new THREE.Plane();
@@ -270,7 +270,7 @@
 
       ampG = new THREE.Group(); scene.add(ampG);
       off = new THREE.Group(); off.position.y = -CYMM * MM; ampG.add(off);
-      model = gA.scene; model.scale.multiplyScalar(A_SCALE); off.add(model);
+      model = gA.scene; window.FILM_AMP.apply(model); model.scale.multiplyScalar(A_SCALE); off.add(model);
       const meshes = [];
       model.traverse((o) => { if (o.isMesh) meshes.push(o); });
       for (const o of meshes) {
@@ -296,17 +296,28 @@
       // inner guide sleeve, visible in the gap once the ring is gone
       const sleeve = new THREE.Mesh(new THREE.CylinderGeometry(4.75, 4.75, GAP + 1.2, 64, 1, true), cut(new THREE.MeshStandardMaterial({ color: 0xd9dcdf, roughness: 0.32, metalness: 0.55, side: THREE.DoubleSide })));
       sleeve.position.y = 7.6 - (GAP + 1.2) / 2; body.add(sleeve);
-      // safety ring: white band in the gap + a pull tab facing the camera side
+      // safety ring (V3): flush C-ring in the gap. At TAB_A the outer wall dips into a finger notch with a tear slit;
+      // the two halves hinge on a thin web opposite the notch and swing open when the notch is pulled.
       ringG = new THREE.Group(); body.add(ringG);
       const ringMat = new THREE.MeshStandardMaterial({ color: 0xf4f3ef, roughness: 0.45, metalness: 0 });
-      const prof = [V(4.8, 0), V(5.72, 0), V(5.78, 0.25), V(5.78, GAP - 0.25), V(5.72, GAP), V(4.8, GAP)].map((p) => new THREE.Vector2(p.x, p.y));
-      ring = new THREE.Mesh(new THREE.LatheGeometry(prof, 72), ringMat); ring.position.y = 7.6 - GAP; ringG.add(ring);
-      const tabShape = new THREE.Shape(); tabShape.moveTo(-1.5, 0); tabShape.lineTo(1.5, 0); tabShape.lineTo(1.8, 3.2); tabShape.absarc(0, 3.2, 1.8, 0, Math.PI, false); tabShape.lineTo(-1.5, 0);
-      const tab = new THREE.Mesh(new THREE.ExtrudeGeometry(tabShape, { depth: 0.5, bevelEnabled: true, bevelSize: 0.15, bevelThickness: 0.12, bevelSegments: 2, curveSegments: 16 }), ringMat);
-      // tab lies in the ring plane, sticking out radially at angle TAB_A
-      tab.rotation.x = Math.PI / 2; tab.position.y = 7.6 - GAP / 2 + 0.25;
-      const tabG = new THREE.Group(); tabG.add(tab); tabG.rotation.y = Math.PI / 2 - TAB_A; ringG.add(tabG);
-      tab.position.z = 0; tab.position.x = 0; tab.translateY(5.3);
+      const R_IN = 4.78, R_OUT = 5.92, NOTCH_W = 0.55, NOTCH_D = 1.0, SLIT = 0.06;
+      const rOut = (phi) => { const d = Math.atan2(Math.sin(phi - TAB_A), Math.cos(phi - TAB_A)); const k = Math.abs(d) < NOTCH_W ? 0.5 + 0.5 * Math.cos(Math.PI * d / NOTCH_W) : 0; return R_OUT - NOTCH_D * k; };
+      const halfShape = (p0, p1) => {
+        const sh = new THREE.Shape(), n = 90, P = (r, f) => [r * Math.cos(f), -r * Math.sin(f)];
+        sh.moveTo(...P(R_IN, p0));
+        for (let i = 0; i <= n; i++) { const f = p0 + (p1 - p0) * i / n; sh.lineTo(...P(rOut(f), f)); }
+        for (let i = n; i >= 0; i--) { const f = p0 + (p1 - p0) * i / n; sh.lineTo(...P(R_IN, f)); }
+        return sh;
+      };
+      const HINGE = TAB_A + Math.PI, hx = 5.27 * Math.cos(HINGE), hz = 5.27 * Math.sin(HINGE);
+      ringHalves = [[TAB_A + SLIT, HINGE - 0.01], [HINGE + 0.01, TAB_A + 2 * Math.PI - SLIT]].map(([p0, p1], i) => {
+        const g = new THREE.ExtrudeGeometry(halfShape(p0, p1), { depth: GAP - 0.24, bevelEnabled: true, bevelSize: 0.1, bevelThickness: 0.12, bevelSegments: 2, curveSegments: 8 });
+        const m = new THREE.Mesh(g, ringMat); m.rotation.x = -Math.PI / 2; m.position.set(-hx, 7.6 - GAP + 0.12, -hz);
+        const piv = new THREE.Group(); piv.position.set(hx, 0, hz); piv.add(m); ringG.add(piv); piv.userData.dir = i ? -1 : 1; return piv;
+      });
+      // dark tear slit at the bottom of the notch (reads as the split line until the halves open)
+      ringSlit = new THREE.Mesh(new THREE.BoxGeometry(0.9, GAP - 0.1, 0.16), new THREE.MeshBasicMaterial({ color: 0x4a4d52 }));
+      ringSlit.position.set(5.2 * Math.cos(TAB_A), 7.6 - GAP / 2, 5.2 * Math.sin(TAB_A)); ringSlit.rotation.y = -TAB_A; ringG.add(ringSlit);
 
       // freeze-dried cake (inside the silver cap, travels with it), seal, solvent, section caps
       const powderCol = 0xf0ebe2;
@@ -319,15 +330,16 @@
       const half = (sgn) => { const g = new THREE.Group(); g.position.set(sgn * 5.0, 7.4, 0); const m = new THREE.Mesh(new THREE.BoxGeometry(5.0, 0.4, 9.6), cut(sealMat.clone())); m.position.x = -sgn * 2.5; g.add(m); body.add(g); return g; };
       sealL = half(-1); sealR = half(1);
       liqMat = cut(new THREE.MeshPhysicalMaterial({ color: 0xf3f5f6, roughness: 0.04, transmission: 1, thickness: 9, ior: 1.33, transparent: true }));
-      const liqM = new THREE.Mesh(new THREE.CylinderGeometry(4.8, 4.8, 25.6, 64), liqMat); liqM.position.y = 27.4; body.add(liqM);
+      const liqM = new THREE.Mesh(window.FILM_AMP.innerLathe(14.6, 40.2, 0.7, 64), liqMat); body.add(liqM);
       liqCapMat = cap(new THREE.MeshStandardMaterial({ color: 0xdfe5e9, roughness: 0.12, metalness: 0, emissive: 0xe8eef2, emissiveIntensity: 0.12, transparent: true, opacity: 0.42, depthWrite: false }));
-      const liqC = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 25.6), liqCapMat); liqC.position.y = 27.4; body.add(liqC);
+      const liqC = new THREE.Mesh(window.FILM_AMP.sectionGeometry(14.6, 40.2, 0.7), liqCapMat); body.add(liqC);
       const men = new THREE.Mesh(new THREE.PlaneGeometry(9.6, 0.3), cap(new THREE.MeshBasicMaterial({ color: 0xf2f1ec, transparent: true, opacity: 0.6 })));
       men.position.y = 14.75; body.add(men);
       const rimMat = cap(new THREE.MeshBasicMaterial({ color: 0xf2f1ec, transparent: true, opacity: 0.85, toneMapped: false }));
-      for (const [x, y0, y1] of [[5.5, 0.4, 7.6], [5.4, 7.6, 14.18], [5.5, 14.0, 40.5], [-5.5, 0.4, 7.6], [-5.4, 7.6, 14.18], [-5.5, 14.0, 40.5]]) {
+      for (const [x, y0, y1] of [[5.5, 0.4, 7.6], [5.4, 7.6, 14.18], [-5.5, 0.4, 7.6], [-5.4, 7.6, 14.18]]) {
         const m = new THREE.Mesh(new THREE.PlaneGeometry(0.42, y1 - y0), rimMat); m.position.set(x, (y0 + y1) / 2, 0.01); body.add(m);
       }
+      for (const sd of [1, -1]) { const m = new THREE.Mesh(window.FILM_AMP.rimGeometry(14.0, window.FILM_AMP.NECK, 0.42, sd), rimMat); m.position.z = 0.01; body.add(m); }
       const back = new THREE.Mesh(new THREE.PlaneGeometry(9.2, 33), cap(new THREE.MeshBasicMaterial({ color: 0x26282c }))); back.position.set(0, 23.8, -1.6); body.add(back);
       // dissolving cloud in the solvent (soft sheets on the cut, near-white)
       const cloudFS = `uniform float uA, uSeed; varying vec2 vUv;
@@ -364,7 +376,7 @@
     })();
     return init.p;
   }
-  const TAB_A = 0.95;  // tab angle around the axis (from +x towards +z): points up and slightly back when the ampoule lies head-left
+  const TAB_A = 0.05;  // tab angle around the axis (from +x towards +z): points up and slightly back when the ampoule lies head-left
 
   // ---------------- motion ----------------
   // ampoule orientation: quaternion from an axis direction (model +y) and a roll so the front label (+z) stays camera-facing
@@ -408,6 +420,9 @@
       const wT = ampW(0, 14, 0), wP = wT.clone().add(V(0.03, 0.08, 0.24));
       const sT = ampW(0, 30, 0), sP = sT.clone().add(V(0, 0.02, 0.2));
       let tgt = lerpV(sT, wT, k0), pos = lerpV(sP, wP, k0);
+      // V3: push in on the safety ring so its finger notch and the opening read
+      const kr = inOut((t - (T0 + 0.45)) / 1.1), rT = ampW(0, 6.4, 0), rP = rT.clone().add(V(0.012, 0.055, 0.115));
+      tgt = lerpV(tgt, rT, kr); pos = lerpV(pos, rP, kr);
       const kc = inOut((t - (K.ringOff + 0.3)) / 1.8);
       const cT = ampW(0, 6, 0), cP = cT.clone().add(V(0.05, 0.06, 0.16));
       tgt = lerpV(tgt, cT, kc); pos = lerpV(pos, cP, kc);
@@ -438,7 +453,7 @@
 
   function render(t) {
     if (!renderer) return;
-    Object.assign(DBG, { POSE, arms, ampW, headPivot });
+    Object.assign(DBG, { POSE, arms, ampW, headPivot, ringG, camera: cam });
     const tc = clamp(t, T0, END - 1e-4);
     const ap = ampPose(tc);
     ampG.position.copy(ap.p); ampG.quaternion.copy(ap.q); ampG.visible = tc < SPREAD_SHOT; ampG.updateMatrixWorld(true);
@@ -446,13 +461,14 @@
     // press: the silver cap and its cake slide up by GAP
     const pd = pressDepth(tc);
     base.position.y = (-GAP + GAP * pd) / 1;   // base mesh lives in model (mm) space
-    // ring: present until ringOff, then tears off along the tab and tumbles away
+    // ring: notch pulled, C opens, then it comes off and tumbles away
     const rk = sat((tc - K.ringOff) / 0.9);
     ringG.visible = rk < 1;
-    ringG.position.set(0, 0, 0); ringG.rotation.set(0, 0, 0);
-    const pull = smooth(K.ringOff - 1.1, K.ringOff, tc) * (1 - rk);
-    ringG.scale.set(1 + 0.05 * pull, 1, 1 + 0.05 * pull);
-    ringG.position.x += Math.cos(TAB_A) * 0.8 * pull; ringG.position.z += Math.sin(TAB_A) * 0.8 * pull;
+    ringG.position.set(0, 0, 0); ringG.rotation.set(0, 0, 0); ringG.scale.setScalar(1);
+    // pulling the notch splits the slit; the halves swing open about the back hinge
+    const open = smooth(K.ringOff - 1.0, K.ringOff - 0.1, tc) * 0.6 + smooth(K.ringOff - 0.1, K.ringOff + 0.4, tc) * 0.75;
+    for (const h of ringHalves) h.rotation.y = -h.userData.dir * open;
+    ringSlit.visible = open < 0.08;
 
     // section planes (open only in the section shot)
     const ck = tc >= CUT_IN && tc < SEC_CLOSE ? 1 - inOut((tc - SEC_OUT) / (SEC_CLOSE - SEC_OUT)) : 0;
@@ -502,11 +518,11 @@
       L2 = { ...POSE.spreadL, w: 1, at: PALM.clone().add(V(Math.cos(a) * rr - 0.002, 0.0035 + 0.006 * (1 - smooth(0, 0.35, u)), Math.sin(a) * rr * 0.6)).toArray() };
     }
     const tipR = null;
-    // once torn, the ring springs off along its tab, tumbling and shrinking away
-    if (rk > 0 && rk < 1) {
-      const e = out3(rk), dx = Math.cos(TAB_A), dz = Math.sin(TAB_A);
-      ringG.position.set(dx * 26 * e, -9 * e, dz * 26 * e); ringG.rotation.set(rk * 1.6, rk * 0.6, rk * 1.1);
-      ringG.scale.setScalar(1 - 0.5 * rk);
+        if (rk > 0 && rk < 1) {
+      // the opened C slides off through its gap, then tumbles away
+      const e = out3(sat((rk - 0.15) / 0.85)), dx = -Math.cos(TAB_A), dz = -Math.sin(TAB_A);
+      ringG.position.set(dx * 30 * e, -10 * e, dz * 30 * e); ringG.rotation.set(e * 1.3, e * 0.5, e * 0.9);
+      ringG.scale.setScalar(1 - 0.45 * e);
     }
 
     // powder: cake shrinks from the open side, grains fall (model +y is world-down in the section), then sink and dissolve
@@ -591,8 +607,10 @@
 
     // step list: all steps stay listed, the current one is lit
     const listA = smooth(T0 + 0.3, T0 + 0.9, tc) * (1 - smooth(END - 0.6, END - 0.1, tc));
-    let cur = -1; copy.forEach((ce, i) => { if (tc >= entryTime(ce.in)) cur = i; });
-    copy.forEach((ce, i) => {
+    const steps = copy.filter((ce) => /^s7-\d$/.test(ce.id));
+    let cur = -1; steps.forEach((ce, i) => { if (tc >= entryTime(ce.in)) cur = i; });
+    if (txt['s7-head']) txt['s7-head'].style.opacity = listA.toFixed(3);
+    steps.forEach((ce, i) => {
       const e = txt[ce.id], on = i === cur ? smooth(entryTime(ce.in), entryTime(ce.in) + 0.35, tc) : 0;
       e.style.opacity = (listA * (0.32 + 0.68 * on)).toFixed(3); e.classList.toggle('on', i === cur);
       e.style.transform = `translate(${(18 * on).toFixed(1)}px,0)`;

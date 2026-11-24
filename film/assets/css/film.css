@@ -50,7 +50,7 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s1 .copy{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;color:#F2F1EC}
 #s1 .s1-lat,#s1 .s1-lon{font:400 22px/1 "XL Sans",sans-serif;letter-spacing:.12em;color:#C9A86A;font-variant-numeric:tabular-nums}
 #s1 .s1-place{left:0;right:0;top:auto;bottom:150px;text-align:center;font:400 40px/1.2 "XL Serif",serif;letter-spacing:.22em;text-shadow:0 0 18px rgba(0,0,0,.7)}
-#s1 .s1-open{left:0;right:0;top:150px;text-align:center;font:400 64px/1.2 "XL Serif",serif;letter-spacing:.3em;color:#D9BE85;text-shadow:0 0 28px rgba(201,168,106,.35)}
+#s1 .s1-open{left:0;right:0;top:150px;text-align:center;font:400 64px/1.2 "XL Serif",serif;letter-spacing:.22em;color:#D9BE85;text-shadow:0 0 28px rgba(201,168,106,.35)}
 
 #start,#again{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:18px 44px;border:1px solid rgba(255,255,255,.6);
   background:rgba(10,11,13,.72);color:#F2F1EC;font-size:22px;letter-spacing:.2em;border-radius:40px;cursor:pointer;z-index:5}
@@ -118,7 +118,7 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s6-lines circle{fill:#C8A26A}
 #s6 .copy{position:absolute;opacity:0;white-space:nowrap;color:#F2F1EC;text-shadow:0 0 18px rgba(0,0,0,.6)}
 #s6 .s6-temp{left:170px;top:360px;font:400 168px/1 "XL Sans",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-#s6 .s6-title{left:178px;top:560px;font:400 56px/1.2 "XL Serif",serif;letter-spacing:.2em}
+#s6 .s6-title{left:178px;top:560px;font:400 48px/1.2 "XL Serif",serif;letter-spacing:.14em}
 #s6 .s6-powder,#s6 .s6-solvent{left:0;top:0;font:400 38px/1.35 "XL Sans",sans-serif;letter-spacing:.06em}
 #s6 .s6-powder b,#s6 .s6-solvent b{display:block;font:400 50px/1.2 "XL Serif",serif;color:#C8A26A;letter-spacing:.16em}
 #s6 .s6-powder span,#s6 .s6-solvent span{display:block}
@@ -128,7 +128,8 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s7{position:absolute;inset:0;z-index:1;pointer-events:none}
 #s7-gl{position:absolute;left:0;top:0;width:1920px;height:1080px}
 #s7 .copy{position:absolute;left:150px;opacity:0;white-space:nowrap;color:#F2F1EC;text-shadow:0 0 18px rgba(0,0,0,.65)}
-#s7 .s7-1{top:330px}#s7 .s7-2{top:450px}#s7 .s7-3{top:570px}#s7 .s7-4{top:690px}
+#s7 .s7-head{top:190px;font:400 64px/1 "XL Serif",serif;letter-spacing:.24em;color:#F3DDB0}
+#s7 .s7-1{top:350px}#s7 .s7-2{top:470px}#s7 .s7-3{top:590px}#s7 .s7-4{top:710px}
 #s7 .copy i{display:inline-block;width:76px;font:400 36px/1 "XL Sans",sans-serif;font-style:normal;color:#C8A26A;letter-spacing:.06em;vertical-align:8px}
 #s7 .copy b{font:400 52px/1.2 "XL Serif",serif;letter-spacing:.2em}
 #s7 .copy span{display:block;margin:10px 0 0 76px;font:400 28px/1.2 "XL Sans",sans-serif;letter-spacing:.08em;color:rgba(242,241,236,.75)}
@@ -141,12 +142,13 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s8 .s8-box,#s8 .s8-amp{position:absolute;display:block}
 #s8 .s8-box{filter:drop-shadow(0 36px 40px rgba(90,70,40,.22))}
 #s8 .s8-amp{filter:drop-shadow(0 28px 32px rgba(90,70,40,.22))}
-#s8 .s8-logos{position:absolute;left:50%;top:120px;height:110px;display:flex;align-items:center;white-space:nowrap;opacity:0}
-#s8 .s8-bgi{font:700 64px/1 "XL Sans",sans-serif;letter-spacing:.02em;color:#1a2f77}
-#s8 .s8-bar{width:2px;height:84px;margin:0 46px;background:rgba(26,47,119,.35)}
-#s8 .s8-logo{height:110px}
-#s8 .s8-name{position:absolute;left:0;right:0;top:900px;text-align:center;font:400 34px/1 "XL Serif",serif;letter-spacing:.14em;color:#5E6470;opacity:0}
-#s8 .s8-veil{position:absolute;inset:0;background:#FBF8F2;opacity:0}
+#s8 .s8-fx{position:absolute;inset:0;width:1920px;height:1080px}
+#s8 .s8-logos{position:absolute;height:236px;display:flex;align-items:center;white-space:nowrap}
+#s8 .s8-bgi{font:700 104px/1 "XL Sans",sans-serif;letter-spacing:.02em;color:#1a2f77;opacity:0}
+#s8 .s8-bar{width:3px;height:170px;margin:0 78px;background:rgba(26,47,119,.32);opacity:0}
+#s8 .s8-logo{height:236px;opacity:0}
+#s8 .s8-line{position:absolute;left:0;right:0;top:668px;text-align:center;font:400 60px/1 "XL Serif",serif;letter-spacing:.32em;text-indent:.32em;color:#1a2f77;opacity:0}
+#s8 .s8-name{position:absolute;left:0;right:0;top:772px;text-align:center;font:400 26px/1 "XL Sans",sans-serif;letter-spacing:.2em;color:#6A707C;opacity:0}
 
 /* ---- scene 5 · V2 28 天功效 ---- */
 #s5 .s5-bg{position:absolute;inset:0;background:radial-gradient(1300px 820px at 50% 42%,#FFFDF8 0%,#F6F1E7 55%,#E9E1D2 100%)}
