@@ -1,5 +1,5 @@
 /* Scene 5 · 28 天功效 (V2, docs/12-v2-revision.md).
-   Scene 7 fades to ink; the single ampoule rises out of the dark under a cold top light. On `dataIn` the 20-pack box slides in
+   Scene 7 fades to ink; the ground then dawns into warm ivory as the single ampoule rises (light ending, user request). On `dataIn` the 20-pack box slides in
    beside it and the efficacy panel opens on the right: 鹿茸凝时抗皱冻干精华液 | 28天产品功效, 抗皱 (↓30.96 %, ↓23.65 %) and
    紧致 (↑34.68 %, ↑35.18 %) per p40 / KT 板 15. The digits roll like an odometer and lock one after another, the last on
    `dataLock`; the footnote follows. The panel then clears and the products glide to the centred end-card layout that
@@ -31,7 +31,7 @@
   const lerp = (a, b, k) => a + (b - a) * k;
   const lerpL = (a, b, k) => a.map((v, i) => lerp(v, b[i], k));
 
-  let root, amp, box, shine, glow, panel, note, copy = [], lastProbe = null;
+  let root, ink, amp, box, shine, glow, panel, note, copy = [], lastProbe = null;
   const els = {}, nums = [];
   const el = (tag, cls, parent, text) => { const e = document.createElement(tag); e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
   const decode = (img) => (img.decode ? img.decode() : Promise.resolve()).catch(() => {});
@@ -42,6 +42,7 @@
     copy = entries.filter((e) => e.scene === 5);
     root = el('div', '', stage); root.id = 's5'; root.style.display = 'none';
     el('i', 's5-bg', root);
+    ink = el('i', 's5-ink', root);
     glow = el('i', 's5-glow', root);
     box = el('img', 's5-box', root); box.alt = ''; box.src = 'assets/products/box-20.webp';
     shine = el('i', 's5-shine', root);
@@ -77,6 +78,11 @@
 
   function render(t) {
     root.style.opacity = '1';
+    const kL = smooth(T0 + 0.1, T0 + 1.9, t);                // dark → ivory dawn
+    // light spreads outward from the ampoule rather than a flat grey crossfade
+    const r0 = 2400 * kL, mk = 'radial-gradient(circle at 960px 520px, transparent ' + (r0 - 700).toFixed(0) + 'px, #000 ' + r0.toFixed(0) + 'px)';
+    ink.style.webkitMaskImage = mk; ink.style.maskImage = mk;
+    ink.style.opacity = (1 - smooth(0.85, 1, kL)).toFixed(3);
     const kA = out3((t - T0 - 0.15) / 1.4);                 // ampoule rises out of the dark
     const kB = smooth(IN - 0.25, IN + 0.95, t);              // move to the data layout
     const kC = smooth(OUT, END - 0.05, t);                   // move to the end-card layout
@@ -84,7 +90,7 @@
     ampL[1] += 40 * (1 - kA);
     place(amp, ampL, AMP_AR);
     amp.style.opacity = kA.toFixed(3);
-    amp.style.filter = 'blur(' + (6 * (1 - kA)).toFixed(2) + 'px) drop-shadow(0 30px 40px rgba(0,0,0,.55))';
+    amp.style.filter = 'blur(' + (6 * (1 - kA)).toFixed(2) + 'px) drop-shadow(0 28px 32px rgba(90,70,40,' + (0.55 - 0.33 * kL).toFixed(3) + '))';
 
     const kBox = out3((t - IN + 0.15) / 1.1);
     const boxL = kC > 0 ? lerpL(L.boxB, L.boxC, kC) : L.boxB.slice();
@@ -121,7 +127,7 @@
       if (allLocked) locked++;
     }
     note.style.opacity = smooth(74.6, 75.2, t).toFixed(3);
-    lastProbe = { t, kA: +kA.toFixed(3), kB: +kB.toFixed(3), kC: +kC.toFixed(3), panelA: +pA.toFixed(3), locked,
+    lastProbe = { t, kL: +kL.toFixed(3), kA: +kA.toFixed(3), kB: +kB.toFixed(3), kC: +kC.toFixed(3), panelA: +pA.toFixed(3), locked,
       lastLockT: +Math.max(...nums[3].cols.map((c) => c.t1)).toFixed(3) };
   }
 

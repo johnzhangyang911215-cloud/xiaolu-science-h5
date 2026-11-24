@@ -1,7 +1,7 @@
 /* Scene 8 · 尾 · 双 Logo (V2, docs/12-v2-revision.md).
-   Picks up exactly where scene 5 leaves the 20-pack box and the ampoule (same dark ground, same layout). On `logo` the dual
-   mark 华大BGI | 华大小鹿 (original SVG, shown white) settles in at the top and the product line appears below the products.
-   From `fadeOut` everything fades to black with the music; the last frame is black. Plain DOM; render(t) is pure. */
+   Picks up exactly where scene 5 leaves the 20-pack box and the ampoule (same ivory ground, same layout). On `logo` the dual
+   mark 华大BGI | 华大小鹿 (original navy SVG) settles in at the top and the product line appears below the products.
+   From `fadeOut` everything fades to ivory white with the music; the last frame is ivory. Plain DOM; render(t) is pure. */
 (function () {
   const F = window.FILM;
   const FPS = F.fps;
