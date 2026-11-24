@@ -15,7 +15,10 @@
   const A_SCALE = 1.25, MM = 0.001 * A_SCALE;      // same hero scale as scene 5; contents are modelled in ampoule mm
   const CY = 31.8 * MM;                             // pivot: middle of the 63.65 mm ampoule
   const R_CUT = 5.6 * MM;
-  const CUT_A = T0 + 1.5, CUT_B = T0 + 2.4;       // section sweep
+  // V3.5 causal chain: scene 4's light point lands on the silver tail (LAND), a light front climbs and reveals the
+  // whole ampoule (REV_A→REV_B, camera pulls back), then the camera pushes into the tail as the section opens on the powder
+  const LAND = T0 + 0.75, REV_A = T0 + 0.55, REV_B = T0 + 1.85, PUSH_A = T0 + 2.15, PUSH_B = T0 + 3.3;
+  const CUT_A = T0 + 2.3, CUT_B = T0 + 3.2;       // section sweep
   const YAW0 = -0.9;                                 // V2: arrives from scene 4's light point, three-quarter view
   const TEMP_A = T0 + 1.6, TEMP_B = T0 + 4.2;       // powder setting window (the −40℃ figure itself is fixed)
   const FROST_A = T0 + 1.8, FROST_B = LP;
@@ -117,7 +120,7 @@
       bgMat = new THREE.ShaderMaterial({ uniforms: { uLift: { value: 0 }, uSeed: { value: 0 } }, vertexShader: quadVS, fragmentShader: bgFS, depthTest: false, depthWrite: false });
       bgScene = new THREE.Scene(); bgScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), bgMat));
       ovScene = new THREE.Scene(); ovCam = new THREE.OrthographicCamera(0, W, 0, H, -10, 10);
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 4; i++) {
         const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({ uniforms: { uCol: { value: new THREE.Color() }, uA: { value: 0 }, uCore: { value: 0 } },
           vertexShader: glowVS, fragmentShader: glowFS, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false, transparent: true, side: THREE.DoubleSide }));
         m.frustumCulled = false; m.visible = false; ovScene.add(m); glowMesh.push(m);
@@ -153,7 +156,7 @@
         o.material = o.material.clone();
         o.material.clippingPlanes = [P1, P2]; o.material.clipIntersection = true; o.material.side = THREE.DoubleSide;
         // inside walls seen through the cut sit in shadow, so the section reads as depth
-        o.material.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n if (!gl_FrontFacing) diffuseColor.rgb *= 0.42;'); };
+        o.material.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n if (!gl_FrontFacing) diffuseColor.rgb *= 0.62;'); };
         o.material.customProgramCacheKey = () => 's6-shell';
         shellMats.push(o.material);
       });
@@ -186,7 +189,7 @@
       }
       for (const sd of [1, -1]) { const m = new THREE.Mesh(window.FILM_AMP.rimGeometry(14.0, window.FILM_AMP.NECK, 0.42, sd), rimMat); m.position.z = 0.01; body.add(m); }
       // dark interior behind the solvent so the section reads as depth
-      const backMat = cap(new THREE.MeshBasicMaterial({ color: 0x26282c }));
+      const backMat = cap(new THREE.MeshBasicMaterial({ color: 0xc9d3dc, transparent: true, opacity: 0.16, depthWrite: false }));
       const back = new THREE.Mesh(window.FILM_AMP.sectionGeometry(14.4, 40.0, 1.0), backMat); back.position.set(0, 0, -1.6); body.add(back);
       powderLight = new THREE.PointLight(0xffc27a, 0, 0.06, 2); powderLight.position.copy(PW); body.add(powderLight);
 
@@ -275,7 +278,7 @@
   }
 
   // ---------- motion ----------
-  const lift = (t) => 0.004 + 0.0012 * Math.sin((t - T0) * 2.2) * (1 - smooth(T0 + 0.9, T0 + 1.6, t)) + 0.014 * inOut((t - (T0 + 0.9)) / 1.4);   // hovers above the light, then rises
+  const lift = (t) => 0.018 + 0.0008 * Math.sin((t - T0) * 1.6);   // floats; no plinth, no floor light
   const ampC = (t) => V(0, CY + lift(t), 0);
   const yaw = (t) => lerp(YAW0, 0, inOut((t - T0 - 0.3) / 2.0));
   const flipK = (t) => inOut((t - FLIP_A) / (FLIP_B - FLIP_A));
@@ -283,13 +286,17 @@
   function camAt(t) {
     // scene 5 ends 0.1 m from the chamber along (−0.12, 0.08, 1); start there, swing to front-on and pull back
     const c = ampC(t), chamber = c.clone().add(V(0, (3.9 - 31.8) * MM, 0));
-    // V2: start far with the chamber's glow on frame centre (scene 4's light point), then glide in
-    const startT = chamber.clone(), startP = startT.clone().add(V(0, 0.03, 1).normalize().multiplyScalar(1.1));
-    let tgt = startT, pos = startP;
-    // full section, ampoule right of centre for the counter on the left
-    const kA = Math.pow(inOut((t - T0) / 2.6), 0.7);
+    // the light point lands on the tail chamber at frame centre (dark ampoule), glides a little closer
+    const sT = chamber.clone(), sP = sT.clone().add(V(0, 0.05, 1).normalize().multiplyScalar(lerp(0.16, 0.13, out3((t - T0) / (LAND - T0 + 0.4)))));
+    let tgt = sT, pos = sP;
+    // the light front climbs: pull back to the whole ampoule, right of centre for the counter on the left
+    const kA = inOut((t - (LAND - 0.1)) / (REV_B + 0.25 - LAND));
     const aT = c.clone().add(V(-0.019, -0.004, 0)), aP = aT.clone().add(V(0.0, 0.07, 1).normalize().multiplyScalar(0.2));
     tgt = lerpV(tgt, aT, kA); pos = lerpV(pos, aP, kA);
+    // push into the tail chamber while the section opens on the near-white powder
+    const kP = inOut((t - PUSH_A) / (PUSH_B - PUSH_A));
+    const pT = chamber.clone().add(V(-0.006, 0.002, 0)), pP = pT.clone().add(V(0.03, 0.12, 1).normalize().multiplyScalar(0.072));
+    tgt = lerpV(tgt, pT, kP); pos = lerpV(pos, pP, kP);
     // labels: centre the ampoule, powder label right, solvent label left
     const kB = inOut((t - (LP - 0.35)) / 0.9);
     const bT = c.clone().add(V(-0.001, -0.008, 0)), bP = bT.clone().add(V(0.02, 0.05, 1).normalize().multiplyScalar(0.19));
@@ -329,7 +336,7 @@
     const c = camAt(tc);
     cam.position.copy(c.pos); cam.lookAt(c.tgt); cam.updateMatrixWorld(); cam.updateProjectionMatrix();
 
-    const pedA = 1 - smooth(T0 + 0.9, T0 + 1.9, tc);
+    const pedA = 0;
     ped.visible = pedA > 0.01; ringMat.uniforms.uA.value = pedA * smooth(T0 - 0.2, T0 + 0.4, tc); ringMat.uniforms.uR.value = 0.18 + 0.8 * smooth(T0, T0 + 1.9, tc);
 
     // freezing: the powder sets, frost spreads outward
@@ -350,10 +357,13 @@
     const pw = bodyW(0, 3.9, 0), ps = proj(pw);
     const pxPerMm = MM * H / (2 * Math.tan(15 * Math.PI / 180) * cam.position.distanceTo(pw));
     gi = 0;
-    const hand = 1 - smooth(T0 + 0.2, T0 + 1.4, tc);   // scene 4's light point hands over to the chamber
-    glow(ps[0], ps[1], 150, GOLD, 0.9 * hand, 1.0);
+    const hand = 1 - smooth(LAND - 0.15, LAND + 0.5, tc);   // scene 4's light point lands on the silver tail and spreads into it
+    glow(ps[0], ps[1], lerp(150, 60, smooth(T0, LAND, tc)) * (1 + 2.5 * smooth(LAND - 0.1, LAND + 0.5, tc)), GOLD, 0.9 * hand, 1.0);
     glow(ps[0], ps[1], pxPerMm * 26, GOLD_G, 0.45 * (1 - set) * (1 - flipK(tc)), 0);
     glow(ps[0], ps[1], pxPerMm * 9, GOLD, 0.22 * (1 - set), 0.6);
+    // the landed light climbs the clear body to the tip: the ampoule is revealed by it, the glass stays transparent
+    const rv = inOut((tc - (LAND + 0.2)) / (REV_B - LAND - 0.2)), rh = proj(bodyW(0, lerp(6, 62, rv), 0));
+    glow(rh[0], rh[1], pxPerMm * 16, GOLD, 0.5 * Math.sin(Math.PI * sat(rv * 1.05)) * (1 - flipK(tc)), 0.7);
 
     renderer.clear();
     renderer.render(bgScene, cam);

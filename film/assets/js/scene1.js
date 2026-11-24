@@ -75,7 +75,7 @@
       float dayK = smoothstep(-0.06, 0.28, d);
       float nightK = 1.0 - smoothstep(-0.14, 0.03, d);
       vec3 col = day * dayK * 1.05 * uDay;
-      col += day * vec3(0.18, 0.26, 0.45) * 0.12 * nightK * uNight;
+      col += day * vec3(0.18, 0.26, 0.45) * 0.22 * nightK * uNight;   // moonlit land reads, shadows stay deep
       col += pow(lights, vec3(1.6)) * vec3(1.0, 0.72, 0.45) * 1.2 * nightK * uNight * uLights;
       col += exp(-pow((d + 0.012) / 0.035, 2.0)) * vec3(1.0, 0.52, 0.24) * 0.4 * uTerm;
       vec3 R = reflect(-sunDir, n);
@@ -420,9 +420,9 @@
     u.uTerm.value = on ? dim * smooth(o, o + 0.9, t) * (1 - 0.8 * smooth(P1 + 0.3, P2 + 0.4, t)) : 0;
     u.uLights.value = 1 - 0.85 * smooth(P2 + 0.2, P3, t);
     u.uNight.value = dim * smooth(o + 0.4, o + 2.0, t);
-    u.uDay.value = dim * smooth(o + 0.9, o + 2.8, t);
-    u.uRim.value = 0.35 * smooth(o + 0.3, o + 2.0, t) + 0.45 * smooth(P1, P1 + 0.5, t) * (1 - smooth(P2, P2 + 0.8, t));
-    atmoMat.uniforms.uAtmo.value = (0.5 * smooth(o + 0.2, o + 2.0, t) + 0.7 * smooth(P1, P1 + 0.5, t)) * (on ? 1 : 0);
+    u.uDay.value = 1.3 * dim * smooth(o + 0.9, o + 2.8, t);   // a touch brighter on the land, the night side stays deep
+    u.uRim.value = 0.5 * smooth(o + 0.3, o + 2.0, t) + 0.5 * smooth(P1, P1 + 0.5, t) * (1 - smooth(P2, P2 + 0.8, t));
+    atmoMat.uniforms.uAtmo.value = (0.68 * smooth(o + 0.2, o + 2.0, t) + 0.75 * smooth(P1, P1 + 0.5, t)) * (on ? 1 : 0);
 
     const gold = globe.localToWorld(ll(POINT.lon, POINT.lat, 1 + pointH * rise + 0.0003));
     const tu = terrainMat.uniforms;

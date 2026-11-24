@@ -278,7 +278,7 @@
         if (/inner_essence/i.test(o.name)) { o.visible = false; continue; }
         o.material = o.material.clone();
         o.material.clippingPlanes = [P1, P2]; o.material.clipIntersection = true; o.material.side = THREE.DoubleSide;
-        o.material.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n if (!gl_FrontFacing) diffuseColor.rgb *= 0.42;'); };
+        o.material.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <color_fragment>', '#include <color_fragment>\n if (!gl_FrontFacing) diffuseColor.rgb *= 0.62;'); };
         o.material.customProgramCacheKey = () => 's7-shell';
         shellMats.push(o.material);
       }
@@ -340,7 +340,7 @@
         const m = new THREE.Mesh(new THREE.PlaneGeometry(0.42, y1 - y0), rimMat); m.position.set(x, (y0 + y1) / 2, 0.01); body.add(m);
       }
       for (const sd of [1, -1]) { const m = new THREE.Mesh(window.FILM_AMP.rimGeometry(14.0, window.FILM_AMP.NECK, 0.42, sd), rimMat); m.position.z = 0.01; body.add(m); }
-      const back = new THREE.Mesh(new THREE.PlaneGeometry(9.2, 33), cap(new THREE.MeshBasicMaterial({ color: 0x26282c }))); back.position.set(0, 23.8, -1.6); body.add(back);
+      const back = new THREE.Mesh(new THREE.PlaneGeometry(9.2, 33), cap(new THREE.MeshBasicMaterial({ color: 0xc9d3dc, transparent: true, opacity: 0.16, depthWrite: false }))); back.position.set(0, 23.8, -1.6); body.add(back);
       // dissolving cloud in the solvent (soft sheets on the cut, near-white)
       const cloudFS = `uniform float uA, uSeed; varying vec2 vUv;
         float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
@@ -420,12 +420,13 @@
       q = Q_UP.clone().slerp(Q_DIAG, inOut((t - T0) / 1.3));
       p = V(0, 0.01 + 0.004 * Math.sin((t - T0) * 1.3), 0);
     } else if (t < SNAP_SHOT) {
-      q = Q_SEC.clone(); p = V(0, 0, 0);
+      // V3.5: same tilted hold and the same angle as the press, so the press outside and the fall inside read together
+      q = Q_DIAG.clone(); p = V(0, 0.01 + 0.004 * Math.sin((t - T0) * 1.3), 0);
       // wrist shakes: a fast damped swing about the tail
       let a = 0;
       for (const s of [K.shake1, K.shake2, K.shake3]) { const d = t - s; if (d > 0 && d < 1.0) a += 0.2 * Math.sin(d * Math.PI * 2 / 0.42) * Math.exp(-d * 4.2); }
-      q = new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), a).multiply(q);
-      p.x = -Math.sin(a) * 0.03;
+      q = new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), a * 0.8).multiply(q);
+      p.x += -Math.sin(a) * 0.012; p.y += Math.sin(a) * 0.006;
     } else if (t < DROP_SHOT) {
       q = Q_STAND.clone(); p = V(0, 0, 0);
     } else {
@@ -434,6 +435,7 @@
     return { q, p };
   }
 
+  const PRESS_DIR = V(0.04, 0.045, 0.12).normalize(), PRESS_D = 0.085;
   function camAt(t) {
     // returns pos, tgt (world)
     if (t < CUT_IN) {
@@ -448,15 +450,15 @@
       const kc = inOut((t - (K.ringOff + 0.3)) / 1.8);
       const cT = ampW(0, 6, 0), cP = cT.clone().add(V(0.05, 0.06, 0.16));
       tgt = lerpV(tgt, cT, kc); pos = lerpV(pos, cP, kc);
-      const kp = inOut((t - PRESS_A) / (PRESS_B - PRESS_A));
-      const pT = ampW(0, 10, 0), pP = pT.clone().add(V(0.04, 0.045, 0.12).multiplyScalar(1.55));
+      const kp = inOut((t - (PRESS_A - 0.7)) / (PRESS_A + 0.25 - (PRESS_A - 0.7)));
+      const pT = ampW(0, 1.0, 0), pP = pT.clone().add(PRESS_DIR.clone().multiplyScalar(PRESS_D));
       return { pos: lerpV(pos, pP, kp), tgt: lerpV(tgt, pT, kp) };
     }
     if (t < SNAP_SHOT) {
-      // follow the powder down: cap → surface → body
-      const y = lerp(6, 15.5, inOut((t - CUT_IN) / (K.powderHit - CUT_IN))) + 6 * inOut((t - K.powderHit) / 2.5);
-      const tgt = ampW(0, y, 0); tgt.x = 0;
-      return { pos: tgt.clone().add(V(0, 0.01, 1).normalize().multiplyScalar(lerp(0.14, 0.17, inOut((t - K.powderHit) / 3)))), tgt };
+      // same angle: ease back along the press view so the chamber, the seal and the solvent surface are all in frame
+      const k = inOut((t - (CUT_IN + 0.15)) / (K.powderHit - 0.2 - CUT_IN)), k2 = inOut((t - K.powderHit) / 1.6);
+      const tgt = ampW(0, lerp(1.0, 11, k) + 5 * k2, 0);
+      return { pos: tgt.clone().add(PRESS_DIR.clone().multiplyScalar(PRESS_D * lerp(1, 1.45, k) * lerp(1, 1.15, k2))), tgt };
     }
     if (t < DROP_SHOT) {   // ④ both pinches and the neck
       const tgt = ampW(0, 38, 0); return { pos: tgt.clone().add(V(0.0, 0.04, 0.27)), tgt };
@@ -494,7 +496,7 @@
     ringSlit.visible = open < 0.08;
 
     // section planes (open only in the section shot)
-    const ck = tc >= CUT_IN && tc < SEC_CLOSE ? 1 - inOut((tc - SEC_OUT) / (SEC_CLOSE - SEC_OUT)) : 0;
+    const ck = tc >= CUT_IN - 0.15 && tc < SEC_CLOSE ? inOut((tc - (CUT_IN - 0.15)) / 0.5) * (1 - inOut((tc - SEC_OUT) / (SEC_CLOSE - SEC_OUT))) : 0;
     const R_CUT = 5.6 * MM, sx = lerp(-R_CUT, R_CUT, ck);
     P1.set(V(0, 0, -1), 0).applyMatrix4(ampG.matrixWorld);
     P2.set(V(1, 0, 0), -sx).applyMatrix4(ampG.matrixWorld);
@@ -580,7 +582,7 @@
     const mixK = smooth(K.shake1, K.shake2 + 0.5, tc);
     const bloom = smooth(K.powderHit - 0.2, K.powderHit + 0.5, tc);
     cloudMats.forEach((m, i) => { m.uniforms.uA.value = 0.55 * bloom * (1 - 0.65 * mixK); m.uniforms.uSeed.value = i * 3.1 + tc * (0.2 + mixK * 2); });
-    liqCapMat.color.setRGB(lerp(0.874, 0.93, mixK), lerp(0.898, 0.92, mixK), lerp(0.914, 0.89, mixK)); liqCapMat.opacity = lerp(0.42, 0.62, mixK);
+    liqCapMat.color.setRGB(lerp(0.874, 0.93, mixK), lerp(0.898, 0.92, mixK), lerp(0.914, 0.89, mixK)); liqCapMat.opacity = lerp(0.18, 0.34, mixK);
     for (const m of [sealL, sealR]) m.visible = true;
 
 
@@ -611,7 +613,7 @@
           sDrop.position.copy(mouth).add(V(0, -DR * 1.6 - 0.5 * g * 0.9 * ds * ds, 0));
         }
         // what stays behind on the lip gathers into the next drop
-        const rk = smooth(0.02, 0.25, d), gk = smooth(0.4, END - tDet, d);
+        const rk = smooth(0.02, 0.25, d) * (1 - smooth(0.25, 0.9, d)), gk = 0;
         bead.visible = true; beadMat.uniforms.uNeck.value = 0.3 * gk; beadMat.uniforms.uL.value = 0.6;
         const br = DR * (0.38 * rk + 0.42 * gk);
         bead.scale.set(br, br * (1 + 0.15 * gk), br);

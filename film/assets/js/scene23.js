@@ -166,6 +166,7 @@
       gl_FragColor = vec4(c, uA); }`;
 
   // ---------- state ----------
+  let waxCut, stumpCut, tiltAx = null;
   let renderer, scene, camera, rt, dofMat, dofScene, quadCam, snowScene, snowMats = [], cloudMat, cloudScene, glow, waxGlow;
   let deerG, deerRoot, mixer, aWalk, aIdle, bones = {}, antN, antF, innerMesh, waxMesh, bodyMats = [], shellMat, farMat;
   let skyMat, groundMat, barkMat;
@@ -294,16 +295,25 @@
       tgt = tgtF.lerp(t3, r);
       let d = lerp(dF, d3, r);
       // collagen data: the camera closes in on the lifted wax tip and centres it (hand-off to scene 4)
-      const z = inOut((t - K.collagen) / (K.s4 - 0.12 - K.collagen));
-      if (z > 0) { tgt.lerp(waxCentre(t), z); d = lerp(d, dWax, z); }
+      // first read the slice up close, then give the data room and settle on the scene 4 hand-off framing
+      const zc = inOut((t - (K.wax + 1.6)) / (K.collagen - K.wax - 1.6)), zb = inOut((t - K.collagen - 0.3) / (K.s4 - 0.42 - K.collagen));
+      if (zc > 0) { tgt.lerp(waxCentre(t), zc); d = lerp(d, lerp(dWax * 0.5, dWax, zb), zc); }
       pos = tgt.clone().addScaledVector(dir, d);
       focus = A.M;
     }
     return { pos, tgt, p, focus };
   }
   const waxLift = (t) => inOut((t - K.wax - 0.25) / 1.3);
+  const waxTilt = (t) => 40 * D2R * inOut((t - K.wax - 0.7) / 1.5);
+  const XM = new THREE.Matrix4(), XR = new THREE.Matrix4(), XT = new THREE.Matrix4();
+  function waxXf(t) {   // lift along the axis, then rotate about the cut centre
+    const c = ant.cutC, l = ant.lift * waxLift(t);
+    XM.makeTranslation(c.x + ant.axisL.x * l, c.y + ant.axisL.y * l, c.z + ant.axisL.z * l);
+    if (tiltAx) XM.multiply(XR.makeRotationAxis(tiltAx, waxTilt(t)));
+    return XM.multiply(XT.makeTranslation(-c.x, -c.y, -c.z));
+  }
   function waxCentre(t) {
-    return ant.waxC.clone().addScaledVector(ant.axisL, ant.lift * waxLift(t)).applyMatrix4(antN.matrixWorld);
+    return ant.waxC.clone().applyMatrix4(waxXf(t).clone()).applyMatrix4(antN.matrixWorld);
   }
   function placeCamera(c) {
     camera.position.copy(c.pos);
@@ -359,7 +369,12 @@
       tmp.fromBufferAttribute(pos, i).sub(base); const along = tmp.dot(axisL); tmp.addScaledVector(axisL, -along); rr += tmp.length(); kr++;
     }
     const rTip = kr ? rr / kr : A.length() * 0.03;
+    // the cut between the wax slice and the rest: centre and radius of the section at WAX_H
+    const cutC = centre(WAX_H - 0.012, WAX_H + 0.012); let cr = 0, kc = 0;
+    for (let i = 0; i < n; i++) if (Math.abs(hh[i] - WAX_H) < 0.012) { tmp.fromBufferAttribute(pos, i).sub(cutC); tmp.addScaledVector(axisL, -tmp.dot(axisL)); cr += tmp.length(); kc++; }
+    const cutR = kc ? cr / kc : rTip;
     return {
+      cutC, cutR,
       hh, top, base, axisL, len: A.length(), mid: base.clone().addScaledVector(A, 0.5), waxC: centre(WAX_H, 1),
       lab: LAYERS.map((L) => beam((L.h0 + L.h1) / 2)).concat([centre(0.975, 1)]),
       lift: 0.7 * 2 * rTip
@@ -574,6 +589,21 @@
       innerMesh = new THREE.Mesh(ig, mkInner(false)); waxMesh = new THREE.Mesh(ig, mkInner(true));
       for (const m of [innerMesh, waxMesh]) { m.visible = false; m.renderOrder = 1; m.frustumCulled = false; antN.add(m); }
       shellMat.transparent = true; antN.renderOrder = 2;
+      // glowing section faces: the wax's cut face is the brightest thing in the frame, the stump's stays dim
+      const cutFS = `uniform float uA, uHot; varying vec2 vUv;
+        void main(){ float r = length(vUv - 0.5) * 2.; if (r > 1.) discard;
+          float rings = 0.5 + 0.5 * cos(r * 42.);
+          vec3 c = mix(vec3(1.0, 0.95, 0.82), vec3(0.95, 0.72, 0.42), smoothstep(0.1, 1.0, r)) * (1.0 + 0.9 * uHot * exp(-r * r * 3.5));
+          c *= 0.9 + 0.1 * rings; float e = 1. - smoothstep(0.86, 1.0, r);
+          gl_FragColor = vec4(c * (0.35 + 0.65 * uHot) * e, uA * e); }`;
+      const mkCut = (hot, dirSign) => {
+        const m = new THREE.Mesh(new THREE.CircleGeometry(1, 64), new THREE.ShaderMaterial({ uniforms: { uA: { value: 0 }, uHot: { value: hot } }, transparent: true, depthWrite: false, side: THREE.DoubleSide, toneMapped: false,
+          vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }', fragmentShader: cutFS }));
+        m.quaternion.setFromUnitVectors(V3(0, 0, 1), ant.axisL.clone().multiplyScalar(dirSign));
+        m.position.copy(ant.cutC); m.scale.setScalar(Math.max(ant.cutR - off, ant.cutR * 0.7)); m.renderOrder = 5; m.frustumCulled = false; m.visible = false; return m;
+      };
+      waxCut = mkCut(1, -1); waxMesh.add(waxCut); stumpCut = mkCut(0, 1); antN.add(stumpCut);
+      waxMesh.matrixAutoUpdate = false;
       const gt = glowTexture();
       glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: gt, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
       waxGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: gt, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, transparent: true }));
@@ -590,6 +620,10 @@
       for (let i = 0; i < 6; i++) { placeCamera(camAt(K.s3 + 0.5, A)); d3 *= antlerFrac().frac / FRAC3; }
       const waxSize = Math.max(ant.lift / 0.7, 0.05 * ant.len) * antN.matrixWorld.getMaxScaleOnAxis();
       dWax = waxSize / (0.2 * 2 * Math.tan(15 * D2R)); // wax ≈ 20 % of frame height at the hand-off
+      // the lifted slice tips its cut face toward the camera
+      poseDeer(K.collagen); A = anchors(); placeCamera(camAt(K.collagen, A)); antN.updateMatrixWorld(true);
+      const camL = antN.worldToLocal(camera.position.clone()).sub(ant.cutC).normalize();
+      tiltAx = ant.axisL.clone().negate().cross(camL).normalize();
       await document.fonts.load('400 36px "XL Sans"');
       await document.fonts.load('400 46px "XL Serif"');
     })();
@@ -654,8 +688,11 @@
     waxMesh.visible = ls.waxOn > 0.001;
     wu.uA.value = 1;
     iu.uCut.value = ls.waxOn > 0.001 ? 1 : 0;
-    waxMesh.position.copy(ant.axisL).multiplyScalar(ant.lift * lift);
+    waxMesh.matrix.copy(waxXf(tc)); waxMesh.matrixWorldNeedsUpdate = true;
     waxMesh.updateMatrixWorld(true);
+    waxCut.visible = stumpCut.visible = ls.waxOn > 0.001 && lift > 0.02;
+    waxCut.material.uniforms.uA.value = smooth(0.02, 0.4, lift);
+    stumpCut.material.uniforms.uA.value = 0.8 * smooth(0.02, 0.4, lift) * iu.uA.value;
 
     // gold backlight behind the tip (the "moon" point carried over from scene 1's gold dot)
     const viewDir = tmp.copy(A.T).sub(camera.position).normalize();
@@ -666,8 +703,8 @@
     glow.material.opacity = (0.75 + 0.25 * rimFreeze) * (1 - smooth(REV0, K.s3, tc));
     const wc = waxCentre(tc), wd = wc.distanceTo(camera.position);
     waxGlow.position.copy(wc);
-    waxGlow.scale.setScalar(lerp(150, 340, lift) * 2 * wd * Math.tan(15 * D2R) / H);
-    waxGlow.material.opacity = 0.85 * ls.waxOn;
+    waxGlow.scale.setScalar(lerp(120, 220, lift) * 2 * wd * Math.tan(15 * D2R) / H);
+    waxGlow.material.opacity = 0.32 * ls.waxOn;
 
     // DOF: focus on the antler tip; aperture opens as the push closes in (snow turns to bokeh)
     tmp.copy(c.focus).applyMatrix4(camera.matrixWorldInverse);
@@ -732,14 +769,14 @@
     const labOut = 1 - smooth(K.collagen - 0.2, K.collagen + 0.3, tc);
     labIds.forEach((id, i) => {
       if (!txt[id]) return;
-      let a = copyAlpha(id, tc) * labOut;
+      let a = copyAlpha(id, tc) * labOut * (i < 3 ? 1 - smooth(K.wax + 1.5, K.wax + 2.3, tc) : 1);
       const hot = i < 3 ? (i === 2 ? 1 - ls.waxOn : 1 - smooth(K[LAYERS[i + 1].cue], K[LAYERS[i + 1].cue] + 0.4, tc)) : 1;
       const anc = i < 3 ? ant.lab[i].clone().applyMatrix4(antN.matrixWorld) : wc;
       const q = project(anc);
       const ly = LY[i];
       txt[id].style.transform = `translate(${LX}px,${ly}px)`;
       txt[id].style.opacity = (a * lerp(0.5, 1, hot)).toFixed(3);
-      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * lerp(0.45, 0.85, hot)).toFixed(3); }
+      if (txt[id + '-d']) { txt[id + '-d'].style.transform = `translate(${LX}px,${ly + 44}px)`; txt[id + '-d'].style.opacity = (copyAlpha(id + '-d', tc) * labOut * (i < 3 ? 1 - smooth(K.wax + 1.5, K.wax + 2.3, tc) : 1) * lerp(0.45, 0.85, hot)).toFixed(3); }
       const ex = LX - 24, mx = ex - 60;
       leaders[id].setAttribute('d', `M${(q.x + 10).toFixed(1)} ${q.y.toFixed(1)}L${mx.toFixed(1)} ${ly.toFixed(1)}L${ex} ${ly}`);
       leaders[id].style.opacity = (a * lerp(0.45, 1, hot)).toFixed(3);
