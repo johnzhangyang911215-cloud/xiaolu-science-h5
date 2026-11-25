@@ -52,11 +52,14 @@
   const snowPhase = (t) => (t < K.holo ? t : K.holo + 0.35 * (t - K.holo));
 
   // ---------- shaders ----------
+  // 社媒版 is early spring (velvet antler grows in spring): same world, warm haze, fresh grass, pollen instead of snow
+  const SP = (main, spring) => (SOCIAL ? spring : main);
+  const FOGC = SP('vec3(0.018, 0.023, 0.038)', 'vec3(0.115, 0.122, 0.092)');
   const skyVS = `varying vec3 vDir; void main(){ vDir = normalize(position); vec4 p = projectionMatrix * modelViewMatrix * vec4(position, 1.0); gl_Position = p.xyww; }`;
   const skyFS = `uniform vec3 uMoon; uniform float uDim; varying vec3 vDir;
     void main(){ vec3 d = normalize(vDir); float h = clamp(d.y, 0.0, 1.0);
-      vec3 c = mix(vec3(0.020, 0.026, 0.046), vec3(0.003, 0.004, 0.009), pow(h, 0.5));
-      float m = max(dot(d, uMoon), 0.0); c += vec3(0.07, 0.085, 0.12) * pow(m, 12.0) + vec3(0.012, 0.015, 0.024) * pow(m, 2.0);
+      vec3 c = mix(${SP('vec3(0.020, 0.026, 0.046)', 'vec3(0.13, 0.135, 0.10)')}, ${SP('vec3(0.003, 0.004, 0.009)', 'vec3(0.085, 0.10, 0.105)')}, pow(h, 0.5));
+      float m = max(dot(d, uMoon), 0.0); c += ${SP('vec3(0.07, 0.085, 0.12)', 'vec3(0.16, 0.14, 0.09)')} * pow(m, 12.0) + ${SP('vec3(0.012, 0.015, 0.024)', 'vec3(0.04, 0.035, 0.02)')} * pow(m, 2.0);
       gl_FragColor = vec4(c * uDim, 1.0); }`;
   const groundVS = `varying vec3 vW; varying float vD; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vec4 mv = viewMatrix * w; vD = -mv.z; gl_Position = projectionMatrix * mv; }`;
   const groundFS = NOISE + `uniform vec3 uMoon; uniform float uDim; varying vec3 vW; varying float vD;
@@ -65,9 +68,12 @@
       float e = 0.02; float nx = n3(vec3((q + vec2(e, 0.0)) * 0.35, 1.0)) - n3(vec3(q * 0.35, 1.0)); float nz = n3(vec3((q + vec2(0.0, e)) * 0.35, 1.0)) - n3(vec3(q * 0.35, 1.0));
       vec3 nrm = normalize(vec3(-nx * 6.0, 1.0, -nz * 6.0));
       float lit = 0.55 + 0.45 * max(dot(nrm, uMoon), 0.0);
-      vec3 c = vec3(0.085, 0.10, 0.145) * lit * (0.82 + 0.3 * n);
-      float sp = step(0.9965, h3(vec3(floor(vW.xz * 140.0), 7.0))) * smoothstep(9.0, 2.0, vD); c += vec3(0.5, 0.55, 0.65) * sp;
-      float fog = 1.0 - exp(-vD * 0.07); c = mix(c, vec3(0.018, 0.023, 0.038), fog);
+      ${SP(`vec3 c = vec3(0.085, 0.10, 0.145) * lit * (0.82 + 0.3 * n);
+      float sp = step(0.9965, h3(vec3(floor(vW.xz * 140.0), 7.0))) * smoothstep(9.0, 2.0, vD); c += vec3(0.5, 0.55, 0.65) * sp;`,
+      `vec3 c = mix(vec3(0.055, 0.095, 0.028), vec3(0.11, 0.16, 0.05), smoothstep(0.3, 0.75, n)) * lit;
+      float fl = h3(vec3(floor(vW.xz * 90.0), 7.0)); float sp = step(0.993, fl) * smoothstep(12.0, 1.5, vD);
+      c += mix(vec3(0.30, 0.28, 0.22), vec3(0.30, 0.22, 0.20), step(0.9965, fl)) * sp;`)}
+      float fog = 1.0 - exp(-vD * 0.07); c = mix(c, ${FOGC}, fog);
       gl_FragColor = vec4(c * uDim, 1.0); }`;
   const barkVS = `varying vec3 vL; varying vec3 vN; varying float vD; varying vec3 vW;
     void main(){ vL = position; vec4 w = modelMatrix * instanceMatrix * vec4(position, 1.0); vW = w.xyz;
@@ -78,9 +84,9 @@
       float dark = smoothstep(0.62, 0.70, lent) * smoothstep(0.25, 0.4, abs(fract(vL.y * 2.3 + band) - 0.5)) ;
       dark = max(dark, smoothstep(0.74, 0.8, band) * 0.9) * (1.0 - smoothstep(4.0, 10.0, vL.y) * 0.0);
       float wrap = 0.35 + 0.35 * max(dot(vN, uMoon) + 0.3, 0.0);
-      vec3 c = mix(vec3(0.17, 0.175, 0.19), vec3(0.012, 0.012, 0.015), dark) * wrap;
+      vec3 c = mix(${SP('vec3(0.17, 0.175, 0.19)', 'vec3(0.26, 0.255, 0.235)')}, ${SP('vec3(0.012, 0.012, 0.015)', 'vec3(0.03, 0.028, 0.022)')}, dark) * wrap;
       c *= 0.6 + 0.4 * smoothstep(-0.2, 1.2, vL.y);
-      float fog = 1.0 - exp(-vD * 0.085); c = mix(c, vec3(0.018, 0.023, 0.038), fog);
+      float fog = 1.0 - exp(-vD * 0.085); c = mix(c, ${FOGC}, fog);
       gl_FragColor = vec4(c * uDim, 1.0); }`;
   // single-pass golden-angle bokeh (after Kennedy/Gustafsson), plus exposure, tone curve, sRGB and grain
   const quadVS = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
@@ -109,7 +115,7 @@
     varying float vA; varying float vZ; varying float vSharp;
     void main(){
       vec3 p = seed.xyz * uBox;
-      float fall = 0.55 + 0.35 * seed.w;
+      float fall = ${SP('0.55 + 0.35 * seed.w', '0.06 + 0.06 * seed.w')};
       p.y -= uPh * fall; p.x += sin(uPh * (0.6 + seed.w) + seed.x * 40.0) * 0.18 + uPh * 0.08; p.z += cos(uPh * 0.7 + seed.z * 30.0) * 0.12;
       vec3 lo = uC - uBox * 0.5; p = lo + mod(p - lo, uBox);
       vec4 mv = viewMatrix * vec4(p, 1.0); vZ = -mv.z;
@@ -126,7 +132,7 @@
       if (vZ > sz + 0.05) discard;
       vec2 q = gl_PointCoord * 2.0 - 1.0; float r = length(q); if (r > 1.0) discard;
       float disc = mix(smoothstep(1.0, 0.82, r) * (0.8 + 0.35 * smoothstep(0.6, 0.95, r)), smoothstep(1.0, 0.0, r), vSharp);
-      gl_FragColor = vec4(vec3(0.82, 0.86, 0.95), disc * vA * uK); }`;
+      gl_FragColor = vec4(${SP('vec3(0.82, 0.86, 0.95)', 'vec3(1.0, 0.93, 0.74)')}, disc * vA * uK${SP('', ' * 0.75')}); }`;
   // scene 1's cloud deck (same noise and grain), with a hole that opens around the antler tip
   const cloudFS = NOISE + `uniform float uK; uniform float uT; uniform float uGrain; uniform float uSeed; uniform float uHole; uniform vec2 uC;
     varying vec2 vUv;
@@ -254,7 +260,7 @@
   }
   // ---------- 社媒版 herd: clones of the deer rig walking the same forest, each at its own lane, pace and stride ----------
   // [lead (m) ahead of the hero at t = 4 s, lane z, pace, scale, antlers, gait phase]
-  const HERD = [[2.3, 1.7, 1.0, 0.96, false, 0.1], [3.7, -1.3, 0.97, 1.06, true, 0.55], [5.0, 0.7, 1.03, 0.9, false, 0.8],
+  const HERD = [[2.3, 1.7, 1.0, 0.96, false, 0.1], [3.7, -1.3, 0.97, 1.06, true, 0.55], [1.9, 0.7, 1.03, 0.9, false, 0.8],
     [6.3, -2.7, 1.0, 1.02, true, 0.3], [7.6, 1.1, 0.98, 0.84, false, 0.65], [5.8, -4.6, 1.01, 1.0, true, 0.2], [9.0, -0.8, 1.0, 0.95, false, 0.45]];
   for (let i = 0; i < 14; i++)   // the rest of the herd, deeper in the stand; these stay until the forest dissolves into the hologram
     HERD.push([-1 + 14 * hash(i + 40), -3.5 - 9 * hash(i + 60), 0.95 + 0.1 * hash(i + 80), 0.86 + 0.2 * hash(i + 90), hash(i + 99) > 0.55, hash(i + 120)]);
@@ -277,6 +283,12 @@
     const h = herd[1];
     return V3(herdX(h, t), 0.9, h.z);
   }
+  // ---------- 社媒版 opening: a sprout unfurls in the grass, the near doe's hooves step past it, the camera cranes up to the herd ----------
+  const SPROUT_T = 3.0;                                   // the doe's front hoof passes just behind the sprout
+  const SPROUT = V3(HERD[0][0] + deerX(4) + HERD[0][2] * V * (SPROUT_T - 4) + 0.42, 0, HERD[0][1] + 0.32);
+  const sproutCam = (t) => ({ pos: SPROUT.clone().add(V3(-0.08, 0.13, 0.72 - 0.16 * inOut(t / 3.2))), tgt: SPROUT.clone().add(V3(0.01, 0.125, 0)) });
+  const sproutOut = (t) => inOut((t - 2.9) / 2.8);       // crane from the sprout up into the herd shot
+  let sprout = null, grassMat = null;
 
   function anchors() {
     const m = antN.matrixWorld;
@@ -311,6 +323,7 @@
     const pM = tM.clone().addScaledVector(dirM, 2.4);
     const kM = medAt(t);
     let pos = pW.lerp(pM, kM), tgt = tW.lerp(tM, kM);
+    if (SOCIAL && t < 5.8) { const sc = sproutCam(t), b = sproutOut(t); pos = sc.pos.lerp(pos, b); tgt = sc.tgt.lerp(tgt, b); }
     // carry scene 1's dive through the clouds: start further back and glide forward, bleeding off speed
     const arr = SOCIAL ? 0 : 1 - sat((t - K.s2) / 1.8);
     if (arr > 0) pos.addScaledVector(tgt.clone().sub(pos).normalize(), -2.2 * arr * arr * arr);
@@ -490,6 +503,73 @@
     scene.add(inst);
   }
 
+  function buildSprout() {
+    // fresh grass around the sprout (instanced blades), lit by the same sun
+    const blade = new THREE.BufferGeometry();
+    blade.setAttribute('position', new THREE.Float32BufferAttribute([-0.5, 0, 0, 0.5, 0, 0, 0.12, 1, 0], 3)); blade.computeVertexNormals();
+    grassMat = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide });
+    grassMat.userData.base = new THREE.Color(1, 1, 1);
+    const N = 22000, inst = new THREE.InstancedMesh(blade, grassMat, N), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), col = new THREE.Color();
+    const cam0 = sproutCam(0).pos;
+    let k = 0;
+    for (let i = 0; k < N && i < N * 3; i++) {
+      const r = 0.08 + 4.5 * Math.pow(hash(i * 1.71), 1.6), a = hash(i * 2.39 + 5) * 6.283;
+      const x = SPROUT.x + r * Math.cos(a), z = SPROUT.z + r * Math.sin(a) * 0.7;
+      if (Math.hypot(x - cam0.x, z - cam0.z) < 0.2 || Math.hypot(x - SPROUT.x, z - SPROUT.z) < 0.012) continue;
+      const near = Math.hypot(x - SPROUT.x, z - SPROUT.z);
+      const h = (0.02 + 0.04 * hash(i * 3.3 + 1)) * (0.8 + 0.2 * smooth(0.05, 0.4, near)), w = 0.006 + 0.005 * hash(i * 4.1);
+      e.set((hash(i * 5.7) - 0.5) * 0.7, hash(i * 6.1) * 6.283, (hash(i * 7.9) - 0.5) * 0.7);
+      m4.compose(V3(x, -0.01, z), q.setFromEuler(e), V3(w, h, 1)); inst.setMatrixAt(k, m4);
+      inst.setColorAt(k, col.setRGB(0.16 + 0.12 * hash(i * 8.3), 0.32 + 0.16 * hash(i * 9.1), 0.07 + 0.05 * hash(i * 9.7)));
+      k++;
+    }
+    inst.count = k; inst.frustumCulled = false; scene.add(inst);
+    // the sprout: a bent stem, a pair of seed leaves that open, and a tiny curled leaf at the tip
+    // leaf shading: base→tip gradient, a pale midrib, sunlight glowing through from behind, warm edge rim
+    const leafMat = new THREE.ShaderMaterial({
+      uniforms: { uSun: { value: MOON }, uDim: dimU },
+      vertexShader: `varying vec3 vL; varying vec3 vN; varying vec3 vV; varying vec3 vWN;
+        void main(){ vL = position; vec4 w = modelMatrix * vec4(position, 1.0); vWN = normalize(mat3(modelMatrix) * normal); vN = normalize(normalMatrix * normal); vec4 mv = viewMatrix * w; vV = -mv.xyz; gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: `uniform vec3 uSun; uniform float uDim; uniform float uStem; varying vec3 vL; varying vec3 vN; varying vec3 vV; varying vec3 vWN;
+        void main(){ vec3 n = normalize(vWN); if (!gl_FrontFacing) n = -n; vec3 v = normalize(vV);
+          float y = uStem > 0.5 ? clamp(vL.y / 0.11, 0.0, 1.0) : clamp(vL.y / 0.056, 0.0, 1.0);
+          vec3 base = mix(vec3(0.07, 0.22, 0.03), vec3(0.34, 0.64, 0.09), y);
+          float rib = uStem > 0.5 ? 0.0 : (1.0 - smoothstep(0.0, 0.0022, abs(vL.x))) * (1.0 - y * 0.6);
+          base = mix(base, vec3(0.62, 0.78, 0.36), rib * 0.6);
+          float dif = 0.35 + 0.45 * max(dot(n, uSun), 0.0) + 0.25 * max(n.y, 0.0);
+          float thru = pow(max(dot(-normalize(cameraPosition - vec3(0.0)) * 0.0 + uSun, vec3(0.0, 0.0, -1.0)), 0.0), 1.0);
+          float fr = pow(1.0 - abs(dot(normalize(vN), normalize(vV))), 2.0);
+          vec3 c = base * dif + vec3(0.30, 0.42, 0.08) * 0.35 * thru * (1.0 - rib) + vec3(0.55, 0.50, 0.28) * fr * 0.35;
+          gl_FragColor = vec4(c * uDim, 1.0); }`,
+      side: THREE.DoubleSide
+    });
+    leafMat.uniforms.uStem = { value: 0 };
+    const stemMat = leafMat.clone(); stemMat.uniforms.uDim = dimU; stemMat.uniforms.uSun = { value: MOON }; stemMat.uniforms.uStem = { value: 1 };
+    const stem = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([V3(0, -0.005, 0), V3(0.004, 0.04, 0), V3(-0.002, 0.08, 0.002), V3(0.003, 0.11, 0)]), 24, 0.0032, 8), stemMat);
+    const shape = new THREE.Shape(); shape.moveTo(0, 0); shape.bezierCurveTo(0.018, 0.012, 0.022, 0.04, 0, 0.056); shape.bezierCurveTo(-0.022, 0.04, -0.018, 0.012, 0, 0);
+    const leafGeo = new THREE.ShapeGeometry(shape, 12);
+    const pos = leafGeo.attributes.position; for (let i = 0; i < pos.count; i++) pos.setZ(i, -2.2 * pos.getX(i) * pos.getX(i) + 0.15 * pos.getY(i) * pos.getY(i) / 0.056);  // cupped
+    leafGeo.computeVertexNormals();
+    const leaves = [-1, 1].map((sd) => { const p = new THREE.Group(); const l = new THREE.Mesh(leafGeo, leafMat); p.add(l); p.position.set(0.003, 0.108, 0); p.userData.sd = sd; return p; });
+    const bud = new THREE.Mesh(new THREE.SphereGeometry(0.006, 12, 8), stemMat); bud.scale.set(0.7, 1.6, 0.7); bud.position.set(0.003, 0.114, 0);
+    sprout = new THREE.Group(); sprout.add(stem, bud, ...leaves); sprout.position.copy(SPROUT); sprout.scale.setScalar(1.45); scene.add(sprout);
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true }));
+    halo.position.copy(SPROUT).add(V3(0.01, 0.16, -0.12)); halo.scale.setScalar(0.32); scene.add(halo);
+    sprout.userData = { stem, leaves, bud, mat: leafMat, grass: inst, halo };
+  }
+  function poseSprout(t) {
+    if (!sprout) return;
+    const on = t < HERD_OUT(); sprout.visible = sprout.userData.grass.visible = on;
+    sprout.userData.halo.material.opacity = 0.32 * smooth(0.2, 1.6, t) * (1 - smooth(2.8, 4.2, t)); sprout.userData.halo.visible = t < 4.3;
+    if (!on) return;
+    const g = inOut((t - 0.15) / 2.6);                     // unfurl over the opening line
+    sprout.userData.stem.scale.set(1, 0.55 + 0.45 * g, 1);
+    const top = 0.108 * (0.55 + 0.45 * g);
+    for (const l of sprout.userData.leaves) { l.position.y = top; l.scale.setScalar(0.45 + 0.55 * g); l.rotation.set(0.25, 0.35, -l.userData.sd * (0.12 + 1.0 * g)); }
+    sprout.userData.bud.position.y = top + 0.006; sprout.userData.bud.scale.set(0.7, 1.2 + 0.6 * g, 0.7);
+    grassMat.color.setScalar(dimU.value);
+  }
+
   function buildSnow() {
     snowScene = new THREE.Scene();
     for (const [n, box] of [[2400, V3(3.2, 3.2, 3.2)], [16000, V3(26, 12, 26)]]) {
@@ -566,8 +646,8 @@
         cloudScene = new THREE.Scene(); cloudScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), cloudMat));
       }
 
-      scene.add(new THREE.HemisphereLight(0x5a6a96, 0x1a1e28, 0.32));
-      const moonL = new THREE.DirectionalLight(0xc4d4ff, 1.6); moonL.position.copy(MOON).multiplyScalar(20); scene.add(moonL);
+      scene.add(new THREE.HemisphereLight(SP(0x5a6a96, 0xb4c49a), SP(0x1a1e28, 0x3a3420), SP(0.32, 0.55)));
+      const moonL = new THREE.DirectionalLight(SP(0xc4d4ff, 0xfff0d2), SP(1.6, 2.0)); moonL.position.copy(MOON).multiplyScalar(20); scene.add(moonL);
       buildEnv();
 
       const loader = new T3X.GLTFLoader().setMeshoptDecoder(T3X.MeshoptDecoder);
@@ -673,6 +753,7 @@
         }
       }
       buildSnow();
+      if (SOCIAL) buildSprout();
 
       // calibrate the freeze framing (antler ≈ 60 % of frame height) and the scene 3 pull-back
       poseDeer(PE);
@@ -726,6 +807,7 @@
     const holo = smooth(K.holo, K.holo + 1.4, tc);                  // forest → dark hologram space
     const dim = 1 - holo;
     dimU.value = dim;
+    poseSprout(tc);
     bodyDimU.value = lerp(1, 0.32, holo);
     moonViewU.value.copy(MOON).transformDirection(camera.matrixWorldInverse);
     const gl = smooth(K.antlerGlow - 0.3, K.antlerGlow + 0.5, tc);  // antlers light up gold
@@ -778,12 +860,16 @@
       // prologue focus sits on the mid-ground herd (the near doe passes soft), then racks onto the hero deer as the music opens
       tmp.copy(herdFocus(tc)).applyMatrix4(camera.matrixWorldInverse);
       const rk = smooth(K.s2 - 0.9, K.s2 + 0.3, tc);
-      focus = lerp(Math.max(0.1, -tmp.z), focus, rk);
-      ap = lerp(11, ap, rk);
+      let hf = Math.max(0.1, -tmp.z), ha = 11;
+      tmp.copy(SPROUT).add(V3(0, 0.12, 0)).applyMatrix4(camera.matrixWorldInverse);
+      const so = smooth(2.9, 5.2, tc);
+      hf = lerp(Math.max(0.1, -tmp.z), hf, so); ha = lerp(32, 11, so);
+      focus = lerp(hf, focus, rk);
+      ap = lerp(ha, ap, rk);
     }
     dofMat.uniforms.uFocus.value = focus;
     dofMat.uniforms.uCoc.value = ap * focus;
-    dofMat.uniforms.uMaxR.value = ap > 0.3 ? 22 : 0;
+    dofMat.uniforms.uMaxR.value = ap > 0.3 ? (ap > 22 ? 28 : 22) : 0;
     dofMat.uniforms.uSeed.value = Math.round(tc * FPS) % 97;
     const ph = snowPhase(tc), snowK = 1 - 0.45 * smooth(K.holo, K.holo + 1.4, tc);
     for (const m of snowMats) {
@@ -814,7 +900,7 @@
     }
 
     // ---- copy & labels ----
-    for (const id of ['s2-ask', 's2-name', 's2-sub', 's3-sub', 's3-two']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
+    for (const id of ['s2-spring', 's2-ask', 's2-name', 's2-sub', 's3-sub', 's3-two']) if (txt[id]) txt[id].style.opacity = copyAlpha(id, tc).toFixed(3);
     // ring target
     {
       const af0 = antlerFrac(), cx = project(A.B.clone().lerp(A.T, 0.45)), R = 0.62 * (af0.bottom - af0.top);

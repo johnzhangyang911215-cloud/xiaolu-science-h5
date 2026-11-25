@@ -66,6 +66,7 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"Ping
 #s23-ov .adot{fill:#F2F1EC;opacity:0}
 #s23-ov .adot.wax{fill:#F3DDB0}
 #s23 .copy{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;color:#F2F1EC}
+#s23 .s2-spring{left:0;right:0;top:130px;text-align:center;font:400 60px/1.2 "XL Serif",serif;letter-spacing:.2em;color:#F7F5EE;text-shadow:0 0 26px rgba(40,50,30,.55)}
 #s23 .s2-ask{left:0;right:0;top:200px;text-align:center;font:400 60px/1.2 "XL Serif",serif;letter-spacing:.2em;color:#F2F1EC;text-shadow:0 0 26px rgba(10,14,24,.75)}
 #s23 .s2-name{left:150px;top:800px;font:400 64px/1 "XL Serif",serif;letter-spacing:.42em;text-shadow:0 0 24px rgba(0,0,0,.7)}
 #s23 .s2-sub,#s23 .s3-sub{left:0;right:0;top:auto;bottom:150px;text-align:center;font:400 46px/1.2 "XL Serif",serif;letter-spacing:.22em;text-shadow:0 0 18px rgba(0,0,0,.6)}
