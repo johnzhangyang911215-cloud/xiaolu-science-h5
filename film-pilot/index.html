@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小鹿精华 · AI 分镜试做（鹿 → 鹿茸 → 蜡片）</title>
+<link rel="icon" href="data:,">
+<link rel="preload" href="assets/img/k1-forest.webp" as="image">
+<link rel="preload" href="assets/img/k1-deer.webp" as="image">
+<link rel="stylesheet" href="assets/pilot.css">
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+    <canvas id="gl"></canvas>
+    <canvas id="fx"></canvas>
+    <div id="text">
+      <div class="title" id="t-name"></div>
+      <div class="sub" id="t-sub1"></div>
+      <div class="sub" id="t-sub2"></div>
+      <div class="two" id="t-two"></div>
+      <div id="labels"></div>
+      <div id="data">
+        <div class="dh" id="d-h"></div>
+        <div class="row"><div class="dn" id="d1n"></div><div class="dv" id="d1v"></div></div>
+        <div class="row"><div class="dn" id="d2n"></div><div class="dv" id="d2v"></div></div>
+        <div class="dnote" id="d-note"></div>
+      </div>
+    </div>
+    <div id="hud"></div>
+    <div id="bar"><i id="bar-fill"></i></div>
+    <div id="cover">
+      <button id="start" type="button" disabled>载入中…</button>
+      <p class="hint">AI 分镜试做 · 鹿 → 鹿茸 → 蜡片 · 7.50–36.20 s · 含原配乐</p>
+    </div>
+    <div id="end" hidden>
+      <p class="end-t">试做段结束</p>
+      <div class="end-b">
+        <button id="again" type="button">重播</button>
+        <a id="compare" href="../film/?t=7.5">对比现版同段 ↗</a>
+        <a href="../">返回首页</a>
+      </div>
+    </div>
+  </div>
+</div>
+<audio id="bgm" src="../film/assets/audio/bgm.mp3" preload="auto"></audio>
+<script src="../film/assets/js/cues.js"></script>
+<script src="assets/pilot.js"></script>
+</body>
+</html>

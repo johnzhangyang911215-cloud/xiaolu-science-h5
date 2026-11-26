@@ -1,0 +1,52 @@
+@font-face{font-family:"XL Serif";src:url(../../film/assets/fonts/film-serif.woff2) format("woff2");font-display:block}
+@font-face{font-family:"XL Sans";src:url(../../film/assets/fonts/film-sans.woff2) format("woff2");font-display:block}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#efebe3;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden;background:#f5f2ec;
+  font-family:"XL Sans","PingFang SC","Microsoft YaHei",sans-serif;color:#3d3127}
+#gl,#fx{position:absolute;inset:0;width:100%;height:100%;display:block}
+#text{position:absolute;inset:0;pointer-events:none}
+#text>*,#labels>*{position:absolute;opacity:0;will-change:opacity,transform,filter}
+
+.title{left:250px;top:300px;font-family:"XL Serif",serif;font-size:132px;line-height:1;letter-spacing:.3em;color:#43362b;
+  text-shadow:0 0 40px rgba(255,253,248,.85)}
+.sub{left:0;right:0;bottom:118px;text-align:center;font-family:"XL Serif",serif;font-size:46px;letter-spacing:.12em;color:#3b3026;
+  text-shadow:0 0 22px rgba(255,252,246,.95),0 0 4px rgba(255,252,246,.9)}
+.two{left:0;right:0;top:446px;text-align:center;font-family:"XL Serif",serif;font-size:72px;letter-spacing:.14em;color:#3b2f25;
+  text-shadow:0 0 36px rgba(255,252,246,.95)}
+.two b{font-weight:400;color:#a8773a;font-size:1.5em;letter-spacing:.04em}
+
+#labels{inset:0;opacity:1!important}
+.lab{width:0;height:0}
+.lab .dot{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fffaf0;box-shadow:0 0 0 2px rgba(168,119,58,.85),0 0 18px rgba(255,214,150,.9)}
+.lab .ln{position:absolute;left:-1px;width:2px;background:linear-gradient(rgba(168,119,58,.0),rgba(168,119,58,.75));transform-origin:50% 100%}
+.lab.down .ln{background:linear-gradient(rgba(168,119,58,.75),rgba(168,119,58,0));transform-origin:50% 0}
+.lab .box{position:absolute;left:-200px;width:400px;text-align:center;white-space:nowrap}
+.lab .nm{font-family:"XL Serif",serif;font-size:50px;letter-spacing:.2em;color:#3b2f25;text-shadow:0 0 18px rgba(255,252,246,.95)}
+.lab .ds{margin-top:6px;font-size:25px;letter-spacing:.08em;color:#6a5747;text-shadow:0 0 14px rgba(255,252,246,.95)}
+.lab.wax .nm{color:#9c6a2e}
+
+#data{left:150px;top:300px;width:760px}
+#data .dh,#data .dn,#data .dv,#data .dnote{opacity:0}
+.dh{font-size:30px;letter-spacing:.16em;color:#6a5747;padding-bottom:22px;border-bottom:1px solid rgba(106,87,71,.35);margin-bottom:26px}
+.row{display:flex;align-items:baseline;justify-content:space-between;padding:10px 0 14px}
+.dn{font-family:"XL Serif",serif;font-size:44px;letter-spacing:.1em;color:#3b2f25}
+.dv{font-family:"XL Serif",serif;font-size:96px;line-height:1;color:#a8773a;font-variant-numeric:tabular-nums}
+.dnote{margin-top:22px;font-size:22px;letter-spacing:.06em;color:#7b6a5b}
+
+#hud{position:absolute;left:24px;top:18px;font:600 22px/1.4 ui-monospace,Menlo,monospace;color:#3d3127;background:rgba(255,255,255,.6);padding:6px 12px;border-radius:6px;display:none}
+.debug #hud{display:block}
+#bar{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(61,49,39,.08)}
+#bar-fill{display:block;height:100%;width:0;background:rgba(168,119,58,.65)}
+
+#cover,#end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  background:radial-gradient(ellipse at 50% 45%,rgba(255,253,248,.92),rgba(239,235,227,.97));z-index:5}
+#cover[hidden],#end[hidden]{display:none}
+button,#end a{font:400 34px/1 "XL Sans","PingFang SC",sans-serif;letter-spacing:.14em;color:#3d3127;background:rgba(255,255,255,.7);
+  border:1px solid rgba(61,49,39,.35);border-radius:999px;padding:22px 52px;cursor:pointer;text-decoration:none}
+button:disabled{opacity:.5;cursor:default}
+.hint{margin:0;font:400 24px/1.5 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.08em;color:#7b6a5b}
+.end-t{margin:0;font:400 44px/1.4 "PingFang SC","Microsoft YaHei",serif;letter-spacing:.2em;color:#3d3127}
+.end-b{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+#end a{font-family:"PingFang SC","Microsoft YaHei",sans-serif}
