@@ -54,3 +54,7 @@ button:disabled{opacity:.5;cursor:default}
 
 #data .row>*{white-space:nowrap}
 #t-sub4{left:1380px;right:auto;top:236px;bottom:auto;text-align:left;font-size:36px;line-height:1.7;white-space:pre-line}
+.temp{left:200px;top:250px;font-family:"XL Serif",serif;font-size:120px;line-height:1;color:#a8773a;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 36px rgba(255,252,246,.95)}
+.lock{left:190px;top:420px;font-family:"XL Serif",serif;font-size:54px;line-height:1.7;letter-spacing:.14em;color:#3b2f25;white-space:pre-line;
+  text-shadow:0 0 30px rgba(255,252,246,.95),0 0 5px rgba(255,252,246,.9)}
