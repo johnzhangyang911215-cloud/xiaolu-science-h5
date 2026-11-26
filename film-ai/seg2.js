@@ -1,7 +1,12 @@
 /* 第 2–3 幕（s2 → s4）：鹿 → 鹿茸 → 分层 → 蜡片 → 原料数据。金棕色，只在 cue 重拍上做一次点缀。 */
 window.SEG2 = (function () {
   'use strict';
-  const { lin, mix, eOut, win, kf, A } = window.PV;
+  const { lin, mix, eOut, win, A } = window.PV;
+  // 成片在 21.34–27.30 重定时：骨/血/粉压缩到一小节，茸尖段慢放停留；轨迹按原片时间查询
+  const R = (t) => t < 21.34 || t >= 27.3 ? t
+    : t < 23.45 ? 21.34 + (t - 21.34) * (4.24 / 2.11)
+    : 25.58 + (t - 23.45) * (1.72 / 3.85);
+  const kf = (K, t) => window.PV.kf(K, R(t));
   const C = window.FILM.cues;
   const NS = 'http://www.w3.org/2000/svg';
   const GOLD = '#b8894a', LIGHT = '#f4dfb4', INK = '#3b2f25';
@@ -52,10 +57,13 @@ window.SEG2 = (function () {
   }
 
   // 茸尖高亮落在 layerPowder 后半小节；CUT 为成片中白闪切到切片的时刻
-  const WH = C.layerPowder + 1.064, CUT = 27.4;
+  const WH = 23.45, CUT = 27.4, LAYER = { bone: 21.34, blood: 21.87, powder: 22.4 };
 
+  let idle = false;
   function render(t) {
-    if (t < C.s2 - 0.1 || t > C.s4 + 0.1) { if (N.cells) N.cells.forEach((o) => show(o.c, 0)); return; }
+    // 越界时按边界时刻渲染一次，拖动跳出本幕后不残留文字
+    const lo = C.s2 - 0.1, hi = C.s4 + 0.1;
+    if (t < lo || t > hi) { if (idle) return; idle = true; t = t < lo ? lo : hi; } else idle = false;
     // 标题与字幕
     {
       const e = $('t-name'), a = win(t, 7.9, 11.6, 0.9, 0.7);
@@ -64,7 +72,7 @@ window.SEG2 = (function () {
       e.style.filter = `blur(${(1 - eOut(lin(t, 7.9, 8.7))) * 12}px)`;
     }
     setOp($('t-sub1'), win(t, C.ring + 0.25, 21.1, 0.6, 0.45), `translateY(${(1 - eOut(lin(t, C.ring + 0.25, C.ring + 1))) * 14}px)`);
-    setOp($('t-sub2'), win(t, C.s3 + 0.2, C.layerPowder - 0.1, 0.6, 0.45), `translateY(${(1 - eOut(lin(t, C.s3 + 0.2, C.s3 + 0.9))) * 14}px)`);
+    setOp($('t-sub2'), win(t, C.s3 + 0.2, 24.4, 0.6, 0.45), `translateY(${(1 - eOut(lin(t, C.s3 + 0.2, C.s3 + 0.9))) * 14}px)`);
     // antlerGlow：茸根一次暖光；ring：茸尖一次暖光
     if (t > C.antlerGlow - 0.2 && t < C.antlerGlow + 1.8) {
       const [lx, ly] = kf(A.burrL, t), [rx, ry] = kf(A.burrR, t);
@@ -80,14 +88,14 @@ window.SEG2 = (function () {
       glowAt(x, y, 0.28 * Math.sin(Math.PI * lin(t, C.wax - 0.1, C.wax + 1.6)));
     } else glowAt(960, 540, 0);
     // 分层标签；蜡片先在茸尖亮起，白闪切镜后再落到切面旁
-    const OUT = C.wax + 1.3;
+    const OUT = C.collagen - 0.2;
     N.cells.forEach((o, i) => {
-      const c0 = o.wax ? (t < C.wax ? WH : C.wax) : C[o.cue];
+      const c0 = o.wax ? (t < C.wax ? WH : C.wax) : LAYER[o.key];
       let a = o.wax
         ? (t < C.wax ? Math.min(lin(t, WH, WH + 0.4), 1 - lin(t, CUT - 0.2, CUT)) : Math.min(lin(t, C.wax, C.wax + 0.4), 1 - lin(t, OUT - 0.45, OUT)))
-        : Math.min(lin(t, c0, c0 + 0.4), 1 - lin(t, WH, WH + 0.35));
+        : Math.min(lin(t, c0, c0 + 0.4), 1 - lin(t, WH - 0.3, WH));
       const nx = N.cells[i + 1];
-      if (nx && t > (nx.wax ? WH : C[nx.cue])) a *= 0.4;
+      if (nx && t > (nx.wax ? WH : LAYER[nx.key])) a *= 0.4;
       show(o.c, a);
       if (a <= 0) return;
       let [x, y] = kf(A[o.key], t);
@@ -130,7 +138,7 @@ window.SEG2 = (function () {
     }
     // 2%
     {
-      const T = C.wax + 1.5, e = $('t-two'), a = win(t, T, C.collagen - 0.15, 0.6, 0.45);
+      const T = 24.51, e = $('t-two'), a = win(t, T, CUT - 0.2, 0.6, 0.35);
       setOp(e, a, `scale(${mix(1.04, 1, eOut(lin(t, T, T + 1.3)))})`);
       e.style.filter = `blur(${(1 - eOut(lin(t, T, T + 0.7))) * 10}px)`;
     }

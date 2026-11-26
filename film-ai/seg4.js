@@ -19,10 +19,10 @@ window.SEG4 = (function () {
   const RING = { x: 960, y: 540, rx: 560, ry: 380 };
   const COMP = [['s4-c1', 36.6], ['s4-c2', 37.13], ['s4-c3', 37.66], ['s4-c4', 38.19], ['s4-c5', 38.72], ['s4-c6', 39.25]];
   const RING_OUT = C.journal - 0.25;
-  // 系统发育树（同 film/ 正片拓扑：梯状，鹿科一支金色），放在书桌画面右侧留白
-  const J = C.journal, J_OUT = 45.0;
-  const LEAF_X = 1580, LEAVES = ['s4-t1', 's4-t2', 's4-t3', 's4-t4', 's4-t5', 's4-t6'].map((id, i) => [id, 330 + i * 74]);
-  const NX = [1150, 1240, 1330, 1420, 1500];
+  // 系统发育树（同 film/ 正片拓扑：梯状，鹿科一支金色），放在封面右缘与鹿茸之间的右上留白；树先出，随后同位换成字幕
+  const J = C.journal, J_OUT = 43.6, CAP_IN = 43.75, END = 45.75;
+  const LEAF_X = 1680, LEAVES = ['s4-t1', 's4-t2', 's4-t3', 's4-t4', 's4-t5', 's4-t6'].map((id, i) => [id, 236 + i * 46]);
+  const NX = [1380, 1440, 1500, 1560, 1620];
   let ring = [], tree = [], head, cap, rule;
 
   function build(svg, TXT) {
@@ -39,9 +39,9 @@ window.SEG4 = (function () {
       ring.push({ g, dot, halo, txt, tin });
     });
 
-    head = el('text', { x: NX[0], y: 240, class: 'ht', 'font-family': '"XL Serif",serif', 'font-style': 'italic',
-      'font-size': 50, 'letter-spacing': 2, fill: INK }, svg, TXT['s4-j-k']);
-    rule = el('line', { x1: NX[0], y1: 268, x2: LEAF_X + 160, y2: 268, stroke: GOLD, 'stroke-width': 1.4, 'stroke-opacity': 0.55, pathLength: 1 }, svg);
+    head = el('text', { x: NX[0], y: 162, class: 'ht', 'font-family': '"XL Serif",serif', 'font-style': 'italic',
+      'font-size': 46, 'letter-spacing': 2, fill: INK }, svg, TXT['s4-j-k']);
+    rule = el('line', { x1: NX[0], y1: 188, x2: LEAF_X + 150, y2: 188, stroke: GOLD, 'stroke-width': 1.4, 'stroke-opacity': 0.55, pathLength: 1 }, svg);
     // 节点 y 取两子的中点；梯状：n_i 连 leaf_i 与 n_{i+1}，n5 连 leaf5 / leaf6
     const ly = LEAVES.map((l) => l[1]);
     const ny = []; ny[4] = (ly[4] + ly[5]) / 2;
@@ -52,7 +52,7 @@ window.SEG4 = (function () {
       tree.push({ p, t0, deer });
     };
     const step = 0.32;
-    seg(`M${NX[0] - 60} ${ny[0]}H${NX[0]}`, true, J + 0.2);
+    seg(`M${NX[0] - 40} ${ny[0]}H${NX[0]}`, true, J + 0.2);
     for (let i = 0; i < 5; i++) {
       const t0 = J + 0.2 + (i + 1) * step;
       // 上支 → leaf_i
@@ -63,8 +63,8 @@ window.SEG4 = (function () {
     }
     LEAVES.forEach(([id, y], i) => {
       const deer = id === 's4-t4';
-      const t = el('text', { x: LEAF_X + 18, y: y + 13, class: 'ht', 'font-family': '"XL Serif",serif',
-        'font-size': deer ? 40 : 34, 'letter-spacing': 4, fill: deer ? GOLD : SOFT }, svg, TXT[id]);
+      const t = el('text', { x: LEAF_X + 14, y: y + 11, class: 'ht', 'font-family': '"XL Serif",serif',
+        'font-size': deer ? 34 : 30, 'letter-spacing': 3, fill: deer ? GOLD : SOFT }, svg, TXT[id]);
       tree.push({ t, t0: J + 0.2 + (Math.min(i, 4) + 1) * step + 0.35, deer });
     });
     cap = $('t-sub4'); cap.textContent = TXT['s4-j-cap'].replace('，', '\n');
@@ -81,8 +81,8 @@ window.SEG4 = (function () {
       r.txt.style.filter = `blur(${(1 - eOut(lin(t, r.tin, r.tin + 0.45))) * 8}px)`;
     });
     // 期刊：标题、细线、树由根到叶描出，叶名随枝到达出现
-    const out = 1 - lin(t, J_OUT - 0.6, J_OUT);
-    const ha = Math.min(lin(t, J, J + 0.5), out);
+    const out = 1 - lin(t, J_OUT - 0.5, J_OUT);
+    const ha = Math.min(lin(t, J, J + 0.5), 1 - lin(t, END - 0.5, END));
     show(head, ha);
     head.style.filter = `blur(${(1 - eOut(lin(t, J, J + 0.5))) * 6}px)`;
     show(rule, ha); rule.style.strokeDasharray = `${eOut(lin(t, J + 0.1, J + 1.1))} 1`;
@@ -101,9 +101,9 @@ window.SEG4 = (function () {
       g.style.setProperty('--gx', (LEAF_X / 1920 * 100) + '%'); g.style.setProperty('--gy', (LEAVES[3][1] / 1080 * 100) + '%');
       g.style.opacity = (0.26 * Math.sin(Math.PI * gk)).toFixed(3);
     }
-    const ca = win(t, 41.3, 45.75, 0.6, 0.5);
+    const ca = win(t, CAP_IN, END, 0.6, 0.5);
     show(cap, ca);
-    cap.style.transform = `translateY(${(1 - eOut(lin(t, 41.3, 42.1))) * 12}px)`;
+    cap.style.transform = `translateY(${(1 - eOut(lin(t, CAP_IN, CAP_IN + 0.8))) * 12}px)`;
   }
   return { build, render };
 })();
