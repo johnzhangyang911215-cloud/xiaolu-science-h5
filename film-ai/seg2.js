@@ -51,6 +51,9 @@ window.SEG2 = (function () {
     gl.style.opacity = a.toFixed(3);
   }
 
+  // 茸尖高亮落在 layerPowder 后半小节；CUT 为成片中白闪切到切片的时刻
+  const WH = C.layerPowder + 1.064, CUT = 27.4;
+
   function render(t) {
     if (t < C.s2 - 0.1 || t > C.s4 + 0.1) { if (N.cells) N.cells.forEach((o) => show(o.c, 0)); return; }
     // 标题与字幕
@@ -69,23 +72,28 @@ window.SEG2 = (function () {
     } else if (t > C.ring - 0.2 && t < C.ring + 1.8) {
       const [x, y] = kf(A.tip, t);
       glowAt(x, y, 0.32 * Math.sin(Math.PI * lin(t, C.ring - 0.1, C.ring + 1.6)));
+    } else if (t > WH - 0.2 && t < CUT) {
+      const [x, y] = kf(A.waxTip, t);
+      glowAt(x, y, 0.42 * Math.min(Math.sin(Math.PI * 0.5 * lin(t, WH - 0.1, WH + 0.5)), 1 - lin(t, CUT - 0.25, CUT)));
     } else if (t > C.wax - 0.2 && t < C.wax + 1.8) {
       const [x, y] = kf(A.slice, t);
       glowAt(x, y, 0.28 * Math.sin(Math.PI * lin(t, C.wax - 0.1, C.wax + 1.6)));
     } else glowAt(960, 540, 0);
-    // 分层标签
+    // 分层标签；蜡片先在茸尖亮起，白闪切镜后再落到切面旁
     const OUT = C.wax + 1.3;
     N.cells.forEach((o, i) => {
-      const c0 = C[o.cue];
-      let a = Math.min(lin(t, c0, c0 + 0.4), o.wax ? 1 - lin(t, OUT - 0.45, OUT) : 1 - lin(t, C.wax - 0.3, C.wax - 0.05));
+      const c0 = o.wax ? (t < C.wax ? WH : C.wax) : C[o.cue];
+      let a = o.wax
+        ? (t < C.wax ? Math.min(lin(t, WH, WH + 0.4), 1 - lin(t, CUT - 0.2, CUT)) : Math.min(lin(t, C.wax, C.wax + 0.4), 1 - lin(t, OUT - 0.45, OUT)))
+        : Math.min(lin(t, c0, c0 + 0.4), 1 - lin(t, WH, WH + 0.35));
       const nx = N.cells[i + 1];
-      if (nx && t > C[nx.cue]) a *= 0.5;
+      if (nx && t > (nx.wax ? WH : C[nx.cue])) a *= 0.4;
       show(o.c, a);
       if (a <= 0) return;
       let [x, y] = kf(A[o.key], t);
-      if (o.wax && t > C.wax) {
-        const [sx, sy, r] = kf(A.slice, t), k = eOut(lin(t, C.wax, C.wax + 0.35));
-        x = mix(x, sx - r * 0.5, k); y = mix(y, sy - r * 0.87, k);
+      if (o.wax && t >= C.wax) {
+        const [sx, sy, r] = kf(A.slice, t);
+        x = sx - r * 0.5; y = sy - r * 0.87;
       }
       x = Math.max(60, x);
       const up = eOut(lin(t, c0 + 0.05, c0 + 0.55)), L = 120 * up;
