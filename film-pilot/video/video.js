@@ -17,15 +17,12 @@
   function fit() {
     const s = Math.min(innerWidth / W, innerHeight / H);
     stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+    if (window.FX) FX.resize(s);
   }
   addEventListener('resize', fit);
 
   const TXT = {};
-  const SEG = [
-    { id: 's3-bone', cue: 's3' }, { id: 's3-blood', cue: 'layerBlood' },
-    { id: 's3-powder', cue: 'layerPowder' }, { id: 's3-wax', cue: 'wax', wax: true }
-  ];
-  const STRIP_OUT = C.wax + 1.3, TWO_IN = C.wax + 1.5;
+  const TWO_IN = C.wax + 1.5;
   function buildText() {
     $('t-name').textContent = TXT['s2-name'];
     $('t-sub1').textContent = TXT['s2-sub'];
@@ -34,15 +31,6 @@
     $('d-h').textContent = TXT['s3-dh'];
     $('d1n').textContent = TXT['s3-d1n']; $('d2n').textContent = TXT['s3-d2n'];
     $('d-note').textContent = TXT['s3-dn'];
-    const box = document.querySelector('#strip .cells');
-    SEG.forEach((g) => {
-      const el = document.createElement('div');
-      el.className = 'cell' + (g.wax ? ' wax' : '');
-      el.innerHTML = '<div class="nm"></div><div class="ds"></div>';
-      el.querySelector('.nm').textContent = TXT[g.id];
-      el.querySelector('.ds').textContent = TXT[g.id + '-d'];
-      box.appendChild(el); g.el = el;
-    });
   }
   function setOp(el, a, tf) {
     el.style.opacity = a.toFixed(3);
@@ -62,20 +50,6 @@
     setOp($('t-sub1'), win(t, C.ring + 0.25, 21.1, 0.6, 0.45), `translateY(${(1 - eOut(lin(t, C.ring + 0.25, C.ring + 1))) * 14}px)`);
     setOp($('t-sub2'), win(t, C.s3 + 0.2, C.layerPowder - 0.1, 0.6, 0.45), `translateY(${(1 - eOut(lin(t, C.s3 + 0.2, C.s3 + 0.9))) * 14}px)`);
 
-    // 茸根 → 茸尖 标尺：每个 cue 亮起一层，前一层减弱
-    {
-      const sa = win(t, C.s3 - 0.1, STRIP_OUT, 0.5, 0.45);
-      const strip = $('strip');
-      setOp(strip, sa, null);
-      strip.querySelector('.axis i').style.transform = `scaleX(${eOut(lin(t, C.s3 - 0.1, C.s3 + 0.9))})`;
-      SEG.forEach((g, i) => {
-        const c0 = C[g.cue];
-        let a = lin(t, c0, c0 + 0.4);
-        const next = SEG[i + 1];
-        if (next && t > C[next.cue]) a *= 0.45;
-        setOp(g.el, a, `translateY(${(1 - eOut(lin(t, c0, c0 + 0.6))) * 16}px) scale(${g.wax ? mix(1, 1.12, eOut(lin(t, c0, c0 + 0.6))) : 1})`);
-      });
-    }
     {
       const a = win(t, TWO_IN, C.collagen - 0.15, 0.6, 0.45), el = $('t-two');
       setOp(el, a, `scale(${mix(1.04, 1, eOut(lin(t, TWO_IN, TWO_IN + 1.3)))})`);
@@ -93,9 +67,13 @@
       const cnt = (id, key, d) => {
         const v = numVal(TXT[key]), p = eOut(lin(t, base + d, base + d + 1.064));
         $(id).textContent = '↑' + (v * p).toFixed(2) + '%';
+        const m = $(id.replace('v', 'm'));
+        m.style.width = (v * p * 7.6).toFixed(1) + 'px'; m.style.opacity = $(id).style.opacity;
       };
       cnt('d1v', 's3-d1v', 0.18); cnt('d2v', 's3-d2v', 0.42);
     }
+    FX.render(t);
+    HUD.render(t);
     barFill.style.width = (lin(t, T0, T1) * 100).toFixed(2) + '%';
     if (DEBUG) {
       let near = ''; for (const n in C) if (Math.abs(C[n] - t) < 0.25) near = n;
@@ -135,6 +113,7 @@
   window.__seek = (t) => { v.currentTime = clamp(t, T0, T1) - T0; };
   window.__cues = C;
 
+  FX.init($('fx'), v);
   fit();
   const startAt = Q.has('t') ? clamp(parseFloat(Q.get('t')), T0, T1) : T0;
   const canPlay = new Promise((res) => { if (v.readyState >= 3) res(); else { v.addEventListener('canplay', res, { once: true }); v.load(); } });
@@ -144,6 +123,7 @@
     Promise.race([canPlay, new Promise((r) => setTimeout(r, 4000))])
   ]).then(() => {
     buildText();
+    HUD.build($('hudsvg'), TXT);
     v.currentTime = startAt - T0;
     render(startAt);
     window.__ready = true;
