@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小鹿精华 · AI 宣传片（开场试做）</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="ai.css">
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+    <video id="film" src="film.mp4" poster="poster.jpg" playsinline webkit-playsinline preload="auto"></video>
+    <div id="glow"></div>
+    <div id="scrim"></div>
+    <svg id="lines" viewBox="0 0 1920 1080" aria-hidden="true">
+      <defs>
+        <linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="260" y1="0" x2="980" y2="0"><stop offset="0" stop-color="#b8894a" stop-opacity="0"/><stop offset=".15" stop-color="#b8894a" stop-opacity=".8"/><stop offset=".85" stop-color="#b8894a" stop-opacity=".8"/><stop offset="1" stop-color="#b8894a" stop-opacity="0"/></linearGradient>
+      </defs>
+      <path id="lat" d="M0 0" fill="none" stroke="url(#gl)" stroke-width="2.2" pathLength="1"/>
+      <circle id="latDot" r="5" fill="#fff6e6" stroke="#b8894a" stroke-width="1.5"/>
+      <g id="pin"><circle id="pinR1" r="30" fill="none" stroke="#f4dfb4" stroke-width="2"/><circle id="pinR2" r="30" fill="none" stroke="#f4dfb4" stroke-width="1.4"/><circle r="5" fill="#fff6e6" stroke="#b8894a" stroke-width="1.5"/></g>
+    </svg>
+    <div id="text">
+      <div class="open" id="t-open"></div>
+      <div class="coord" id="t-lat"></div>
+      <div class="coord" id="t-lon"></div>
+      <div class="place" id="t-place"></div>
+    </div>
+    <div id="hud"></div>
+    <div id="bar"><i id="bar-fill"></i></div>
+    <div id="cover">
+      <button id="start" type="button" disabled>载入中…</button>
+      <p class="hint">AI 宣传片 · 开场试做 · 地球 → 吉林长春双阳 · 含原配乐</p>
+    </div>
+    <div id="end" hidden>
+      <p class="end-t">开场试做结束</p>
+      <div class="end-b">
+        <button id="again" type="button">重播</button>
+        <a href="../film/">现版正片 ↗</a>
+        <a href="../film-pilot/video/">AI 视频试做段 ↗</a>
+        <a href="../">返回首页</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../film/assets/js/cues.js"></script>
+<script src="ai.js"></script>
+</body>
+</html>

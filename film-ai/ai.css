@@ -1,0 +1,35 @@
+@font-face{font-family:"XL Serif";src:url(../film/assets/fonts/film-serif.woff2) format("woff2");font-display:block}
+@font-face{font-family:"XL Sans";src:url(../film/assets/fonts/film-sans.woff2) format("woff2");font-display:block}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#efebe3;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#viewport{position:fixed;inset:0}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;overflow:hidden;background:#f5f2ec;
+  font-family:"XL Sans","PingFang SC","Microsoft YaHei",sans-serif;color:#3d3127}
+#film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#f5f2ec}
+#glow{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 70% 60% at var(--gx,50%) var(--gy,40%),rgba(255,226,170,.9),rgba(255,226,170,0) 70%)}
+#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#lines>*{opacity:0}
+#text{position:absolute;inset:0;pointer-events:none}
+#text>*{position:absolute;opacity:0;visibility:hidden;will-change:opacity,transform,filter}
+.open{left:0;right:0;top:470px;text-align:center;font-family:"XL Serif",serif;font-size:64px;letter-spacing:.32em;color:#4a3a2b;
+  text-shadow:0 0 30px rgba(255,250,240,.9),0 0 6px rgba(255,250,240,.8)}
+.coord{font:400 28px/1 "XL Sans",sans-serif;letter-spacing:.2em;color:#6f4b22;text-shadow:0 0 10px rgba(255,249,236,1),0 0 22px rgba(255,249,236,.9)}
+.place{left:150px;bottom:150px;font-family:"XL Serif",serif;font-size:54px;line-height:1.5;letter-spacing:.2em;color:#43352a;white-space:pre-line;
+  text-shadow:0 0 26px rgba(255,250,240,.95),0 0 5px rgba(255,250,240,.8)}
+.place::before{content:"";display:block;width:72px;height:3px;margin-bottom:26px;background:#b8894a}
+#hud{position:absolute;left:24px;top:18px;font:600 22px/1.4 ui-monospace,Menlo,monospace;color:#3d3127;background:rgba(255,255,255,.6);padding:6px 12px;border-radius:6px;display:none}
+.debug #hud{display:block}
+#bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(61,49,39,.06)}
+#bar-fill{display:block;height:100%;width:0;background:rgba(168,119,58,.6)}
+#cover,#end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  background:radial-gradient(ellipse at 50% 45%,rgba(255,253,248,.92),rgba(239,235,227,.97));z-index:5}
+#cover[hidden],#end[hidden]{display:none}
+button,#end a{font:400 34px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.14em;color:#3d3127;background:rgba(255,255,255,.7);
+  border:1px solid rgba(61,49,39,.35);border-radius:999px;padding:22px 52px;cursor:pointer;text-decoration:none}
+button:disabled{opacity:.5;cursor:default}
+.hint{margin:0;font:400 24px/1.5 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.08em;color:#7b6a5b}
+.end-t{margin:0;font:400 44px/1.4 "PingFang SC","Microsoft YaHei",serif;letter-spacing:.2em;color:#3d3127}
+.end-b{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+#scrim{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse 34% 30% at 16% 80%,rgba(255,250,240,.62),rgba(255,250,240,0))}
