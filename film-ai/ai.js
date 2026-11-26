@@ -3,7 +3,7 @@
 (function () {
   'use strict';
   const C = window.FILM.cues, FPS = window.FILM.fps;
-  const T0 = 0, T1 = C.dolly;
+  const T0 = 0, T1 = C.s4;
   const Q = new URLSearchParams(location.search);
   const W = 1920, H = 1080;
   // 定位点跟随画面中鹿场围栏（1920×1080 坐标，按成片逐帧量取）
@@ -80,6 +80,7 @@
       setOp(el, pa, `translateY(${(1 - eOut(lin(t, C.lock + 0.15, C.lock + 1))) * 14}px)`);
       el.style.filter = `blur(${(1 - eOut(lin(t, C.lock + 0.15, C.lock + 0.7))) * 6}px)`;
     }
+    SEG2.render(t);
     $('bar-fill').style.width = (lin(t, T0, T1) * 100).toFixed(2) + '%';
     if (DEBUG) {
       let near = ''; for (const n in C) if (Math.abs(C[n] - t) < 0.25) near = n;
@@ -124,6 +125,7 @@
     $('t-lat').textContent = TXT['s1-lat'];
     $('t-lon').textContent = TXT['s1-lon'];
     $('t-place').textContent = TXT['s1-place'];
+    SEG2.build($('seg2'), TXT);
     v.currentTime = startAt - T0;
     render(startAt);
     window.__ready = true;
