@@ -9,6 +9,8 @@ window.SEG7 = (function () {
 
   const T_IN = [57.9, 60.1, 63.55, 65.67];
   const END = C.s5 - 0.35;
+  // 使用方法按用户确认的动作改写：倒置双手按压 → 摇匀 → 掰开后 45° 滴出
+  const STEP = { 2: '02 倒置按压：一手握瓶，另一手自上而下按下尾盖', 4: '04 掰开滴出：拿走瓶头，瓶身 45° 朝下滴出精华' };
   let rows = [];
 
   function build(TXT) {
@@ -16,7 +18,7 @@ window.SEG7 = (function () {
     const box = $('steps');
     box.textContent = '';
     rows = [1, 2, 3, 4].map((n, i) => {
-      const raw = TXT['s7-' + n];
+      const raw = STEP[n] || TXT['s7-' + n];
       const m = raw.match(/^(\d+)\s*([^：]+)：(.*)$/);
       const r = document.createElement('div');
       r.className = 'st';
