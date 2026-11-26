@@ -53,3 +53,4 @@ button:disabled{opacity:.5;cursor:default}
 #data .meter{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,rgba(184,137,74,.25),#b8894a)}
 
 #data .row>*{white-space:nowrap}
+#t-sub4{left:1150px;right:auto;top:790px;bottom:auto;text-align:left;font-size:40px;line-height:1.7;white-space:pre-line}
