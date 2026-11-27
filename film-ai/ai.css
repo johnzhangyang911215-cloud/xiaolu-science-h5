@@ -1,6 +1,7 @@
 @font-face{font-family:"XL Serif";src:url(../film/assets/fonts/film-serif.woff2) format("woff2");font-display:block}
 @font-face{font-family:"XL Sans";src:url(../film/assets/fonts/film-sans.woff2) format("woff2");font-display:block}
-@font-face{font-family:"XL Sans";src:url(fonts/ai-sans.woff2) format("woff2");font-display:block;unicode-range:U+4E0A,U+5012,U+53E6,U+624B,U+62FF,U+63E1,U+671D,U+6EF4,U+7F6E,U+800C,U+81EA,U+8D70,U+8EAB}
+@font-face{font-family:"XL Serif";src:url(fonts/ai-serif.woff2) format("woff2");font-display:block;unicode-range:U+6495}
+@font-face{font-family:"XL Sans";src:url(fonts/ai-sans.woff2) format("woff2");font-display:block;unicode-range:U+4E0A,U+4EAE,U+4FDD,U+5012,U+503E,U+53E6,U+540E,U+5747,U+5C06,U+5E95,U+624B,U+629B,U+62A4,U+62FF,U+63A8,U+63E1,U+659C,U+671D,U+6B21,U+6EF4,U+76F4,U+7ACB,U+7F6E,U+800C,U+81EA,U+81F3,U+8D70,U+8EAB,U+8FDB,U+900F,U+90E8}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#efebe3;overflow:hidden;-webkit-tap-highlight-color:transparent}
 #viewport{position:fixed;inset:0}
